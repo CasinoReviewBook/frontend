@@ -1,25 +1,50 @@
 'use client';
 
 import Image from 'next/image';
+import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-
-const casinos = Array(6).fill({
-  name: 'BC Game Casino',
-  image: '/images/888.png',
-  rating: 4.9,
-  subtitle: 'Premium Casino Experience',
-  welcomeBonus: '$2,000 + 10% Cashback',
-  minDeposit: '€20',
-  wagering: '40x',
-  games: '2,400+ games',
-});
+import { useCasinos } from '@/hooks/useRedux';
+import { getImageUrl } from '@/lib/utils/getImageUrl';
 
 export default function PopularCasinoSection() {
+  const { casinos, loading } = useCasinos();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const displayCasinos = casinos;
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="w-full py-8">
+        <div className="flex items-center justify-center">
+          <div className="text-slate-500">Loading casinos...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (displayCasinos.length === 0) {
+    return null;
+  }
+
   return (
     <section className="w-full py-8">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between mb-6 gap-3">
-        <div className="flex items-center gap-3">
+    <div className="mb-6">
+        {/* First Row */}
+        <div className="flex items-center justify-between">
+         <div className="flex items-center gap-3">
           <Star
             size={22}
             fill="#B8C5FF"
@@ -31,32 +56,45 @@ export default function PopularCasinoSection() {
           </h2>
         </div>
 
-       <div className="flex items-center gap-3">
-         <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
-  See all
-  <span className="ml-2 text-[#98A2B3]">883</span>
-</button>
+          <div className="flex items-center gap-3">
+            <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
+              See all
+              <span className="ml-2 text-[#98A2B3]">{casinos.length}</span>
+            </button>
+            <button
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+              onClick={scrollLeft}
+            >
+              <ChevronLeft size={18} className="text-[#16171D]" />
+            </button>
 
-          <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-            <ChevronLeft size={18} className="text-[#16171D]"/>
-          </button>
-
-          <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-            <ChevronRight size={18} className="text-[#16171D]" />
-          </button>
+            <button
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+              onClick={scrollRight}
+            >
+              <ChevronRight size={18} className="text-[#16171D]" />
+            </button>
+          </div>
         </div>
+
+        {/* Second Row */}
+        <p className="text-[15px] text-[#5F6368] mt-2">
+          New Rally
+          <span className="text-[#2E68FB]"> every 20 minutes</span> – spin and win!
+        </p>
       </div>
 
       {/* Cards */}
       <div
-        className="flex gap-4 overflow-x-auto pb-2"
+        ref={scrollContainerRef}
+        className="flex gap-4 overflow-x-auto pb-2 scroll-smooth"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
         }}
       >
-        {casinos.map((casino, index) => (
-          <CasinoCard key={index} casino={casino} />
+        {displayCasinos.map((casino, index) => (
+          <CasinoCard key={casino.id} casino={casino} index={index} />
         ))}
       </div>
     </section>
@@ -65,9 +103,14 @@ export default function PopularCasinoSection() {
 
 function CasinoCard({
   casino,
+  index,
 }: {
-  casino: (typeof casinos)[0];
+  casino: any;
+  index: number;
 }) {
+  const welcomeBonus = casino.bonuses?.[0] || null;
+  const imageUrl = getImageUrl(casino.logo || casino.featured_image);
+
   return (
   <div
   className="relative bg-white rounded-[12px] p-[10px] shrink-0"
@@ -98,7 +141,7 @@ function CasinoCard({
     >
           {/* Rank */}
           <div className="absolute top-0 left-0 z-20 bg-[#FF9C2C] text-white text-[18px] font-bold px-3 py-1 rounded-br-xl rounded-tl-[10px]">
-            #1
+            #{index + 1}
           </div>
 
           
@@ -115,19 +158,22 @@ function CasinoCard({
             }}
           >
             <Image
-              src={casino.image}
+              src={imageUrl}
               alt={casino.name}
               fill
               className="object-cover"
+              unoptimized
             />
 
             <div className="absolute bottom-2 left-2 bg-[#FF9C2C] text-white text-[8px] px-2 py-1 rounded-md">
-              Founded: 2011
+              {casino.established_year ? `Founded: ${casino.established_year}` : 'New Casino'}
             </div>
 
-            <div className="absolute bottom-2 right-2 bg-[#0DAA73] text-white text-[8px] px-2 py-1 rounded-md">
-              MGA / UKGC
-            </div>
+            {casino.license_authority && (
+              <div className="absolute bottom-2 right-2 bg-[#0DAA73] text-white text-[8px] px-2 py-1 rounded-md">
+                {casino.license_authority}
+              </div>
+            )}
           </div>
 
           {/* Content */}
@@ -144,49 +190,55 @@ function CasinoCard({
                   color="#FDB022"
                 />
                 <span className="text-[12px] text-[#000000] font-semibold">
-                  {casino.rating}
+                  {casino.rating || 'N/A'}
                 </span>
               </div>
             </div>
 
-            <p className="text-[11px] text-[#666] ">
-              {casino.subtitle}
+            <p className="text-[11px] text-[#666] line-clamp-2">
+              {welcomeBonus ? welcomeBonus.title :casino.short_description || 'Premium Casino Experience'}
             </p>
 
             <div className="mt-1 space-y-0 text-[11px]">
-              <div className="flex justify-between">
-                <span className="text-[#2E68FB] font-semibold">
-                  Welcome Bonus
-                </span>
-                <span className="text-[#363636]">
-                  {casino.welcomeBonus}
-                </span>
-              </div>
+              {welcomeBonus && (
+                <div className="flex justify-between">
+                  <span className="text-[#2E68FB] font-semibold">
+                    Welcome Bonus
+                  </span>
+                  <span className="text-[#363636]">
+                    {welcomeBonus.amount}
+                  </span>
+                </div>
+              )}
 
-              <div className="flex justify-between">
-                <span className="text-[#2E68FB] font-semibold">
-                  Min Deposit
-                </span>
-                <span className="text-[#363636]">
-                  {casino.minDeposit}
-                </span>
-              </div>
+              {casino.minimum_deposit && (
+                <div className="flex justify-between">
+                  <span className="text-[#2E68FB] font-semibold">
+                    Min Deposit
+                  </span>
+                  <span className="text-[#363636]">
+                    ${casino.minimum_deposit}
+                  </span>
+                </div>
+              )}
 
-              <div className="flex justify-between">
-                <span className="text-[#2E68FB] font-semibold">
-                  Wagering
-                </span>
-                <span className="text-[#363636]">
-                  {casino.wagering}
-                </span>
-              </div>
+              {welcomeBonus?.wagering_requirement && (
+                <div className="flex justify-between">
+                  <span className="text-[#2E68FB] font-semibold">
+                    Wagering
+                  </span>
+                  <span className="text-[#363636]">
+                    {welcomeBonus.wagering_requirement}
+                  </span>
+                </div>
+              )}
 
               <div className="flex justify-between">
                 <span className="text-[#00B67A] font-semibold">
                   Instant
                 </span>
                 <span className="text-[#00B67A]">
-                  2-4h • {casino.games}
+                  {casino.withdrawal_time || '2-4h'}
                 </span>
               </div>
             </div>
@@ -201,6 +253,11 @@ function CasinoCard({
                 background:
                   'linear-gradient(180deg, #CDDCFB 0%, #588CF3 100%)',
               }}
+              onClick={() => {
+                if (casino.website_url) {
+                  window.open(casino.website_url, '_blank');
+                }
+              }}
             >
               Visit Casino ↗
             </button>
@@ -210,6 +267,11 @@ function CasinoCard({
               style={{
                 background:
                   'linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)',
+              }}
+              onClick={() => {
+                if (casino.slug) {
+                  window.location.href = `/casino/${casino.slug}`;
+                }
               }}
             >
               Reviews

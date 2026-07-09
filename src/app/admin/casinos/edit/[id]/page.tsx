@@ -4,7 +4,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { Input, Textarea, Select, Toggle, Button } from '../../../../../components/admin/FormElements';
 import MediaUpload from '../../../../../components/admin/MediaUpload';
 import { ArrowLeft, Save, Plus, Trash } from 'lucide-react';
-
+import ChipSelector from '../../../../../components/admin/ChipSelector';
 export default function EditCasinoPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const resolvedParams = use(params);
@@ -507,153 +507,150 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
             </div>
           )}
 
-          {activeTab === 'relations' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Casino Types (Categories)</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allCategories.map(cat => (
-                      <label key={cat.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedCategories.includes(cat.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedCategories([...selectedCategories, cat.id]);
-                            else setSelectedCategories(selectedCategories.filter(id => id !== cat.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{cat.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+       {activeTab === 'relations' && (
+  <div className="space-y-8">
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Tags</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allTags.map(tag => (
-                      <label key={tag.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedTags.includes(tag.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedTags([...selectedTags, tag.id]);
-                            else setSelectedTags(selectedTags.filter(id => id !== tag.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{tag.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+    {/* Casino Types */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Casino Types (Categories)"
+        items={allCategories}
+        selected={selectedCategories}
+        onChange={setSelectedCategories}
+      />
+    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Available Countries</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allCountries.map(country => (
-                      <label key={country.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedCountries.includes(country.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedCountries([...selectedCountries, country.id]);
-                            else setSelectedCountries(selectedCountries.filter(id => id !== country.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{country.name} ({country.code})</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+    {/* Tags */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Tags"
+        items={allTags}
+        selected={selectedTags}
+        onChange={setSelectedTags}
+      />
+    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Game Types</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allGameTypes.map(gt => (
-                      <label key={gt.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedGameTypes.includes(gt.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedGameTypes([...selectedGameTypes, gt.id]);
-                            else setSelectedGameTypes(selectedGameTypes.filter(id => id !== gt.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{gt.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
+    {/* Available Countries */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Available Countries"
+        items={allCountries.map(country => ({
+          id: country.id,
+          name: `${country.name} (${country.code})`,
+        }))}
+        selected={selectedCountries}
+        onChange={setSelectedCountries}
+        maxHeight="260px"
+      />
+    </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
-                <Input 
-                  label="Supported Languages (Comma separated)" 
-                  value={formData.languages} 
-                  onChange={(e) => setFormData({...formData, languages: e.target.value})} 
-                  placeholder="English, French, German, Spanish"
-                />
-                <Input 
-                  label="Supported Currencies (Comma separated)" 
-                  value={formData.currencies} 
-                  onChange={(e) => setFormData({...formData, currencies: e.target.value})} 
-                  placeholder="USD, EUR, CAD, INR, BTC"
-                />
-              </div>
+    {/* Game Types */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Game Types"
+        items={allGameTypes}
+        selected={selectedGameTypes}
+        onChange={setSelectedGameTypes}
+      />
+    </div>
 
-              <Input 
-                label="Support Contact Methods (Comma separated)" 
-                value={formData.support_methods} 
-                onChange={(e) => setFormData({...formData, support_methods: e.target.value})} 
-                placeholder="Live Chat 24/7, Email Support, Phone"
-              />
+    {/* Languages & Currency */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2 border-t border-slate-200">
+      <Input
+        label="Supported Languages (Comma separated)"
+        value={formData.languages}
+        onChange={(e) =>
+          setFormData({ ...formData, languages: e.target.value })
+        }
+        placeholder="English, French, German, Spanish"
+      />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Textarea 
-                  label="Pros List (One item per line)" 
-                  value={formData.pros} 
-                  onChange={(e) => setFormData({...formData, pros: e.target.value})} 
-                  placeholder="Fast payouts&#10;Huge welcome bonus&#10;Excellent live chat support"
-                  rows={4}
-                />
-                <Textarea 
-                  label="Cons List (One item per line)" 
-                  value={formData.cons} 
-                  onChange={(e) => setFormData({...formData, cons: e.target.value})} 
-                  placeholder="Restricted in USA&#10;High wagering requirements"
-                  rows={4}
-                />
-              </div>
+      <Input
+        label="Supported Currencies (Comma separated)"
+        value={formData.currencies}
+        onChange={(e) =>
+          setFormData({ ...formData, currencies: e.target.value })
+        }
+        placeholder="USD, EUR, CAD, INR, BTC"
+      />
+    </div>
 
-              <Textarea 
-                label="Casino Features List (One item per line)" 
-                value={formData.features} 
-                onChange={(e) => setFormData({...formData, features: e.target.value})} 
-                placeholder="Operating since 1997&#10;Instant payouts&#10;Live dealer options"
-                rows={3}
-              />
+    {/* Support */}
+    <Input
+      label="Support Contact Methods (Comma separated)"
+      value={formData.support_methods}
+      onChange={(e) =>
+        setFormData({
+          ...formData,
+          support_methods: e.target.value,
+        })
+      }
+      placeholder="Live Chat 24/7, Email Support, Phone"
+    />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input 
-                  label="Payment Methods (Comma separated)" 
-                  value={formData.payment_methods} 
-                  onChange={(e) => setFormData({...formData, payment_methods: e.target.value})} 
-                  placeholder="Visa, MasterCard, Skrill, Neteller, Bitcoin"
-                />
-                <Input 
-                  label="Game Providers (Comma separated)" 
-                  value={formData.game_providers} 
-                  onChange={(e) => setFormData({...formData, game_providers: e.target.value})} 
-                  placeholder="Pragmatic Play, Evolution Gaming, NetEnt"
-                />
-              </div>
-            </div>
-          )}
+    {/* Pros / Cons */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Textarea
+        label="Pros List (One item per line)"
+        value={formData.pros}
+        onChange={(e) =>
+          setFormData({ ...formData, pros: e.target.value })
+        }
+        placeholder="Fast payouts&#10;Huge welcome bonus&#10;Excellent support"
+        rows={5}
+      />
+
+      <Textarea
+        label="Cons List (One item per line)"
+        value={formData.cons}
+        onChange={(e) =>
+          setFormData({ ...formData, cons: e.target.value })
+        }
+        placeholder="Restricted in USA&#10;High wagering requirements"
+        rows={5}
+      />
+    </div>
+
+    {/* Features */}
+    <Textarea
+      label="Casino Features List (One item per line)"
+      value={formData.features}
+      onChange={(e) =>
+        setFormData({ ...formData, features: e.target.value })
+      }
+      placeholder="Operating since 1997&#10;Instant payouts&#10;Live dealer options"
+      rows={4}
+    />
+
+    {/* Payment / Providers */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Input
+        label="Payment Methods (Comma separated)"
+        value={formData.payment_methods}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            payment_methods: e.target.value,
+          })
+        }
+        placeholder="Visa, MasterCard, Skrill, Neteller, Bitcoin"
+      />
+
+      <Input
+        label="Game Providers (Comma separated)"
+        value={formData.game_providers}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            game_providers: e.target.value,
+          })
+        }
+        placeholder="Pragmatic Play, Evolution Gaming, NetEnt"
+      />
+    </div>
+
+  </div>
+)}
 
           {activeTab === 'flags' && (
             <div className="space-y-6">

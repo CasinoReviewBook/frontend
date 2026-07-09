@@ -1,25 +1,51 @@
 'use client';
 
 import Image from 'next/image';
+import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-
-const casinos = Array(6).fill({
-  name: 'BC Game Casino',
-  image: '/images/888.png',
-  rating: 4.9,
-  subtitle: 'Premium Casino Experience',
-  welcomeBonus: '$2,000 + 10% Cashback',
-  minDeposit: '€20',
-  wagering: '40x',
-  games: '2,400+ games',
-});
+import { useCasinos } from '@/hooks/useRedux';
+import { getImageUrl } from '@/lib/utils/getImageUrl';
 
 export default function NewCasinoSection() {
+  const { casinos, loading } = useCasinos();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const displayCasinos = casinos;
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="w-full py-8">
+        <div className="flex items-center justify-center">
+          <div className="text-slate-500">Loading casinos...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (displayCasinos.length === 0) {
+    return null;
+  }
+
   return (
     <section className="w-full py-8">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between mb-6 gap-3">
-        <div className="flex items-center gap-3 ">
+     
+      <div className="mb-6">
+              {/* First Row */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3 ">
           <Star
             size={22}
             fill="#B8C5FF"
@@ -30,192 +56,209 @@ export default function NewCasinoSection() {
             New Casinos
           </h2>
         </div>
-
-        <div className="flex items-center gap-3">
-         <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
-  See all
-  <span className="ml-2 text-[#98A2B3]">883</span>
-</button>
-
-          <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-            <ChevronLeft size={18} className="text-[#16171D]"/>
-          </button>
-
-          <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-            <ChevronRight size={18} className="text-[#16171D]" />
-          </button>
-        </div>
-      </div>
+      
+                <div className="flex items-center gap-3">
+                  <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
+                    See all
+                    <span className="ml-2 text-[#98A2B3]">{casinos.length}</span>
+                  </button>
+                  <button
+                    className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+                    onClick={scrollLeft}
+                  >
+                    <ChevronLeft size={18} className="text-[#16171D]" />
+                  </button>
+      
+                  <button
+                    className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+                    onClick={scrollRight}
+                  >
+                    <ChevronRight size={18} className="text-[#16171D]" />
+                  </button>
+                </div>
+              </div>
+      
+              {/* Second Row */}
+              <p className="text-[15px] text-[#5F6368] mt-2">
+                New Rally
+                <span className="text-[#2E68FB]"> every 20 minutes</span> – spin and win!
+              </p>
+            </div>
 
       {/* Cards */}
       <div
-        className="flex gap-4 overflow-x-auto pb-2"
+        ref={scrollContainerRef}
+        className="flex gap-4 overflow-x-auto pb-2 scroll-smooth"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
         }}
       >
-        {casinos.map((casino, index) => (
-          <CasinoCard key={index} casino={casino} />
-        ))}
+       {displayCasinos.map((casino) => (
+  <CasinoCard key={casino.id} casino={casino} />
+))}
       </div>
     </section>
   );
 }
 
-function CasinoCard({
-  casino,
-}: {
-  casino: (typeof casinos)[0];
-}) {
-  return (
-  <div
-  className="relative bg-white rounded-[12px] p-[10px] shrink-0"
-  style={{
-    width: '268px',
-    height: '346px',
-  }}
->
-  <div className="absolute -top-2 right-2 z-[9] text-[34px]">
-    🏅
-  </div>
+function CasinoCard({ casino }: { casino: any }) {
+  // Extract dynamic bonus values or fall back to your hardcoded defaults
+  const welcomeBonus = casino.bonuses?.[0]?.amount || '$2,500 + 10% Cashback';
+  const imageUrl = getImageUrl(casino.logo || casino.featured_image || '/images/888.png');
 
-  {/* Gradient wrapper */}
-  <div
-    className="p-[2px] rounded-[12px] h-full"
-    style={{
-      background:
-        'linear-gradient(158.37deg, #FF9C2C 2.3%, #FFF1CC 15.9%, #B45B1B 24.24%, #FFC170 62.4%, #FEE5B3 75.76%, #9F5E26 90.07%)',
-    }}
-  >
-        {/* Actual Card */}
-         <div
-      className="relative rounded-[10px] p-[12px] h-full overflow-hidden"
+  return (
+    <div
+      className="flex flex-col p-4 rounded-3xl border shrink-0 justify-between"
       style={{
+        width: '340px',
+        minHeight: '400px',
+        borderRadius: '24px',
+        border: '1px solid #2E68FB40',
         background:
           'linear-gradient(231.79deg, #D5EDFF 32.55%, #EEECFF 43.54%, #F9F3FF 53.23%, #F5FCFF 66.16%, #E9F5FF 79.08%)',
       }}
     >
-          {/* Rank */}
-          <div className="absolute top-0 left-0 z-20 bg-[#FF9C2C] text-white text-[18px] font-bold px-3 py-1 rounded-br-xl rounded-tl-[10px]">
-            #1
-          </div>
-
-          
-
-          {/* Medal */}
-   
-          {/* Image */}
-          <div
-            className="relative overflow-hidden rounded-[12px]"
-            style={{
-              width: '221px',
-              height: '143px',
-              boxShadow: '0px 3px 18px -3px #267BDC33',
-            }}
-          >
-            <Image
-              src={casino.image}
-              alt={casino.name}
-              fill
-              className="object-cover"
-            />
-
-            <div className="absolute bottom-2 left-2 bg-[#FF9C2C] text-white text-[8px] px-2 py-1 rounded-md">
-              Founded: 2011
-            </div>
-
-            <div className="absolute bottom-2 right-2 bg-[#0DAA73] text-white text-[8px] px-2 py-1 rounded-md">
-              MGA / UKGC
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="mt-2">
-            <div className="flex justify-between items-start">
-              <h3 className="text-[15px] font-bold text-[#151515]">
-                {casino.name}
-              </h3>
-
-              <div className="flex items-center gap-1">
-                <Star
-                  size={12}
-                  fill="#FDB022"
-                  color="#FDB022"
-                />
-                <span className="text-[12px] text-[#000000] font-semibold">
-                  {casino.rating}
-                </span>
-              </div>
-            </div>
-
-            <p className="text-[11px] text-[#666] ">
-              {casino.subtitle}
-            </p>
-
-            <div className="mt-1 space-y-0 text-[11px]">
-              <div className="flex justify-between">
-                <span className="text-[#2E68FB] font-semibold">
-                  Welcome Bonus
-                </span>
-                <span className="text-[#363636]">
-                  {casino.welcomeBonus}
-                </span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#2E68FB] font-semibold">
-                  Min Deposit
-                </span>
-                <span className="text-[#363636]">
-                  {casino.minDeposit}
-                </span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#2E68FB] font-semibold">
-                  Wagering
-                </span>
-                <span className="text-[#363636]">
-                  {casino.wagering}
-                </span>
-              </div>
-
-              <div className="flex justify-between">
-                <span className="text-[#00B67A] font-semibold">
-                  Instant
-                </span>
-                <span className="text-[#00B67A]">
-                  2-4h • {casino.games}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Buttons */}
-          <div className="absolute bottom-3 left-3 right-3 flex gap-2">
-            <button
-              className="flex-1 h-[28px] rounded-[12px] text-[11px] font-semibold"
-              style={{
-                boxShadow: '0px 2px 0px 0px #2E68FB',
-                background:
-                  'linear-gradient(180deg, #CDDCFB 0%, #588CF3 100%)',
-              }}
-            >
-              Visit Casino ↗
-            </button>
-
-            <button
-              className="w-[80px] h-[28px] rounded-[12px] text-[11px] font-semibold"
-              style={{
-                background:
-                  'linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)',
-              }}
-            >
-              Reviews
-            </button>
-          </div>
+      {/* 1. Header (Logo + Title) */}
+      <div className="flex gap-3 items-center">
+        <div className="relative w-20 h-20 bg-white rounded-xl overflow-hidden shadow-sm flex-shrink-0 border border-gray-100 p-1">
+          <Image
+            src={imageUrl}
+            alt={casino.name || 'Casino'}
+            fill
+            className="object-contain p-1"
+            unoptimized
+          />
         </div>
+        <div>
+          <h3 className="text-[22px] font-bold text-[#151515] leading-tight">
+            {casino.name || 'BC Game Casino'}
+          </h3>
+         <p
+  className="text-[11px] text-[#666] mt-0.5"
+  style={{
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+  }}
+>
+  {casino.short_description || 'Premium Casino Experience'}
+</p>
+        </div>
+      </div>
+
+      {/* 2. Rating & Badges Row */}
+      <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center gap-1">
+          <div className="flex gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={13} fill="#FFB000" color="#FFB000" />
+            ))}
+          </div>
+          <span className="text-[12px] font-bold text-[#363636] ml-1">
+            {casino.rating || '4.9'}
+          </span>
+        </div>
+
+        <div className="flex gap-1">
+          <span className="text-[9px] font-bold text-white px-2 py-0.5 rounded-md bg-gradient-to-r from-[#FFB000] to-[#FF8A00]">
+            Top Pick
+          </span>
+          <span className="text-[9px] font-bold text-white px-2 py-0.5 rounded-md bg-[#00B67A]">
+            Fast Pay
+          </span>
+        </div>
+      </div>
+
+      {/* 3. Main Welcome Bonus Box */}
+      <div className="mt-3 p-3 rounded-xl bg-[#2E68FB] text-white flex flex-col justify-center">
+        <span className="text-[9px] font-semibold tracking-wider uppercase text-blue-100">
+          Exclusive Welcome
+        </span>
+        <span className="text-[14px] font-bold mt-0.5 leading-snug">
+          {welcomeBonus}
+        </span>
+      </div>
+
+      {/* 4. Details 2x2 Info Grid */}
+      <div className="grid grid-cols-2 gap-2 mt-3">
+        {/* Min Deposit */}
+        <div className="p-2 bg-white/40 border border-[#2E68FB20] rounded-lg">
+          <span className="block text-[9px] font-semibold text-[#2E68FB] uppercase">
+            Min Deposit
+          </span>
+          <span className="text-[12px] font-bold text-[#363636]">
+            {casino.minimum_deposit ? `$${casino.minimum_deposit}` : '€20'}
+          </span>
+        </div>
+
+        {/* Payout */}
+        <div className="p-2 bg-white/40 border border-[#2E68FB20] rounded-lg">
+          <span className="block text-[9px] font-semibold text-[#2E68FB] uppercase">
+            Payout
+          </span>
+          <span className="text-[12px] font-bold text-[#363636]">
+            {casino.withdrawal_time || '2-4 Hours'}
+          </span>
+        </div>
+
+        {/* Games */}
+        <div className="p-2 bg-white/40 border border-[#2E68FB20] rounded-lg">
+          <span className="block text-[9px] font-semibold text-[#00B67A] uppercase">
+            Games
+          </span>
+          <span className="text-[12px] font-bold text-[#00B67A]">
+            {casino.games_count || '2400+ Games'}
+          </span>
+        </div>
+
+        {/* Established Year */}
+        <div className="p-2 bg-white/40 border border-[#2E68FB20] rounded-lg">
+          <span className="block text-[9px] font-semibold text-[#2E68FB] uppercase">
+            Established Year
+          </span>
+          <span className="text-[12px] font-bold text-[#363636]">
+            {casino.established_year || '2020'}
+          </span>
+        </div>
+      </div>
+
+      {/* 5. Bottom Buttons Row */}
+      <div className="flex gap-2 mt-4">
+        <button
+          style={{
+            height: '36px',
+            borderRadius: '12px',
+            boxShadow: '0px 2px 0px 0px #2E68FB',
+            background: 'linear-gradient(180deg, #CDDCFB 0%, #588CF3 100%)',
+          }}
+          className="flex-1 text-white text-[12px] font-bold transition-all hover:brightness-105 active:scale-95"
+          onClick={() => {
+            if (casino.website_url) {
+              window.open(casino.website_url, '_blank');
+            }
+          }}
+        >
+          Visit Casino ↗
+        </button>
+
+        <button
+          style={{
+            width: '90px',
+            height: '36px',
+            borderRadius: '12px',
+            background: 'linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)',
+          }}
+          className="text-[#1F1F1F] text-[12px] font-bold transition-all hover:brightness-105 active:scale-95"
+          onClick={() => {
+            if (casino.slug) {
+              window.location.href = `/casino/${casino.slug}`;
+            }
+          }}
+        >
+          Reviews
+        </button>
       </div>
     </div>
   );

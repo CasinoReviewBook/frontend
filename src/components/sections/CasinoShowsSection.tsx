@@ -1,45 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const casinoShows = [
-    {
-        title: 'WELCOME BONUS',
-        offer: '100%',
-        subtitle: 'DEPOSIT MATCH',
-        description: 'GET A 100% DEPOSIT BONUS INSTANTLY UPON REGISTRATION.',
-        image: '/images/888.png',
-    },
-    {
-        title: 'MONTHLY LEADERBOARD',
-        offer: '$10K MONTHLY',
-        subtitle: 'LEADERBOARD',
-        description: 'COMPETE WITH PLAYERS AND WIN HUGE MONTHLY PRIZES.',
-        image: '/images/888.png',
-    },
-    {
-        title: 'FREE MYSTERY BOXES',
-        offer: '3 FREE BONUS',
-        subtitle: 'BOXES',
-        description: 'UNLOCK SURPRISE REWARDS, SPINS, AND CASHBACK OFFERS.',
-        image: '/images/888.png',
-    },
-    {
-        title: 'DEPOSIT REWARDS',
-        offer: '+15%',
-        subtitle: 'EXTRA DEPOSIT BONUS',
-        description: 'BOOST EVERY DEPOSIT WITH ADDITIONAL CASINO REWARDS.',
-        image: '/images/888.png',
-    },
-    {
-        title: 'CASHBACK REWARDS',
-        offer: '5%',
-        subtitle: 'CASHBACK BONUS',
-        description: 'RECEIVE CASHBACK REWARDS ON EVERY WAGER PLACED.',
-        image: '/images/888.png',
-    },
-];
+import { useCasinos } from '@/hooks/useRedux';
+import { getImageUrl } from '@/lib/utils/getImageUrl';
 
 // ── Exact values from design spec ──────────────────────────────
 const OUTER_W = 244.13;   // total card wrapper width
@@ -50,15 +15,43 @@ const CARD_TOP = 75;       // card body starts this far down (image peek zone)
 const IMG_W = 210.56;   // center image width
 const IMG_H = 92.09;    // center image height
 const IMG_TOP = 16.29;    // image top offset inside wrapper
-const IMG_LEFT = 33.57;    // image left offset inside wrapper
 // ───────────────────────────────────────────────────────────────
 
 export default function CasinoShowsSection() {
+    const { casinos, loading } = useCasinos();
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    const scrollLeft = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+        }
+    };
+
+    const scrollRight = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    };
+
+    if (loading) {
+        return (
+            <section className="w-full py-10">
+                <div className="flex items-center justify-center h-[280px]">
+                    <div className="text-slate-500">Loading...</div>
+                </div>
+            </section>
+        );
+    }
+
+    if (casinos.length === 0) return null;
+
     return (
         <section className="w-full py-10">
             {/* Header */}
-            <div className="flex flex-wrap items-center justify-between mb-8 gap-3">
-                <div className="flex items-center gap-3">
+      <div className="mb-6">
+        {/* First Row */}
+        <div className="flex items-center justify-between">
+         <div className="flex items-center gap-3">
                     <span className="px-2 py-1 text-[10px] font-semibold bg-[#EAF0FF] text-[#4F6BFF] rounded-full">
                         NEW
                     </span>
@@ -66,24 +59,37 @@ export default function CasinoShowsSection() {
                         Casinos Shows
                     </h2>
                 </div>
-                 <div className="flex items-center gap-3">
-         <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
-  See all
-  <span className="ml-2 text-[#98A2B3]">883</span>
-</button>
+          <div className="flex items-center gap-3">
+            <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
+              See all
+              <span className="ml-2 text-[#98A2B3]">{casinos.length}</span>
+            </button>
+            <button
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+              onClick={scrollLeft}
+            >
+              <ChevronLeft size={18} className="text-[#16171D]" />
+            </button>
 
-          <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-            <ChevronLeft size={18} className="text-[#16171D]"/>
-          </button>
-
-          <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
-            <ChevronRight size={18} className="text-[#16171D]" />
-          </button>
+            <button
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+              onClick={scrollRight}
+            >
+              <ChevronRight size={18} className="text-[#16171D]" />
+            </button>
+          </div>
         </div>
-            </div>
+
+        {/* Second Row */}
+        <p className="text-[15px] text-[#5F6368] mt-2">
+          New Rally
+          <span className="text-[#2E68FB]"> every 20 minutes</span> – spin and win!
+        </p>
+      </div>
 
             <div
-                className="[&::-webkit-scrollbar]:hidden"
+                ref={scrollContainerRef}
+                className="[&::-webkit-scrollbar]:hidden scroll-smooth"
                 style={{
                     width: '100%',
                     overflowX: 'auto',
@@ -100,8 +106,8 @@ export default function CasinoShowsSection() {
                     paddingBottom: '16px',
                     alignItems: 'flex-end',
                 }}>
-                    {casinoShows.map((item, index) => (
-                        <CasinoCard key={index} item={item} />
+                    {casinos.map((casino, index) => (
+                        <CasinoCard key={casino.id || index} casino={casino} />
                     ))}
                 </div>
             </div>
@@ -109,7 +115,17 @@ export default function CasinoShowsSection() {
     );
 }
 
-function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
+function CasinoCard({ casino }: { casino: any }) {
+    const welcomeBonus = casino.bonuses?.[0] || null;
+    const imageUrl = getImageUrl(casino.logo || casino.featured_image);
+
+    // Map casino data to card display fields
+    const title = casino.name?.toUpperCase() || 'CASINO';
+    const offer = welcomeBonus?.amount || (casino.rating ? `${casino.rating}★` : 'PLAY');
+    const subtitle = welcomeBonus?.type?.toUpperCase() || 'CASINO GAMES';
+    const description = casino.short_description
+        || (welcomeBonus ? `CLAIM YOUR ${welcomeBonus.amount} BONUS NOW!` : 'VISIT CASINO AND START PLAYING TODAY.');
+
     return (
         <div
             style={{
@@ -137,11 +153,12 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                 }}
             >
                 <Image
-                    src={item.image}
+                    src={imageUrl}
                     alt=""
                     fill
                     aria-hidden
                     className="object-contain"
+                    unoptimized
                 />
             </div>
 
@@ -162,11 +179,12 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                 }}
             >
                 <Image
-                    src={item.image}
+                    src={imageUrl}
                     alt=""
                     fill
                     aria-hidden
                     className="object-contain"
+                    unoptimized
                 />
             </div>
 
@@ -184,15 +202,15 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                 }}
             >
                 <Image
-                    src={item.image}
-                    alt={item.title}
+                    src={imageUrl}
+                    alt={casino.name}
                     fill
                     className="object-contain"
+                    unoptimized
                 />
             </div>
 
             {/* Card body */}
-
             <div
                 style={{
                     position: 'absolute',
@@ -205,7 +223,6 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                     overflow: 'hidden',
                     background:
                         'linear-gradient(175deg, #D4E1FF 0%, #EAF0FF 45%, #F4F7FF 100%)',
-
                     display: 'flex',
                     flexDirection: 'column',
                 }}
@@ -217,7 +234,6 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                         height: '51px',
                         top: '5px',
                         left: '175px',
-
                         borderRadius: '50%',
                         background: '#2E68FB4D',
                         filter: 'blur(20px)',
@@ -244,18 +260,21 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                             marginBottom: '4px',
                         }}
                     >
-                        {item.title}
+                        {title}
                     </p>
 
                     <h3
                         style={{
-                            fontSize: item.offer.length > 5 ? '24px' : '38px',
+                            fontSize: offer.length > 5 ? '18px' : '34px',
                             fontWeight: 900,
                             color: '#000',
                             lineHeight: 1,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
                         }}
                     >
-                        {item.offer}
+                        {offer}
                     </h3>
 
                     <h4
@@ -267,7 +286,7 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                             marginTop: '2px',
                         }}
                     >
-                        {item.subtitle}
+                        {subtitle}
                     </h4>
                 </div>
 
@@ -292,9 +311,13 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                             textAlign: 'center',
                             textTransform: 'uppercase',
                             lineHeight: '14px',
-                        }}
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                        } as React.CSSProperties}
                     >
-                        {item.description}
+                        {description}
                     </p>
                 </div>
 
@@ -316,6 +339,10 @@ function CasinoCard({ item }: { item: (typeof casinoShows)[0] }) {
                             fontWeight: 700,
                             color: '#2F63FF',
                             letterSpacing: '0.2em',
+                        }}
+                        onClick={() => {
+                            const url = casino.affiliate_url || casino.website_url;
+                            if (url) window.open(url, '_blank');
                         }}
                     >
                         CLAIM BONUS

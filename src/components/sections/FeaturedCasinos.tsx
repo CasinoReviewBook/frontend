@@ -9,11 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 import type { Casino } from "@/types";
+import { API_CONFIG } from "@/config/api.config";
+import { getImageUrl } from "@/lib/utils/getImageUrl";
 
 async function getFeaturedCasinos(): Promise<Casino[]> {
   try {
     const res = await fetch(
-      "http://localhost:4000/api/casinos",
+      `${API_CONFIG.baseURL}/casinos`,
       {
         next: { revalidate: 3600 },
       }
@@ -61,11 +63,12 @@ export async function FeaturedCasinos() {
             >
               <CardHeader className="bg-slate-950 pb-4 border-b border-slate-800 flex items-center justify-center pt-8">
                 <Image
-                  src="/placeholder-casino.png"
+                  src={getImageUrl(casino.logo || casino.featured_image)}
                   alt={`${casino.name} Logo`}
                   width={120}
                   height={60}
                   className="object-contain"
+                  unoptimized
                 />
               </CardHeader>
 

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Input, Textarea, Select, Toggle, Button } from '../../../../components/admin/FormElements';
 import MediaUpload from '../../../../components/admin/MediaUpload';
 import { ArrowLeft, Save, Plus, Trash } from 'lucide-react';
-
+import ChipSelector from '../../../../components/admin/ChipSelector';
 export default function NewCasinoPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -225,8 +225,8 @@ export default function NewCasinoPage() {
 
   return (
     <div className="max-w-6xl mx-auto pb-20">
-      <button 
-        onClick={() => router.push('/admin/casinos')} 
+      <button
+        onClick={() => router.push('/admin/casinos')}
         className="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors mb-6 text-sm font-semibold uppercase tracking-wider"
       >
         <ArrowLeft size={16} />
@@ -250,11 +250,10 @@ export default function NewCasinoPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-4 text-sm font-semibold border-b-2 whitespace-nowrap transition-all ${
-                activeTab === tab.id 
-                  ? 'border-indigo-600 text-indigo-600 bg-white' 
+              className={`px-6 py-4 text-sm font-semibold border-b-2 whitespace-nowrap transition-all ${activeTab === tab.id
+                  ? 'border-indigo-600 text-indigo-600 bg-white'
                   : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50/50'
-              }`}
+                }`}
             >
               {tab.name}
             </button>
@@ -265,19 +264,19 @@ export default function NewCasinoPage() {
           {activeTab === 'general' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input 
-                  label="Casino Name" 
-                  value={formData.name} 
-                  onChange={handleNameChange} 
+                <Input
+                  label="Casino Name"
+                  value={formData.name}
+                  onChange={handleNameChange}
                   placeholder="e.g. Jackpot City"
-                  required 
+                  required
                 />
-                <Input 
-                  label="URL Slug (Auto-generated)" 
-                  value={formData.slug} 
-                  onChange={(e) => setFormData({...formData, slug: e.target.value})} 
+                <Input
+                  label="URL Slug (Auto-generated)"
+                  value={formData.slug}
+                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                   placeholder="e.g. jackpot-city"
-                  required 
+                  required
                 />
               </div>
 
@@ -286,7 +285,7 @@ export default function NewCasinoPage() {
                   <label className="block text-sm font-medium text-slate-700 mb-2">Logo Image</label>
                   <MediaUpload
                     value={formData.logo}
-                    onChange={(value) => setFormData({...formData, logo: value})}
+                    onChange={(value) => setFormData({ ...formData, logo: value })}
                     accept="image"
                     folder="casinos/logos"
                   />
@@ -295,7 +294,7 @@ export default function NewCasinoPage() {
                   <label className="block text-sm font-medium text-slate-700 mb-2">Featured Banner Image</label>
                   <MediaUpload
                     value={formData.featured_image}
-                    onChange={(value) => setFormData({...formData, featured_image: value})}
+                    onChange={(value) => setFormData({ ...formData, featured_image: value })}
                     accept="image"
                     folder="casinos/featured"
                   />
@@ -303,31 +302,31 @@ export default function NewCasinoPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input 
-                  label="Website Direct URL" 
-                  value={formData.website_url} 
-                  onChange={(e) => setFormData({...formData, website_url: e.target.value})} 
+                <Input
+                  label="Website Direct URL"
+                  value={formData.website_url}
+                  onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
                   placeholder="https://jackpotcity.com"
                 />
-                <Input 
-                  label="Affiliate Hop URL" 
-                  value={formData.affiliate_url} 
-                  onChange={(e) => setFormData({...formData, affiliate_url: e.target.value})} 
+                <Input
+                  label="Affiliate Hop URL"
+                  value={formData.affiliate_url}
+                  onChange={(e) => setFormData({ ...formData, affiliate_url: e.target.value })}
                   placeholder="https://affiliate.link/click?id=123"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input 
-                  label="Affiliate Program Name" 
-                  value={formData.affiliate_program_name} 
-                  onChange={(e) => setFormData({...formData, affiliate_program_name: e.target.value})} 
+                <Input
+                  label="Affiliate Program Name"
+                  value={formData.affiliate_program_name}
+                  onChange={(e) => setFormData({ ...formData, affiliate_program_name: e.target.value })}
                   placeholder="e.g. Buffalo Partners"
                 />
-                <Input 
-                  label="Affiliate Program Portal Link" 
-                  value={formData.affiliate_program_link} 
-                  onChange={(e) => setFormData({...formData, affiliate_program_link: e.target.value})} 
+                <Input
+                  label="Affiliate Program Portal Link"
+                  value={formData.affiliate_program_link}
+                  onChange={(e) => setFormData({ ...formData, affiliate_program_link: e.target.value })}
                   placeholder="https://buffalopartners.com"
                 />
               </div>
@@ -336,292 +335,281 @@ export default function NewCasinoPage() {
 
           {activeTab === 'details' && (
             <div className="space-y-6">
-              <Textarea 
-                label="Short Description (1-2 sentences)" 
-                value={formData.short_description} 
-                onChange={(e) => setFormData({...formData, short_description: e.target.value})} 
+              <Textarea
+                label="Short Description (1-2 sentences)"
+                value={formData.short_description}
+                onChange={(e) => setFormData({ ...formData, short_description: e.target.value })}
                 placeholder="A brief snippet showing in directories..."
                 rows={2}
               />
-              <Textarea 
-                label="General Overview" 
-                value={formData.overview} 
-                onChange={(e) => setFormData({...formData, overview: e.target.value})} 
+              <Textarea
+                label="General Overview"
+                value={formData.overview}
+                onChange={(e) => setFormData({ ...formData, overview: e.target.value })}
                 placeholder="Introductory review overview of the casino brand..."
                 rows={4}
               />
-              <Textarea 
-                label="Editor Verdict / View" 
-                value={formData.editor_view} 
-                onChange={(e) => setFormData({...formData, editor_view: e.target.value})} 
+              <Textarea
+                label="Editor Verdict / View"
+                value={formData.editor_view}
+                onChange={(e) => setFormData({ ...formData, editor_view: e.target.value })}
                 placeholder="What our experts think about the casino..."
                 rows={4}
               />
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Input 
-                  label="Rating (0.0 - 5.0)" 
+                <Input
+                  label="Rating (0.0 - 5.0)"
                   type="number"
                   step="0.1"
                   min="0" max="5"
-                  value={formData.rating} 
-                  onChange={(e) => setFormData({...formData, rating: e.target.value})} 
+                  value={formData.rating}
+                  onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
                   placeholder="4.7"
                 />
-                <Input 
-                  label="Established Year" 
+                <Input
+                  label="Established Year"
                   type="number"
-                  value={formData.established_year} 
-                  onChange={(e) => setFormData({...formData, established_year: e.target.value})} 
+                  value={formData.established_year}
+                  onChange={(e) => setFormData({ ...formData, established_year: e.target.value })}
                   placeholder="2012"
                 />
-                <Input 
-                  label="Minimum Deposit Amount" 
+                <Input
+                  label="Minimum Deposit Amount"
                   type="number"
                   step="0.01"
-                  value={formData.minimum_deposit} 
-                  onChange={(e) => setFormData({...formData, minimum_deposit: e.target.value})} 
+                  value={formData.minimum_deposit}
+                  onChange={(e) => setFormData({ ...formData, minimum_deposit: e.target.value })}
                   placeholder="10.00"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input 
-                  label="Company Name" 
-                  value={formData.company_name} 
-                  onChange={(e) => setFormData({...formData, company_name: e.target.value})} 
+                <Input
+                  label="Company Name"
+                  value={formData.company_name}
+                  onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
                   placeholder="e.g. Bayton Ltd"
                 />
-                <Input 
-                  label="License Jurisdiction Authority" 
-                  value={formData.license_authority} 
-                  onChange={(e) => setFormData({...formData, license_authority: e.target.value})} 
+                <Input
+                  label="License Jurisdiction Authority"
+                  value={formData.license_authority}
+                  onChange={(e) => setFormData({ ...formData, license_authority: e.target.value })}
                   placeholder="e.g. Malta Gaming Authority (MGA)"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input 
-                  label="Withdrawal Processing Time" 
-                  value={formData.withdrawal_time} 
-                  onChange={(e) => setFormData({...formData, withdrawal_time: e.target.value})} 
+                <Input
+                  label="Withdrawal Processing Time"
+                  value={formData.withdrawal_time}
+                  onChange={(e) => setFormData({ ...formData, withdrawal_time: e.target.value })}
                   placeholder="e.g. 24-48 Hours"
                 />
-                <Input 
-                  label="Visits (Counter Seed)" 
+                <Input
+                  label="Visits (Counter Seed)"
                   type="number"
-                  value={formData.visits} 
-                  onChange={(e) => setFormData({...formData, visits: e.target.value})} 
+                  value={formData.visits}
+                  onChange={(e) => setFormData({ ...formData, visits: e.target.value })}
                   placeholder="120"
                 />
               </div>
             </div>
           )}
 
-          {activeTab === 'relations' && (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Casino Types (Categories)</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allCategories.map(cat => (
-                      <label key={cat.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedCategories.includes(cat.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedCategories([...selectedCategories, cat.id]);
-                            else setSelectedCategories(selectedCategories.filter(id => id !== cat.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{cat.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+         {activeTab === 'relations' && (
+  <div className="space-y-8">
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Tags</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allTags.map(tag => (
-                      <label key={tag.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedTags.includes(tag.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedTags([...selectedTags, tag.id]);
-                            else setSelectedTags(selectedTags.filter(id => id !== tag.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{tag.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+    {/* Casino Types */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Casino Types (Categories)"
+        items={allCategories}
+        selected={selectedCategories}
+        onChange={setSelectedCategories}
+      />
+    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Available Countries</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allCountries.map(country => (
-                      <label key={country.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedCountries.includes(country.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedCountries([...selectedCountries, country.id]);
-                            else setSelectedCountries(selectedCountries.filter(id => id !== country.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{country.name} ({country.code})</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+    {/* Tags */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Tags"
+        items={allTags}
+        selected={selectedTags}
+        onChange={setSelectedTags}
+      />
+    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Game Types</label>
-                  <div className="max-h-48 overflow-y-auto border border-slate-200 rounded-lg p-2 bg-slate-50 space-y-1">
-                    {allGameTypes.map(gt => (
-                      <label key={gt.id} className="flex items-center space-x-2 p-1 hover:bg-slate-100 rounded cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={selectedGameTypes.includes(gt.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) setSelectedGameTypes([...selectedGameTypes, gt.id]);
-                            else setSelectedGameTypes(selectedGameTypes.filter(id => id !== gt.id));
-                          }}
-                        />
-                        <span className="text-sm text-slate-700">{gt.name}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
+    {/* Countries */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Available Countries"
+        items={allCountries.map((country) => ({
+          id: country.id,
+          name: `${country.name} (${country.code})`,
+        }))}
+        selected={selectedCountries}
+        onChange={setSelectedCountries}
+      />
+    </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
-                <Input 
-                  label="Supported Languages (Comma separated)" 
-                  value={formData.languages} 
-                  onChange={(e) => setFormData({...formData, languages: e.target.value})} 
-                  placeholder="English, French, German, Spanish"
-                />
-                <Input 
-                  label="Supported Currencies (Comma separated)" 
-                  value={formData.currencies} 
-                  onChange={(e) => setFormData({...formData, currencies: e.target.value})} 
-                  placeholder="USD, EUR, CAD, INR, BTC"
-                />
-              </div>
+    {/* Game Types */}
+    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <ChipSelector
+        label="Game Types"
+        items={allGameTypes}
+        selected={selectedGameTypes}
+        onChange={setSelectedGameTypes}
+      />
+    </div>
 
-              <Input 
-                label="Support Contact Methods (Comma separated)" 
-                value={formData.support_methods} 
-                onChange={(e) => setFormData({...formData, support_methods: e.target.value})} 
-                placeholder="Live Chat 24/7, Email Support, Phone"
-              />
+    {/* Other Inputs */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Textarea 
-                  label="Pros List (One item per line)" 
-                  value={formData.pros} 
-                  onChange={(e) => setFormData({...formData, pros: e.target.value})} 
-                  placeholder="Fast payouts&#10;Huge welcome bonus&#10;Excellent live chat support"
-                  rows={4}
-                />
-                <Textarea 
-                  label="Cons List (One item per line)" 
-                  value={formData.cons} 
-                  onChange={(e) => setFormData({...formData, cons: e.target.value})} 
-                  placeholder="Restricted in USA&#10;High wagering requirements"
-                  rows={4}
-                />
-              </div>
+      <Input
+        label="Supported Languages (Comma separated)"
+        value={formData.languages}
+        onChange={(e) =>
+          setFormData({ ...formData, languages: e.target.value })
+        }
+        placeholder="English, French, German"
+      />
 
-              <Textarea 
-                label="Casino Features List (One item per line)" 
-                value={formData.features} 
-                onChange={(e) => setFormData({...formData, features: e.target.value})} 
-                placeholder="Operating since 1997&#10;Instant payouts&#10;Live dealer options"
-                rows={3}
-              />
+      <Input
+        label="Supported Currencies (Comma separated)"
+        value={formData.currencies}
+        onChange={(e) =>
+          setFormData({ ...formData, currencies: e.target.value })
+        }
+        placeholder="USD, EUR, INR"
+      />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input 
-                  label="Payment Methods (Comma separated)" 
-                  value={formData.payment_methods} 
-                  onChange={(e) => setFormData({...formData, payment_methods: e.target.value})} 
-                  placeholder="Visa, MasterCard, Skrill, Neteller, Bitcoin"
-                />
-                <Input 
-                  label="Game Providers (Comma separated)" 
-                  value={formData.game_providers} 
-                  onChange={(e) => setFormData({...formData, game_providers: e.target.value})} 
-                  placeholder="Pragmatic Play, Evolution Gaming, NetEnt"
-                />
-              </div>
-            </div>
-          )}
+    </div>
+
+    <Input
+      label="Support Contact Methods (Comma separated)"
+      value={formData.support_methods}
+      onChange={(e) =>
+        setFormData({
+          ...formData,
+          support_methods: e.target.value,
+        })
+      }
+      placeholder="Live Chat, Email, Phone"
+    />
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Textarea
+        label="Pros"
+        value={formData.pros}
+        onChange={(e) =>
+          setFormData({ ...formData, pros: e.target.value })
+        }
+        rows={4}
+      />
+
+      <Textarea
+        label="Cons"
+        value={formData.cons}
+        onChange={(e) =>
+          setFormData({ ...formData, cons: e.target.value })
+        }
+        rows={4}
+      />
+    </div>
+
+    <Textarea
+      label="Casino Features"
+      value={formData.features}
+      onChange={(e) =>
+        setFormData({ ...formData, features: e.target.value })
+      }
+      rows={4}
+    />
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Input
+        label="Payment Methods"
+        value={formData.payment_methods}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            payment_methods: e.target.value,
+          })
+        }
+      />
+
+      <Input
+        label="Game Providers"
+        value={formData.game_providers}
+        onChange={(e) =>
+          setFormData({
+            ...formData,
+            game_providers: e.target.value,
+          })
+        }
+      />
+    </div>
+
+  </div>
+)}
 
           {activeTab === 'flags' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Select 
-                  label="Status" 
-                  options={[{value: 'active', label: 'Active'}, {value: 'inactive', label: 'Inactive'}]}
+                <Select
+                  label="Status"
+                  options={[{ value: 'active', label: 'Active' }, { value: 'inactive', label: 'Inactive' }]}
                   value={formData.status}
-                  onChange={(e) => setFormData({...formData, status: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-4">
-                <Toggle 
-                  label="Featured Brand" 
-                  checked={formData.featured} 
-                  onChange={(e) => setFormData({...formData, featured: e.target.checked})} 
+                <Toggle
+                  label="Featured Brand"
+                  checked={formData.featured}
+                  onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
                 />
-                <Toggle 
-                  label="Hot Casino" 
-                  checked={formData.hot_casino} 
-                  onChange={(e) => setFormData({...formData, hot_casino: e.target.checked})} 
+                <Toggle
+                  label="Hot Casino"
+                  checked={formData.hot_casino}
+                  onChange={(e) => setFormData({ ...formData, hot_casino: e.target.checked })}
                 />
-                <Toggle 
-                  label="Recommended by Experts" 
-                  checked={formData.recommended_by_experts} 
-                  onChange={(e) => setFormData({...formData, recommended_by_experts: e.target.checked})} 
+                <Toggle
+                  label="Recommended by Experts"
+                  checked={formData.recommended_by_experts}
+                  onChange={(e) => setFormData({ ...formData, recommended_by_experts: e.target.checked })}
                 />
-                <Toggle 
-                  label="Certified Casino Seal" 
-                  checked={formData.certified_casino} 
-                  onChange={(e) => setFormData({...formData, certified_casino: e.target.checked})} 
+                <Toggle
+                  label="Certified Casino Seal"
+                  checked={formData.certified_casino}
+                  onChange={(e) => setFormData({ ...formData, certified_casino: e.target.checked })}
                 />
-                <Toggle 
-                  label="Mobile Friendly" 
-                  checked={formData.mobile_friendly} 
-                  onChange={(e) => setFormData({...formData, mobile_friendly: e.target.checked})} 
+                <Toggle
+                  label="Mobile Friendly"
+                  checked={formData.mobile_friendly}
+                  onChange={(e) => setFormData({ ...formData, mobile_friendly: e.target.checked })}
                 />
-                <Toggle 
-                  label="Crypto Supported" 
-                  checked={formData.crypto_supported} 
-                  onChange={(e) => setFormData({...formData, crypto_supported: e.target.checked})} 
+                <Toggle
+                  label="Crypto Supported"
+                  checked={formData.crypto_supported}
+                  onChange={(e) => setFormData({ ...formData, crypto_supported: e.target.checked })}
                 />
-                <Toggle 
-                  label="Live Casino Dealer Games" 
-                  checked={formData.live_casino} 
-                  onChange={(e) => setFormData({...formData, live_casino: e.target.checked})} 
+                <Toggle
+                  label="Live Casino Dealer Games"
+                  checked={formData.live_casino}
+                  onChange={(e) => setFormData({ ...formData, live_casino: e.target.checked })}
                 />
-                <Toggle 
-                  label="Sports Betting Available" 
-                  checked={formData.sports_betting} 
-                  onChange={(e) => setFormData({...formData, sports_betting: e.target.checked})} 
+                <Toggle
+                  label="Sports Betting Available"
+                  checked={formData.sports_betting}
+                  onChange={(e) => setFormData({ ...formData, sports_betting: e.target.checked })}
                 />
-                <Toggle 
-                  label="Responsible Gaming Section" 
-                  checked={formData.responsible_gaming} 
-                  onChange={(e) => setFormData({...formData, responsible_gaming: e.target.checked})} 
+                <Toggle
+                  label="Responsible Gaming Section"
+                  checked={formData.responsible_gaming}
+                  onChange={(e) => setFormData({ ...formData, responsible_gaming: e.target.checked })}
                 />
               </div>
             </div>
@@ -644,60 +632,60 @@ export default function NewCasinoPage() {
                 <div className="space-y-4">
                   {bonuses.map((bonus, index) => (
                     <div key={index} className="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-4 relative">
-                      <button 
-                        type="button" 
-                        onClick={() => handleRemoveBonus(index)} 
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveBonus(index)}
                         className="absolute top-4 right-4 text-rose-500 hover:text-rose-700"
                       >
                         <Trash size={16} />
                       </button>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pr-8">
-                        <Input 
-                          label="Bonus Title" 
-                          value={bonus.title} 
-                          onChange={(e) => handleBonusChange(index, 'title', e.target.value)} 
+                        <Input
+                          label="Bonus Title"
+                          value={bonus.title}
+                          onChange={(e) => handleBonusChange(index, 'title', e.target.value)}
                           placeholder="e.g. 100% up to $1000"
                           required
                         />
-                        <Select 
-                          label="Type" 
+                        <Select
+                          label="Type"
                           options={[
-                            {value: 'Welcome Bonus', label: 'Welcome Bonus'},
-                            {value: 'Free Spins Bonus', label: 'Free Spins Bonus'},
-                            {value: 'Cashback Bonus', label: 'Cashback Bonus'},
-                            {value: 'No Deposit Bonus', label: 'No Deposit Bonus'},
-                            {value: 'VIP Bonus', label: 'VIP Bonus'},
-                            {value: 'Exclusive Bonus', label: 'Exclusive Bonus'}
+                            { value: 'Welcome Bonus', label: 'Welcome Bonus' },
+                            { value: 'Free Spins Bonus', label: 'Free Spins Bonus' },
+                            { value: 'Cashback Bonus', label: 'Cashback Bonus' },
+                            { value: 'No Deposit Bonus', label: 'No Deposit Bonus' },
+                            { value: 'VIP Bonus', label: 'VIP Bonus' },
+                            { value: 'Exclusive Bonus', label: 'Exclusive Bonus' }
                           ]}
                           value={bonus.type}
                           onChange={(e) => handleBonusChange(index, 'type', e.target.value)}
                         />
-                        <Input 
-                          label="Amount / Value" 
-                          value={bonus.amount} 
-                          onChange={(e) => handleBonusChange(index, 'amount', e.target.value)} 
+                        <Input
+                          label="Amount / Value"
+                          value={bonus.amount}
+                          onChange={(e) => handleBonusChange(index, 'amount', e.target.value)}
                           placeholder="e.g. $1,000"
                           required
                         />
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Input 
-                          label="Bonus Promo Code" 
-                          value={bonus.bonus_code} 
-                          onChange={(e) => handleBonusChange(index, 'bonus_code', e.target.value)} 
+                        <Input
+                          label="Bonus Promo Code"
+                          value={bonus.bonus_code}
+                          onChange={(e) => handleBonusChange(index, 'bonus_code', e.target.value)}
                           placeholder="e.g. SPIN100"
                         />
-                        <Input 
-                          label="Wagering Requirements" 
-                          value={bonus.wagering_requirement} 
-                          onChange={(e) => handleBonusChange(index, 'wagering_requirement', e.target.value)} 
+                        <Input
+                          label="Wagering Requirements"
+                          value={bonus.wagering_requirement}
+                          onChange={(e) => handleBonusChange(index, 'wagering_requirement', e.target.value)}
                           placeholder="e.g. 35x"
                         />
-                        <Input 
-                          label="Sort Order" 
+                        <Input
+                          label="Sort Order"
                           type="number"
-                          value={bonus.sort_order} 
-                          onChange={(e) => handleBonusChange(index, 'sort_order', e.target.value)} 
+                          value={bonus.sort_order}
+                          onChange={(e) => handleBonusChange(index, 'sort_order', e.target.value)}
                           placeholder="0"
                         />
                       </div>
@@ -725,35 +713,35 @@ export default function NewCasinoPage() {
                 <div className="space-y-4">
                   {faqs.map((faq, index) => (
                     <div key={index} className="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-4 relative">
-                      <button 
-                        type="button" 
-                        onClick={() => handleRemoveFaq(index)} 
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveFaq(index)}
                         className="absolute top-4 right-4 text-rose-500 hover:text-rose-700"
                       >
                         <Trash size={16} />
                       </button>
                       <div className="pr-8">
-                        <Input 
-                          label="Question" 
-                          value={faq.question} 
-                          onChange={(e) => handleFaqChange(index, 'question', e.target.value)} 
+                        <Input
+                          label="Question"
+                          value={faq.question}
+                          onChange={(e) => handleFaqChange(index, 'question', e.target.value)}
                           placeholder="e.g. What is the withdrawal time?"
                           required
                         />
-                        <Textarea 
-                          label="Answer" 
-                          value={faq.answer} 
-                          onChange={(e) => handleFaqChange(index, 'answer', e.target.value)} 
+                        <Textarea
+                          label="Answer"
+                          value={faq.answer}
+                          onChange={(e) => handleFaqChange(index, 'answer', e.target.value)}
                           placeholder="e.g. Withdrawals are processed in 24 hours."
                           rows={2}
                           required
                         />
                         <div className="w-1/3 mt-2">
-                          <Input 
-                            label="Sort Order" 
+                          <Input
+                            label="Sort Order"
                             type="number"
-                            value={faq.sort_order} 
-                            onChange={(e) => handleFaqChange(index, 'sort_order', e.target.value)} 
+                            value={faq.sort_order}
+                            onChange={(e) => handleFaqChange(index, 'sort_order', e.target.value)}
                             placeholder="0"
                           />
                         </div>
@@ -790,16 +778,16 @@ export default function NewCasinoPage() {
                           />
                         </div>
                         <div className="w-24">
-                          <Input 
-                            label="Sort Order" 
-                            type="number" 
-                            value={screen.sort_order} 
-                            onChange={(e) => handleScreenshotChange(index, 'sort_order', e.target.value)} 
+                          <Input
+                            label="Sort Order"
+                            type="number"
+                            value={screen.sort_order}
+                            onChange={(e) => handleScreenshotChange(index, 'sort_order', e.target.value)}
                           />
                         </div>
-                        <button 
-                          type="button" 
-                          onClick={() => handleRemoveScreenshot(index)} 
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveScreenshot(index)}
                           className="text-rose-500 hover:text-rose-700 absolute top-4 right-3"
                         >
                           <Trash size={16} />
@@ -833,24 +821,24 @@ export default function NewCasinoPage() {
                               folder="casinos/videos"
                             />
                           </div>
-                          <Input 
-                            label="Video Title" 
-                            value={vid.title} 
-                            onChange={(e) => handleVideoChange(index, 'title', e.target.value)} 
+                          <Input
+                            label="Video Title"
+                            value={vid.title}
+                            onChange={(e) => handleVideoChange(index, 'title', e.target.value)}
                             placeholder="e.g. Buffalo Slots Gameplay Video Review"
                           />
                         </div>
                         <div className="w-24">
-                          <Input 
-                            label="Sort Order" 
-                            type="number" 
-                            value={vid.sort_order} 
-                            onChange={(e) => handleVideoChange(index, 'sort_order', e.target.value)} 
+                          <Input
+                            label="Sort Order"
+                            type="number"
+                            value={vid.sort_order}
+                            onChange={(e) => handleVideoChange(index, 'sort_order', e.target.value)}
                           />
                         </div>
-                        <button 
-                          type="button" 
-                          onClick={() => handleRemoveVideo(index)} 
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveVideo(index)}
                           className="text-rose-500 hover:text-rose-700 absolute top-4 right-3"
                         >
                           <Trash size={16} />
@@ -865,23 +853,23 @@ export default function NewCasinoPage() {
 
           {activeTab === 'seo' && (
             <div className="space-y-6">
-              <Input 
-                label="Meta SEO Title" 
-                value={formData.meta_title} 
-                onChange={(e) => setFormData({...formData, meta_title: e.target.value})} 
+              <Input
+                label="Meta SEO Title"
+                value={formData.meta_title}
+                onChange={(e) => setFormData({ ...formData, meta_title: e.target.value })}
                 placeholder="Jackpot City Casino Review - Expert Ratings & Bonuses"
               />
-              <Textarea 
-                label="Meta SEO Description" 
-                value={formData.meta_description} 
-                onChange={(e) => setFormData({...formData, meta_description: e.target.value})} 
+              <Textarea
+                label="Meta SEO Description"
+                value={formData.meta_description}
+                onChange={(e) => setFormData({ ...formData, meta_description: e.target.value })}
                 placeholder="Read our comprehensive expert review on Jackpot City. Get details on deposit limits, payout speeds, licenses..."
                 rows={3}
               />
-              <Input 
-                label="Meta SEO Keywords (Comma separated)" 
-                value={formData.meta_keywords} 
-                onChange={(e) => setFormData({...formData, meta_keywords: e.target.value})} 
+              <Input
+                label="Meta SEO Keywords (Comma separated)"
+                value={formData.meta_keywords}
+                onChange={(e) => setFormData({ ...formData, meta_keywords: e.target.value })}
                 placeholder="Jackpot City, Online Casino Review, Casino Bonus, MGA Casino"
               />
             </div>

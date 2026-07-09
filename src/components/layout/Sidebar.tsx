@@ -1,22 +1,25 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import {
     Home,
     Gift,
     Megaphone,
     Trophy,
-    Wallet,
+    Dices,
     X,
     Headphones,
     CircleHelp,
-    Dices,
-    Users,
-    Crown,
     ShieldAlert,
+    ChevronDown,
+    Info,
+    Mail,
+    Flame,
+    Tv
 } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 
 interface SidebarProps {
     open: boolean;
@@ -25,18 +28,86 @@ interface SidebarProps {
 
 const menuItems = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Promotions', href: '/promotions', icon: Gift },
+    {
+        name: 'Casinos',
+        icon: Trophy,
+        subItems: [
+            { name: 'Crypto Casinos', href: '/casinos/crypto-casinos' },
+            { name: 'Newest Casinos', href: '/casinos/newest-casinos' },
+            { name: 'Online Casinos', href: '/casinos/online-casinos' },
+            { name: 'Certified Casinos', href: '/casinos/certified-casinos' },
+            { name: 'Mobile Casinos', href: '/casinos/mobile-casinos' },
+        ]
+    },
+    {
+        name: 'Bonuses',
+        icon: Gift,
+        subItems: [
+            { name: 'Latest Bonuses', href: '/bonuses/latest-bonuses' },
+            { name: 'Exclusive Bonuses', href: '/bonuses/exclusive-bonuses' },
+            { name: 'Welcome Bonuses', href: '/bonuses/welcome-bonuses' },
+            { name: 'No Deposit Bonuses', href: '/bonuses/no-deposit-bonuses' },
+            { name: 'Free Spins', href: '/bonuses/free-spins' },
+            { name: 'Cashback Bonuses', href: '/bonuses/cashback-bonuses' },
+            { name: 'No Wagering Bonuses', href: '/bonuses/no-wagering-bonuses' },
+        ]
+    },
+    {
+        name: 'Games',
+        icon: Dices,
+        subItems: [
+            { name: 'Casino Games', href: '/games/casino-games' },
+            { name: 'Card Games', href: '/games/card-games' },
+            { name: 'Table Games', href: '/games/table-games' },
+            { name: 'Dice Games', href: '/games/dice-games' },
+            { name: 'Online Games', href: '/games/online-games' },
+            { name: 'Poker', href: '/games/poker' },
+            { name: 'Bingo', href: '/games/bingo' },
+            { name: 'Lottery Games', href: '/games/lottery-games' },
+        ]
+    },
+    {
+        name: 'Slots',
+        icon: Flame,
+        subItems: [
+            { name: 'Video Slots', href: '/slots/video-slots' },
+            { name: 'Classic Slots', href: '/slots/classic-slots' },
+            { name: 'Progressive Slots', href: '/slots/progressive-slots' },
+            { name: 'New Slots', href: '/slots/new-slots' },
+        ]
+    },
+    {
+        name: 'Betting',
+        icon: Tv,
+        subItems: [
+            { name: 'Sports Betting', href: '/betting/sports-betting' },
+            { name: 'New Betting Sites', href: '/betting/new-betting-sites' },
+            { name: 'Bet Types', href: '/betting/bet-types' },
+            { name: 'Betting Bonuses', href: '/betting/betting-bonuses' },
+            { name: 'Free Bets', href: '/betting/free-bets' },
+        ]
+    },
     { name: 'Casino News', href: '/news', icon: Megaphone },
-    { name: 'Top Casinos', href: '/top-casinos', icon: Trophy },
-    { name: 'Payment Methods', href: '/payments', icon: Wallet },
-    { name: 'Casino Games', href: '/games', icon: Dices },
-    { name: 'Live Dealers', href: '/live', icon: Users },
-    { name: 'VIP Club', href: '/vip', icon: Crown },
+    {
+        name: 'Guides & Strategy',
+        icon: CircleHelp,
+        subItems: [
+            { name: 'How to Win Guide', href: '/guides/how-to-win' },
+            { name: 'Crypto Gambling 101', href: '/guides/crypto-gambling-101' }
+        ]
+    },
+    { name: 'About Us', href: '/about-us', icon: Info },
+    { name: 'Contact Us', href: '/contact-us', icon: Mail },
     { name: 'Responsible Play', href: '/responsible-gambling', icon: ShieldAlert },
 ];
 
 export default function Sidebar({ open, onClose }: SidebarProps) {
     const pathname = usePathname();
+    const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
+
+    const toggleDropdown = (name: string) => {
+        setOpenDropdowns((prev) => ({ ...prev, [name]: !prev[name] }));
+    };
 
     return (
         <div
@@ -81,14 +152,70 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     </div>
 
                     {/* Navigation Menu Links */}
-                    <nav className="space-y-2 mb-6">
+                    <nav className="space-y-1 mb-6">
                         {menuItems.map((item) => {
                             const Icon = item.icon;
+                            
+                            if (item.subItems) {
+                                const isDropdownOpen = !!openDropdowns[item.name];
+                                const isAnyChildActive = item.subItems.some(sub => pathname === sub.href);
+
+                                return (
+                                    <div key={item.name} className="flex flex-col w-[212px]">
+                                        <button
+                                            onClick={() => toggleDropdown(item.name)}
+                                            className={`w-full h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center justify-between transition-all duration-300 ${
+                                                isAnyChildActive
+                                                    ? 'border border-[#C5D6FF] bg-white/40'
+                                                    : 'hover:border hover:border-[#C5D6FF] hover:bg-white/50'
+                                            }`}
+                                        >
+                                            <div className="flex items-center gap-[10px]">
+                                                <Icon className={`w-5 h-5 ${isAnyChildActive ? 'text-[#3B6BFF]' : 'text-slate-500'}`} />
+                                                <span className={`text-[15px] font-medium ${isAnyChildActive ? 'text-[#172554]' : 'text-slate-700'}`}>
+                                                    {item.name}
+                                                </span>
+                                            </div>
+                                            <ChevronDown 
+                                                size={16} 
+                                                className={`text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                                            />
+                                        </button>
+
+                                        {/* Dropdown child items list without internal scroll container */}
+                                        <div 
+                                            className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                                                isDropdownOpen ? 'max-h-[400px] opacity-100 mt-1 pb-2' : 'max-h-0 opacity-0'
+                                            }`}
+                                        >
+                                            <div className="pl-8 space-y-1 border-l-2 border-[#C5D6FF]/50 ml-4 mt-1">
+                                                {item.subItems.map((subItem) => {
+                                                    const isChildActive = pathname === subItem.href;
+                                                    return (
+                                                        <Link
+                                                            key={subItem.name}
+                                                            href={subItem.href}
+                                                            onClick={onClose}
+                                                            className={`block py-1.5 text-[13px] font-medium transition-colors ${
+                                                                isChildActive ? 'text-[#3B6BFF] font-semibold' : 'text-slate-600 hover:text-[#3B6BFF]'
+                                                            }`}
+                                                        >
+                                                            {subItem.name}
+                                                        </Link>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            }
+
+                            // Standard non-dropdown Link items
                             const isActive = pathname === item.href;
                             return (
                                 <Link
                                     key={item.name}
-                                    href={item.href}
+                                    href={item.href!}
                                     onClick={onClose}
                                     className={`w-[212px] h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center gap-[10px] transition-all duration-300 ${
                                         isActive
@@ -104,6 +231,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                             );
                         })}
                     </nav>
+
                     <div className="mt-2 rounded-tl-[12px] rounded-tr-[12px] shrink-0 relative bg-[#EEF3FE] flex items-center justify-center gap-3 before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-[212px] before:h-[2px] before:[background:radial-gradient(50%_50%_at_50%_50%,#588CF3_42.79%,#EEF3FE_100%)]"
                         style={{ '--divider-gradient': 'radial-gradient(50% 50% at 50% 50%, #588CF3 42.79%, #EEF3FE 100%)' } as React.CSSProperties}
                     />
