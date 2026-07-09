@@ -540,7 +540,7 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
         }))}
         selected={selectedCountries}
         onChange={setSelectedCountries}
-        maxHeight="260px"
+        
       />
     </div>
 
