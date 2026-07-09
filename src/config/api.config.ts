@@ -8,9 +8,28 @@ export const API_CONFIG = {
   timeout: 10000,
 };
 
+export const buildApiUrl = (path: string) => {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${API_CONFIG.baseURL}${normalizedPath}`;
+};
+
 export const getMediaUrl = (path?: string) => {
   if (!path) return '';
-  if (/^https?:\/\//i.test(path)) return path;
+
+  if (/^https?:\/\//i.test(path)) {
+    try {
+      const parsedUrl = new URL(path);
+      const configuredOrigin = new URL(API_CONFIG.mediaBaseURL).origin;
+      const isLocalHost = ['localhost', '127.0.0.1'].includes(parsedUrl.hostname);
+      if (isLocalHost || parsedUrl.origin === 'http://localhost:4000') {
+        return `${configuredOrigin}${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`;
+      }
+      return path;
+    } catch {
+      return path;
+    }
+  }
+
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   return `${API_CONFIG.mediaBaseURL}${normalizedPath}`;
 };

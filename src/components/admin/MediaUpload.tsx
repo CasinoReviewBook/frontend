@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Upload, X, Image as ImageIcon, Video, Loader2 } from 'lucide-react';
 import MediaLibraryModal from './MediaLibraryModal';
-import { getMediaUrl } from '../../config/api.config';
+import { buildApiUrl, getMediaUrl } from '../../config/api.config';
 
 interface MediaUploadProps {
   value?: string;
@@ -115,7 +115,7 @@ export default function MediaUpload({
         });
       }, 100);
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/media/upload`, {
+      const response = await fetch(buildApiUrl('/admin/media/upload'), {
         method: 'POST',
         body: formData,
       });

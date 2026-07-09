@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../../../components/admin/FormElements';
 import { Plus, Trash2, Image as ImageIcon, FileText, Film } from 'lucide-react';
-import { getMediaUrl } from '../../../config/api.config';
+import { buildApiUrl, getMediaUrl } from '../../../config/api.config';
 
 export default function MediaPage() {
   const [media, setMedia] = useState([]);
@@ -16,7 +16,7 @@ export default function MediaPage() {
   const fetchMedia = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/media`);
+      const res = await fetch(buildApiUrl('/admin/media'));
       const data = await res.json();
       setMedia(data);
     } catch (err) {
@@ -28,7 +28,7 @@ export default function MediaPage() {
   const handleDelete = async (item: any) => {
     if (confirm(`Are you sure you want to delete "${item.file_name}"?`)) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/media/${item.id}`, {
+        const res = await fetch(buildApiUrl(`/admin/media/${item.id}`), {
           method: 'DELETE'
         });
         if (res.ok) {
