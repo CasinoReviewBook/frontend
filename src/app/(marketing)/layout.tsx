@@ -57,7 +57,7 @@ export default function MarketingLayout({
   return (
     <div className="min-h-screen bg-[#EEF3FE] font-sans overflow-x-hidden">
       {/* Fixed Navbar */}
-      <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+      {/* <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} /> */}
 
       <div className="flex pt-20">
         {/* Mobile overlay backdrop */}
