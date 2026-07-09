@@ -114,7 +114,7 @@ export default function MediaUpload({
         });
       }, 100);
 
-      const response = await fetch('http://localhost:4000/api/admin/media/upload', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/media/upload`, {
         method: 'POST',
         body: formData,
       });

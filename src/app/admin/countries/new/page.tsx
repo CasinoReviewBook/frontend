@@ -24,7 +24,7 @@ export default function NewCountryPage() {
   useEffect(() => {
     const fetchRegions = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/admin/regions');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/regions`);
         if (res.ok) {
           const data = await res.json();
           setRegions(data);
@@ -41,7 +41,7 @@ export default function NewCountryPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('http://localhost:4000/api/admin/countries', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/countries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

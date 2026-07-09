@@ -14,12 +14,12 @@ export default function MarketingLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isBanned, setIsBanned] = useState(false);
   const [checking, setChecking] = useState(true);
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     const checkCountry = async () => {
       try {
         const [bannedRes, ipRes] = await Promise.all([
-          fetch('http://localhost:4000/api/banned-countries'),
+          fetch(`${API_URL}/api/banned-countries`),
           fetch('https://ipapi.co/json/'),
         ]);
 
@@ -57,7 +57,7 @@ export default function MarketingLayout({
   return (
     <div className="min-h-screen bg-[#EEF3FE] font-sans overflow-x-hidden">
       {/* Fixed Navbar */}
-      {/* <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} /> */}
+      <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
 
       <div className="flex pt-20">
         {/* Mobile overlay backdrop */}

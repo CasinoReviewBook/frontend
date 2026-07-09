@@ -13,7 +13,7 @@ export default function EditBannedCountryPage({ params }: { params: { id: string
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/banned-countries/${params.id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banned-countries/${params.id}`);
         if (res.ok) {
           const data = await res.json();
           setFormData({ country_code: data.country_code, country_name: data.country_name });
@@ -28,7 +28,7 @@ export default function EditBannedCountryPage({ params }: { params: { id: string
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch(`http://localhost:4000/api/admin/banned-countries/${params.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banned-countries/${params.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

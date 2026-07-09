@@ -17,7 +17,7 @@ export default function AffiliateLinksPage() {
   const fetchLinks = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/affiliate-links');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/affiliate-links`);
       const data = await res.json();
       setLinks(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function AffiliateLinksPage() {
   const handleDelete = async (link: any) => {
     if (confirm(`Are you sure you want to delete "${link.title}"?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/affiliate-links/${link.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/affiliate-links/${link.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

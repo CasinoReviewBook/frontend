@@ -17,7 +17,7 @@ export default function FaqsPage() {
   const fetchFaqs = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/faqs');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/faqs`);
       const data = await res.json();
       setFaqs(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function FaqsPage() {
   const handleDelete = async (faq: any) => {
     if (confirm(`Are you sure you want to delete this FAQ?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/faqs/${faq.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/faqs/${faq.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

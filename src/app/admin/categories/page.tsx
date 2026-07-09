@@ -17,7 +17,7 @@ export default function CategoriesPage() {
   const fetchCategories = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/categories');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/categories`);
       const data = await res.json();
       setCategories(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function CategoriesPage() {
   const handleDelete = async (category: any) => {
     if (confirm(`Are you sure you want to delete this category?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/categories/${category.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/categories/${category.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

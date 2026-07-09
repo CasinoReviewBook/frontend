@@ -36,7 +36,7 @@ export default function NewReviewPage() {
   const fetchCasinos = async () => {
     setCasinosLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/casinos');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos`);
       const data = await res.json();
       setCasinos(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -74,7 +74,7 @@ export default function NewReviewPage() {
         rating: formData.rating || null,
       };
 
-      const res = await fetch('http://localhost:4000/api/admin/reviews', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

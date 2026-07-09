@@ -29,7 +29,7 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
 
   const fetchNews = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/admin/news/${id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/news/${id}`);
       if (!res.ok) {
         console.error('Failed to fetch news:', res.status, res.statusText);
         setIsLoading(false);
@@ -58,7 +58,7 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
     setIsSaving(true);
 
     try {
-      const res = await fetch(`http://localhost:4000/api/admin/news/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/news/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

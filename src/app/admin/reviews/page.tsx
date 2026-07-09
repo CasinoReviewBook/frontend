@@ -18,7 +18,7 @@ export default function ReviewsPage() {
 
   const fetchReviews = async () => {
     try {
-      const res = await fetch('http://localhost:4000/api/admin/reviews');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/reviews`);
       const data = await res.json();
       setReviews(data);
     } catch (err) {
@@ -29,7 +29,7 @@ export default function ReviewsPage() {
 
   const fetchCasinos = async () => {
     try {
-      const res = await fetch('http://localhost:4000/api/admin/casinos');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos`);
       const data = await res.json();
       setCasinos(data);
     } catch (err) {
@@ -44,7 +44,7 @@ export default function ReviewsPage() {
   const handleDelete = async (review: any) => {
     if (confirm(`Are you sure you want to delete "${review.title}"?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/reviews/${review.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/reviews/${review.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

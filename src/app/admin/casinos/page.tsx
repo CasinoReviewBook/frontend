@@ -59,7 +59,7 @@ export default function CasinosPage() {
   const fetchCasinos = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/casinos');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos`);
       const data = await res.json();
       setCasinos(data);
     } catch (err) {
@@ -70,7 +70,7 @@ export default function CasinosPage() {
 
   const handleExport = async () => {
     try {
-      const res = await fetch('http://localhost:4000/api/admin/casinos/export/excel');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos/export/excel`);
       if (res.ok) {
         const blob = await res.blob();
         const url = window.URL.createObjectURL(blob);
@@ -90,7 +90,7 @@ export default function CasinosPage() {
 
   const handleDownloadTemplate = async () => {
     try {
-      const res = await fetch('http://localhost:4000/api/admin/casinos/export/template');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos/export/template`);
       if (res.ok) {
         const blob = await res.blob();
         const url = window.URL.createObjectURL(blob);
@@ -123,7 +123,7 @@ export default function CasinosPage() {
     formData.append('file', file);
 
     try {
-      const res = await fetch('http://localhost:4000/api/admin/casinos/import/excel', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos/import/excel`, {
         method: 'POST',
         body: formData,
       });
@@ -150,7 +150,7 @@ export default function CasinosPage() {
   const handleDelete = async (casino: any) => {
     if (confirm(`Are you sure you want to delete ${casino.name}?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/casinos/${casino.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos/${casino.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {
@@ -178,7 +178,7 @@ export default function CasinosPage() {
         }));
         
         // Send to backend
-        fetch('http://localhost:4000/api/admin/casinos/ranking/bulk', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos/ranking/bulk`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ rankings })
@@ -191,7 +191,7 @@ export default function CasinosPage() {
 
   const handlePositionChange = async (casinoId: string, position: 'top' | 'bottom') => {
     try {
-      const res = await fetch(`http://localhost:4000/api/admin/casinos/${casinoId}/position`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos/${casinoId}/position`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ position })

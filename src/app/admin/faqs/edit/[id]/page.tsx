@@ -29,7 +29,7 @@ export default function EditFaqPage({ params }: { params: Promise<{ id: string }
 
   const fetchFaq = async (faqId: string) => {
     try {
-      const res = await fetch(`http://localhost:4000/api/admin/faqs/${faqId}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/faqs/${faqId}`);
       const data = await res.json();
       setFormData(data);
     } catch (err) {
@@ -43,7 +43,7 @@ export default function EditFaqPage({ params }: { params: Promise<{ id: string }
     setIsSaving(true);
 
     try {
-      const res = await fetch(`http://localhost:4000/api/admin/faqs/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/faqs/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

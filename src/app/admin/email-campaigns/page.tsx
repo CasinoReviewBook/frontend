@@ -23,7 +23,7 @@ export default function EmailCampaignsPage() {
   const fetchCampaigns = async () => {
     setIsFetching(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/email-campaigns');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/email-campaigns`);
       const data = await res.json();
       setCampaigns(data);
     } catch (err) {
@@ -39,7 +39,7 @@ export default function EmailCampaignsPage() {
   const handleDelete = async (campaign: any) => {
     if (confirm(`Are you sure you want to delete "${campaign.subject}"?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/email-campaigns/${campaign.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/email-campaigns/${campaign.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {
@@ -95,7 +95,7 @@ export default function EmailCampaignsPage() {
     setMessage(null);
 
     try {
-      const res = await fetch('http://localhost:4000/api/admin/email-campaigns/send', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/email-campaigns/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subject, body, target }),

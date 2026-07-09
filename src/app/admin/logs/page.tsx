@@ -15,7 +15,7 @@ export default function LogsPage() {
   const fetchLogs = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/logs');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/logs`);
       const data = await res.json();
       setLogs(data);
     } catch (err) {
@@ -27,7 +27,7 @@ export default function LogsPage() {
   const handleDelete = async (log: any) => {
     if (confirm('Are you sure you want to delete this log entry?')) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/logs/${log.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/logs/${log.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

@@ -15,7 +15,7 @@ export default function BannedCountriesPage() {
   const fetchBannedCountries = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/banned-countries');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banned-countries`);
       const data = await res.json();
       setCountries(data);
     } catch (err) {
@@ -31,7 +31,7 @@ export default function BannedCountriesPage() {
   const handleDelete = async (country: any) => {
     if (confirm(`Remove ${country.country_name} from banned list?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/banned-countries/${country.id}`, { method: 'DELETE' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banned-countries/${country.id}`, { method: 'DELETE' });
         if (res.ok) fetchBannedCountries();
       } catch (err) { console.error(err); }
     }

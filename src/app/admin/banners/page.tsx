@@ -17,7 +17,7 @@ export default function BannersPage() {
   const fetchBanners = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/banners');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banners`);
       const data = await res.json();
       setBanners(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function BannersPage() {
   const handleDelete = async (banner: any) => {
     if (confirm(`Are you sure you want to delete "${banner.title}"?`)) {
       try {
-        const res = await fetch(`http://localhost:4000/api/admin/banners/${banner.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banners/${banner.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

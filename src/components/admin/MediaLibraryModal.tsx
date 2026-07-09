@@ -53,7 +53,7 @@ export default function MediaLibraryModal({
       if (typeFilter !== 'all') params.append('type', typeFilter);
       params.append('sort', sortBy);
 
-      const response = await fetch(`http://localhost:4000/api/admin/media?${params.toString()}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/media?${params.toString()}`);
       if (response.ok) {
         const data = await response.json();
         setMedia(data);
@@ -80,7 +80,7 @@ export default function MediaLibraryModal({
     if (!confirm('Are you sure you want to delete this file?')) return;
 
     try {
-      const response = await fetch(`http://localhost:4000/api/admin/media/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/media/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
