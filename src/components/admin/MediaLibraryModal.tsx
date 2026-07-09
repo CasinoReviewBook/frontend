@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Search, Grid, List, Copy, Trash2, Calendar, FileText, Image as ImageIcon, Video, ArrowUpDown } from 'lucide-react';
 import { Modal } from './Modal';
+import { getMediaUrl } from '../../config/api.config';
 
 interface MediaLibraryModalProps {
   isOpen: boolean;
@@ -66,12 +67,12 @@ export default function MediaLibraryModal({
   };
 
   const handleSelect = (item: MediaItem) => {
-    const url = `http://localhost:4000${item.file_url}`;
+    const url = getMediaUrl(item.file_url);
     onSelect(url);
   };
 
   const handleCopyUrl = async (item: MediaItem) => {
-    const url = `http://localhost:4000${item.file_url}`;
+    const url = getMediaUrl(item.file_url);
     await navigator.clipboard.writeText(url);
     alert('URL copied to clipboard');
   };
@@ -183,7 +184,7 @@ export default function MediaLibraryModal({
                   <div className="aspect-square bg-gray-100">
                     {item.file_type === 'video' ? (
                       <video
-                        src={`http://localhost:4000${item.file_url}`}
+                        src={getMediaUrl(item.file_url)}
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           console.error('Video load error:', e);
@@ -192,7 +193,7 @@ export default function MediaLibraryModal({
                       />
                     ) : (
                       <img
-                        src={`http://localhost:4000${item.file_url}`}
+                        src={getMediaUrl(item.file_url)}
                         alt={item.original_name}
                         className="w-full h-full object-cover"
                         onError={(e) => {
@@ -259,7 +260,7 @@ export default function MediaLibraryModal({
                             <Video className="w-full h-full p-2 text-gray-400" />
                           ) : (
                             <img
-                              src={`http://localhost:4000${item.file_url}`}
+                              src={getMediaUrl(item.file_url)}
                               alt={item.original_name}
                               className="w-full h-full object-cover"
                               onError={(e) => {

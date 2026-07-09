@@ -1,8 +1,18 @@
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+
 export const API_CONFIG = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api',
+  baseURL: rawApiUrl,
+  mediaBaseURL: rawApiUrl.replace(/\/api\/?$/, ''),
   frontendURL: process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000',
   isDevelopment: process.env.NODE_ENV !== 'production',
   timeout: 10000,
+};
+
+export const getMediaUrl = (path?: string) => {
+  if (!path) return '';
+  if (/^https?:\/\//i.test(path)) return path;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${API_CONFIG.mediaBaseURL}${normalizedPath}`;
 };
 
 export const API_ENDPOINTS = {

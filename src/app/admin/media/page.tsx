@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../../../components/admin/FormElements';
 import { Plus, Trash2, Image as ImageIcon, FileText, Film } from 'lucide-react';
+import { getMediaUrl } from '../../../config/api.config';
 
 export default function MediaPage() {
   const [media, setMedia] = useState([]);
@@ -84,8 +85,7 @@ export default function MediaPage() {
               <div className="aspect-square bg-slate-50 flex items-center justify-center">
                 {item.file_type?.includes('image') && item.file_url ? (
                   <img 
-                    src={`http://localhost:4000${item.file_url}`}
-                   
+                    src={getMediaUrl(item.file_url)}
                     alt={item.file_name} 
                     className="w-full h-full object-cover"
                   />

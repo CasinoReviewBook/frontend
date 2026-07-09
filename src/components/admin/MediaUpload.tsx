@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Upload, X, Image as ImageIcon, Video, Loader2 } from 'lucide-react';
 import MediaLibraryModal from './MediaLibraryModal';
+import { getMediaUrl } from '../../config/api.config';
 
 interface MediaUploadProps {
   value?: string;
@@ -128,7 +129,7 @@ export default function MediaUpload({
       }
 
       const data = await response.json();
-      const fileUrl = `http://localhost:4000${data.file_url}`;
+      const fileUrl = getMediaUrl(data.file_url);
       setPreview(fileUrl);
       onChange(fileUrl);
     } catch (error) {
