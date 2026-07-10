@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
-
+import Link from "next/link";
 export default function PopularCasinoSection() {
   const { casinos, loading } = useCasinos();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -262,20 +262,26 @@ function CasinoCard({
               Visit Casino ↗
             </button>
 
-            <button
-              className="w-[80px] h-[28px] rounded-[12px] text-[11px] font-semibold"
-              style={{
-                background:
-                  'linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)',
-              }}
-              onClick={() => {
-                if (casino.slug) {
-                  window.location.href = `/casino/${casino.slug}`;
-                }
-              }}
-            >
-              Reviews
-            </button>
+           <Link
+  href={`/casino/${casino.slug}`}
+  className="
+    inline-flex
+    w-[80px]
+    h-[28px]
+    items-center
+    justify-center
+    rounded-[12px]
+    text-[11px]
+    font-semibold
+    text-[#ffff]
+    bg-[linear-gradient(180deg,#FFE11F_0%,#FF8533_100%)]
+    transition-all
+    hover:brightness-105
+    active:scale-95
+  "
+>
+  Reviews
+</Link>
           </div>
         </div>
       </div>

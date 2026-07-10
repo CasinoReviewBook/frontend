@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
-
+import Link from "next/link";
 export default function NewCasinoSection() {
   const { casinos, loading } = useCasinos();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -41,49 +41,49 @@ export default function NewCasinoSection() {
   return (
     <section className="w-full py-8">
       {/* Header */}
-     
-      <div className="mb-6">
-              {/* First Row */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 ">
-          <Star
-            size={22}
-            fill="#B8C5FF"
-            color="#B8C5FF"
-          />
 
-          <h2 className="text-[24px] sm:text-[36px] font-semibold text-[#111827]">
-            New Casinos
-          </h2>
+      <div className="mb-6">
+        {/* First Row */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3 ">
+            <Star
+              size={22}
+              fill="#B8C5FF"
+              color="#B8C5FF"
+            />
+
+            <h2 className="text-[24px] sm:text-[36px] font-semibold text-[#111827]">
+              New Casinos
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
+              See all
+              <span className="ml-2 text-[#98A2B3]">{casinos.length}</span>
+            </button>
+            <button
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+              onClick={scrollLeft}
+            >
+              <ChevronLeft size={18} className="text-[#16171D]" />
+            </button>
+
+            <button
+              className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
+              onClick={scrollRight}
+            >
+              <ChevronRight size={18} className="text-[#16171D]" />
+            </button>
+          </div>
         </div>
-      
-                <div className="flex items-center gap-3">
-                  <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
-                    See all
-                    <span className="ml-2 text-[#98A2B3]">{casinos.length}</span>
-                  </button>
-                  <button
-                    className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
-                    onClick={scrollLeft}
-                  >
-                    <ChevronLeft size={18} className="text-[#16171D]" />
-                  </button>
-      
-                  <button
-                    className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
-                    onClick={scrollRight}
-                  >
-                    <ChevronRight size={18} className="text-[#16171D]" />
-                  </button>
-                </div>
-              </div>
-      
-              {/* Second Row */}
-              <p className="text-[15px] text-[#5F6368] mt-2">
-                New Rally
-                <span className="text-[#2E68FB]"> every 20 minutes</span> – spin and win!
-              </p>
-            </div>
+
+        {/* Second Row */}
+        <p className="text-[15px] text-[#5F6368] mt-2">
+          New Rally
+          <span className="text-[#2E68FB]"> every 20 minutes</span> – spin and win!
+        </p>
+      </div>
 
       {/* Cards */}
       <div
@@ -94,9 +94,9 @@ export default function NewCasinoSection() {
           msOverflowStyle: 'none',
         }}
       >
-       {displayCasinos.map((casino) => (
-  <CasinoCard key={casino.id} casino={casino} />
-))}
+        {displayCasinos.map((casino) => (
+          <CasinoCard key={casino.id} casino={casino} />
+        ))}
       </div>
     </section>
   );
@@ -134,17 +134,17 @@ function CasinoCard({ casino }: { casino: any }) {
           <h3 className="text-[22px] font-bold text-[#151515] leading-tight">
             {casino.name || 'BC Game Casino'}
           </h3>
-         <p
-  className="text-[11px] text-[#666] mt-0.5"
-  style={{
-    display: '-webkit-box',
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
-    overflow: 'hidden',
-  }}
->
-  {casino.short_description || 'Premium Casino Experience'}
-</p>
+          <p
+            className="text-[11px] text-[#666] mt-0.5"
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
+            {casino.short_description || 'Premium Casino Experience'}
+          </p>
         </div>
       </div>
 
@@ -243,22 +243,18 @@ function CasinoCard({ casino }: { casino: any }) {
           Visit Casino ↗
         </button>
 
-        <button
+        <Link
+          href={`/casino/${casino.slug}`}
           style={{
-            width: '90px',
-            height: '36px',
-            borderRadius: '12px',
-            background: 'linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)',
+            width: "90px",
+            height: "36px",
+            borderRadius: "12px",
+            background: "linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)",
           }}
-          className="text-[#1F1F1F] text-[12px] font-bold transition-all hover:brightness-105 active:scale-95"
-          onClick={() => {
-            if (casino.slug) {
-              window.location.href = `/casino/${casino.slug}`;
-            }
-          }}
+          className="inline-flex items-center justify-center text-[#1F1F1F] text-[12px] font-bold transition-all hover:brightness-105 active:scale-95"
         >
           Reviews
-        </button>
+        </Link>
       </div>
     </div>
   );

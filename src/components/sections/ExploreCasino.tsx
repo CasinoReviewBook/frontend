@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
-
+import Link from "next/link";
 export default function ExploreCasinoSection() {
   const { casinos, loading } = useCasinos();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -39,21 +39,21 @@ export default function ExploreCasinoSection() {
   return (
     <section className="w-full py-8">
       {/* Header */}
-   
-<div className="mb-6">
+
+      <div className="mb-6">
         {/* First Row */}
         <div className="flex items-center justify-between">
-           <div className="flex items-center gap-3">
-          <Star
-            size={22}
-            fill="#B8C5FF"
-            color="#B8C5FF"
-          />
+          <div className="flex items-center gap-3">
+            <Star
+              size={22}
+              fill="#B8C5FF"
+              color="#B8C5FF"
+            />
 
-          <h2 className="text-[24px] sm:text-[36px] font-semibold text-[#111827]">
-            Explore Casinos
-          </h2>
-        </div>
+            <h2 className="text-[24px] sm:text-[36px] font-semibold text-[#111827]">
+              Explore Casinos
+            </h2>
+          </div>
 
           <div className="flex items-center gap-3">
             <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
@@ -110,42 +110,42 @@ function CasinoCard({
   const imageUrl = getImageUrl(casino.logo || casino.featured_image);
 
   return (
-  <div
-  className="relative bg-white rounded-[12px] p-[10px] shrink-0"
-  style={{
-    width: '268px',
-    height: '346px',
-  }}
->
-  <div className="absolute -top-2 right-2 z-[9] text-[34px]">
-    🏅
-  </div>
-
-  {/* Gradient wrapper */}
-  <div
-    className="p-[2px] rounded-[12px] h-full"
-    style={{
-      background:
-        'linear-gradient(158.37deg, #FF9C2C 2.3%, #FFF1CC 15.9%, #B45B1B 24.24%, #FFC170 62.4%, #FEE5B3 75.76%, #9F5E26 90.07%)',
-    }}
-  >
-        {/* Actual Card */}
-         <div
-      className="relative rounded-[10px] p-[12px] h-full overflow-hidden"
+    <div
+      className="relative bg-white rounded-[12px] p-[10px] shrink-0"
       style={{
-        background:
-          'linear-gradient(231.79deg, #D5EDFF 32.55%, #EEECFF 43.54%, #F9F3FF 53.23%, #F5FCFF 66.16%, #E9F5FF 79.08%)',
+        width: '268px',
+        height: '346px',
       }}
     >
+      <div className="absolute -top-2 right-2 z-[9] text-[34px]">
+        🏅
+      </div>
+
+      {/* Gradient wrapper */}
+      <div
+        className="p-[2px] rounded-[12px] h-full"
+        style={{
+          background:
+            'linear-gradient(158.37deg, #FF9C2C 2.3%, #FFF1CC 15.9%, #B45B1B 24.24%, #FFC170 62.4%, #FEE5B3 75.76%, #9F5E26 90.07%)',
+        }}
+      >
+        {/* Actual Card */}
+        <div
+          className="relative rounded-[10px] p-[12px] h-full overflow-hidden"
+          style={{
+            background:
+              'linear-gradient(231.79deg, #D5EDFF 32.55%, #EEECFF 43.54%, #F9F3FF 53.23%, #F5FCFF 66.16%, #E9F5FF 79.08%)',
+          }}
+        >
           {/* Rank */}
           <div className="absolute top-0 left-0 z-20 bg-[#FF9C2C] text-white text-[18px] font-bold px-3 py-1 rounded-br-xl rounded-tl-[10px]">
             #{index + 1}
           </div>
 
-          
+
 
           {/* Medal */}
-   
+
           {/* Image */}
           <div
             className="relative overflow-hidden rounded-[12px]"
@@ -193,9 +193,9 @@ function CasinoCard({
               </div>
             </div>
 
-           
+
             <p className="text-[11px] text-[#666] line-clamp-2">
-              {welcomeBonus ? welcomeBonus.title :casino.short_description || 'Premium Casino Experience'}
+              {welcomeBonus ? welcomeBonus.title : casino.short_description || 'Premium Casino Experience'}
             </p>
             <div className="mt-1 space-y-0 text-[11px]">
               {welcomeBonus && (
@@ -260,20 +260,26 @@ function CasinoCard({
               Visit Casino ↗
             </button>
 
-            <button
-              className="w-[80px] h-[28px] rounded-[12px] text-[11px] font-semibold"
-              style={{
-                background:
-                  'linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)',
-              }}
-              onClick={() => {
-                if (casino.slug) {
-                  window.location.href = `/casino/${casino.slug}`;
-                }
-              }}
+            <Link
+              href={`/casino/${casino.slug}`}
+              className="
+    inline-flex
+    w-[80px]
+    h-[28px]
+    items-center
+    justify-center
+    rounded-[12px]
+    text-[11px]
+    font-semibold
+    text-[#ffff]
+    bg-[linear-gradient(180deg,#FFE11F_0%,#FF8533_100%)]
+    transition-all
+    hover:brightness-105
+    active:scale-95
+  "
             >
               Reviews
-            </button>
+            </Link>
           </div>
         </div>
       </div>

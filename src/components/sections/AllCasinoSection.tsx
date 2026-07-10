@@ -7,10 +7,11 @@ import { Star, Check, ChevronLeft, ChevronRight, Zap, ShieldCheck, Award, Smartp
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
 
+
 export default function AllCasinoSection() {
     const { casinos, loading } = useCasinos();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5; 
+    const itemsPerPage = 5;
 
     const totalPages = Math.ceil(casinos.length / itemsPerPage);
     const displayCasinos = casinos.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -68,8 +69,8 @@ export default function AllCasinoSection() {
                             <button
                                 key={page}
                                 className={`w-8 h-8 rounded-lg text-sm font-semibold transition-all ${currentPage === page
-                                        ? 'bg-[#4F46E5] text-white shadow-sm'
-                                        : 'text-slate-600 border border-transparent hover:border-slate-200 hover:bg-slate-50'
+                                    ? 'bg-[#4F46E5] text-white shadow-sm'
+                                    : 'text-slate-600 border border-transparent hover:border-slate-200 hover:bg-slate-50'
                                     }`}
                                 onClick={() => setCurrentPage(page)}
                             >
@@ -225,7 +226,7 @@ function CasinoCard({ casino, index }: { casino: any; index: number }) {
                     </div>
 
                     {/* Mobile Trigger */}
-                    <button 
+                    <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="flex lg:hidden items-center justify-center gap-1 mt-3 py-2 px-4 rounded-xl border border-slate-200 bg-white/40 text-slate-600 text-xs font-bold hover:bg-white/80 transition-colors w-full"
                     >
@@ -239,37 +240,37 @@ function CasinoCard({ casino, index }: { casino: any; index: number }) {
 
                 {/* 3. Action Block Area (CTA) */}
                 {/* Added w-full and items-stretch to make buttons occupy the entire grid column width */}
-              {/* 3. Action Block Area (CTA) */}
-<div className="w-full flex flex-col items-center lg:items-stretch justify-center bg-white/40 lg:bg-transparent border-t lg:border-t-0 lg:border-l border-slate-200/60 p-5 lg:p-0 lg:pl-6 shrink-0 rounded-b-xl lg:rounded-none">
-    <div className="text-center mb-5 lg:mb-6 w-full">
-        <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-1.5">Exclusive Offer</p>
-        <h3 className="text-lg lg:text-xl font-black text-slate-900 leading-snug px-1">
-            {welcomeBonus ? welcomeBonus.title : casino.short_description || '100% Welcome Bonus'}
-        </h3>
-    </div>
+                {/* 3. Action Block Area (CTA) */}
+                <div className="w-full flex flex-col items-center lg:items-stretch justify-center bg-white/40 lg:bg-transparent border-t lg:border-t-0 lg:border-l border-slate-200/60 p-5 lg:p-0 lg:pl-6 shrink-0 rounded-b-xl lg:rounded-none">
+                    <div className="text-center mb-5 lg:mb-6 w-full">
+                        <p className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-1.5">Exclusive Offer</p>
+                        <h3 className="text-lg lg:text-xl font-black text-slate-900 leading-snug px-1">
+                            {welcomeBonus ? welcomeBonus.title : casino.short_description || '100% Welcome Bonus'}
+                        </h3>
+                    </div>
 
-    {/* Buttons with rich internal vertical padding (py) instead of strict heights */}
-    <div className="w-full flex flex-col gap-3 max-w-sm lg:max-w-none px-2 lg:px-0">
-        <button
-            className="w-full py-3.5 lg:py-4 px-6 rounded-xl font-bold text-sm lg:text-base text-white bg-gradient-to-b from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 active:scale-[0.98] transition-all shadow-md shadow-indigo-100 flex items-center justify-center gap-2"
-            onClick={() => {
-                if (casino.website_url) {
-                    window.open(casino.website_url, '_blank', 'noopener,noreferrer');
-                }
-            }}
-        >
-            <span>Claim Bonus</span>
-            <span className="text-xs lg:text-sm">↗</span>
-        </button>
+                    {/* Buttons with rich internal vertical padding (py) instead of strict heights */}
+                    <div className="w-full flex flex-col gap-3 max-w-sm lg:max-w-none px-2 lg:px-0">
+                        <button
+                            className="w-full py-3.5 lg:py-4 px-6 rounded-xl font-bold text-sm lg:text-base text-white bg-gradient-to-b from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 active:scale-[0.98] transition-all shadow-md shadow-indigo-100 flex items-center justify-center gap-2"
+                            onClick={() => {
+                                if (casino.website_url) {
+                                    window.open(casino.website_url, '_blank', 'noopener,noreferrer');
+                                }
+                            }}
+                        >
+                            <span>Claim Bonus</span>
+                            <span className="text-xs lg:text-sm">↗</span>
+                        </button>
 
-        <Link
-            href={`/casino/${casino.slug || '#'}`}
-            className="w-full py-3.5 lg:py-4 px-6 rounded-xl font-bold text-sm lg:text-base text-slate-700 bg-white hover:bg-slate-50 active:scale-[0.98] transition-all flex items-center justify-center border border-slate-200 shadow-sm"
-        >
-            Read Review
-        </Link>
-    </div>
-</div>
+                        <Link
+                            href={`/casino/${casino.slug}`}
+                            className="w-full py-3.5 lg:py-4 px-6 rounded-xl font-bold text-sm lg:text-base text-slate-700 bg-white hover:bg-slate-50 active:scale-[0.98] transition-all flex items-center justify-center border border-slate-200 shadow-sm"
+                        >
+                            Read Review
+                        </Link>
+                    </div>
+                </div>
 
             </div>
         </div>
