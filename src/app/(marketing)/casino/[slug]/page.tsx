@@ -54,16 +54,39 @@ export default async function CasinoPage({
     if (!casino) {
         notFound();
     }
-
+interface Game {
+  icon: string;
+  title: string;
+  count: string;
+  color: string;
+  arrow: string;
+}
     // Fallback bonus text if none exists in the array
     const mainBonusTitle = casino.bonuses?.[0]?.title || "100% up to $1,500 + 150 Free Spins";
-    const games = casino.game_types && casino.game_types.length > 0 ? casino.game_types.map((gt: any, i: number) => ({
+   const games: Game[] =
+  casino.game_types && casino.game_types.length > 0
+    ? casino.game_types.map((gt: any, i: number): Game => ({
         icon: ["🎰", "🎥", "🏴‍☠️", "🎡", "♠️", "💎"][i % 6],
         title: gt.game_type?.name || "Game",
         count: "Available",
-        color: ["border-[#F59E0B] bg-[#FFF8F0]", "border-[#FF5A5A] bg-[#FFF5F5]", "border-[#22C55E] bg-[#F2FFF7]", "border-[#D946EF] bg-[#FFF3FF]", "border-[#EC4899] bg-[#FFF0F7]", "border-[#EAB308] bg-[#FFFFF2]"][i % 6],
-        arrow: ["text-[#F59E0B]", "text-[#FF5A5A]", "text-[#22C55E]", "text-[#D946EF]", "text-[#EC4899]", "text-[#EAB308]"][i % 6],
-    })) : [
+        color: [
+          "border-[#F59E0B] bg-[#FFF8F0]",
+          "border-[#FF5A5A] bg-[#FFF5F5]",
+          "border-[#22C55E] bg-[#F2FFF7]",
+          "border-[#D946EF] bg-[#FFF3FF]",
+          "border-[#EC4899] bg-[#FFF0F7]",
+          "border-[#EAB308] bg-[#FFFFF2]",
+        ][i % 6],
+        arrow: [
+          "text-[#F59E0B]",
+          "text-[#FF5A5A]",
+          "text-[#22C55E]",
+          "text-[#D946EF]",
+          "text-[#EC4899]",
+          "text-[#EAB308]",
+        ][i % 6],
+      }))
+    : [
         {
             icon: "🎰",
             title: "Slots",
@@ -156,14 +179,19 @@ export default async function CasinoPage({
         },
     ];
 
-    const trustBadges = casino.badges && casino.badges.length > 0 ? casino.badges.map((b: any) => b.badge?.name) : [
+    const trustBadges: string[] =
+  casino.badges && casino.badges.length > 0
+    ? casino.badges
+        .map((b: any) => b.badge?.name)
+        .filter(Boolean)
+    : [
         "eCOGRA",
         "iTech Labs",
         "GambleAware",
         "GamCare",
         "RNG Certified",
         "Fair Gaming",
-    ];
+      ];
 
     const faqs = casino.faqs && casino.faqs.length > 0 ? casino.faqs : [
         {
