@@ -28,8 +28,8 @@ export default function EditCountryPage({ params }: { params: Promise<{ id: stri
       try {
         // Fetch regions and country data in parallel
         const [regionsRes, countryRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/regions`),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/countries/${resolvedParams.id}`)
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/regions`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/countries/${resolvedParams.id}`)
         ]);
 
         if (regionsRes.ok) {
@@ -59,7 +59,7 @@ export default function EditCountryPage({ params }: { params: Promise<{ id: stri
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/countries/${resolvedParams.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/countries/${resolvedParams.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -17,7 +17,7 @@ export default function NewsPage() {
   const fetchNews = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/news`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/news`);
       const data = await res.json();
       setNews(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function NewsPage() {
   const handleDelete = async (item: any) => {
     if (confirm(`Are you sure you want to delete "${item.title}"?`)) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/news/${item.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/news/${item.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

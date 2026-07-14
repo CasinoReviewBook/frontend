@@ -1,8 +1,7 @@
-import { API_CONFIG } from '@/config/api.config';
+import { getMediaUrl } from '@/config/api.config';
 
 export const getImageUrl = (url?: string | null): string => {
   if (!url) return '/images/888.png';
-  if (url.startsWith('http')) return url;
-  const baseUrl = API_CONFIG.baseURL.replace(/\/api\/?$/, '');
-  return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+  // getMediaUrl handles rewriting localhost-stored URLs to the production origin
+  return getMediaUrl(url) || '/images/888.png';
 };

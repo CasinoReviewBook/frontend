@@ -31,7 +31,7 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
   const fetchUserDetails = async () => {
     setIsFetching(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/users/${id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users/${id}`);
       if (!res.ok) {
         console.error('Failed to fetch user:', res.status, res.statusText);
         setIsFetching(false);
@@ -59,7 +59,7 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/users/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

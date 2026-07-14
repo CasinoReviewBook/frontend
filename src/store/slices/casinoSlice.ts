@@ -40,11 +40,15 @@ interface Casino {
   created_at: string | null;
   updated_at: string | null;
   bonuses: CasinoBonus[];
+  tags?: any[];
+  categories?: any[];
+  available_countries?: any[];
 }
 
 interface CasinoState {
   casinos: Casino[];
   featuredCasinos: Casino[];
+  filteredCasinos: Casino[];
   currentCasino: Casino | null;
   loading: boolean;
   error: string | null;
@@ -54,6 +58,7 @@ interface CasinoState {
 const initialState: CasinoState = {
   casinos: [],
   featuredCasinos: [],
+  filteredCasinos: [],
   currentCasino: null,
   loading: false,
   error: null,
@@ -112,6 +117,24 @@ const casinoSlice = createSlice({
     setCurrentCasino: (state, action: PayloadAction<Casino | null>) => {
       state.currentCasino = action.payload;
     },
+    filterCasinosByTags: (state, action: PayloadAction<string[]>) => {
+      const selectedTagIds = action.payload;
+      
+      if (selectedTagIds.length === 0) {
+        state.filteredCasinos = state.casinos;
+      } else {
+        state.filteredCasinos = state.casinos.filter((casino) => {
+          const casinoTagIds = casino.tags?.map((tag: any) => {
+            if (tag.tag && tag.tag.id) {
+              return tag.tag.id;
+            }
+            return tag.tag_id;
+          }) || [];
+          
+          return selectedTagIds.some((tagId) => casinoTagIds.includes(tagId));
+        });
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -123,6 +146,7 @@ const casinoSlice = createSlice({
       .addCase(fetchCasinos.fulfilled, (state, action) => {
         state.loading = false;
         state.casinos = action.payload;
+        state.filteredCasinos = action.payload;
         state.lastFetched = Date.now();
       })
       .addCase(fetchCasinos.rejected, (state, action) => {
@@ -158,5 +182,5 @@ const casinoSlice = createSlice({
   },
 });
 
-export const { clearError, setCurrentCasino } = casinoSlice.actions;
+export const { clearError, setCurrentCasino, filterCasinosByTags } = casinoSlice.actions;
 export default casinoSlice.reducer;

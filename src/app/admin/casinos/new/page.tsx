@@ -45,10 +45,10 @@ export default function NewCasinoPage() {
     const fetchData = async () => {
       try {
         const [catRes, tagRes, countryRes, gameTypeRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/categories`),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/tags`),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/countries`),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/game-types`)
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/categories`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/tags`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/countries`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/game-types`)
         ]);
         if (catRes.ok) setAllCategories(await catRes.json());
         if (tagRes.ok) setAllTags(await tagRes.json());
@@ -194,7 +194,7 @@ export default function NewCasinoPage() {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/casinos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

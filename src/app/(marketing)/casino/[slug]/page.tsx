@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { CircleFlag } from "react-circle-flags";
+import SimilarCasinosSection from "@/components/sections/SimilarCasinosSection";
 
 import {
     ShieldCheck,
@@ -32,19 +33,14 @@ interface Casino {
     }[];
 }
 
-async function getCasino(slug: string): Promise<Casino | null> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/casinos`, {
+async function getCasino(slug: string): Promise<any | null> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/casinos/slug/${slug}`, {
         cache: "no-store",
     });
 
     if (!res.ok) return null;
 
-    const casinos: Casino[] = await res.json();
-
-    return (
-        casinos.find((casino) => casino.slug.toLowerCase() === slug.toLowerCase()) ||
-        null
-    );
+    return await res.json();
 }
 
 export default async function CasinoPage({
@@ -61,7 +57,13 @@ export default async function CasinoPage({
 
     // Fallback bonus text if none exists in the array
     const mainBonusTitle = casino.bonuses?.[0]?.title || "100% up to $1,500 + 150 Free Spins";
-    const games = [
+    const games = casino.game_types && casino.game_types.length > 0 ? casino.game_types.map((gt: any, i: number) => ({
+        icon: ["🎰", "🎥", "🏴‍☠️", "🎡", "♠️", "💎"][i % 6],
+        title: gt.game_type?.name || "Game",
+        count: "Available",
+        color: ["border-[#F59E0B] bg-[#FFF8F0]", "border-[#FF5A5A] bg-[#FFF5F5]", "border-[#22C55E] bg-[#F2FFF7]", "border-[#D946EF] bg-[#FFF3FF]", "border-[#EC4899] bg-[#FFF0F7]", "border-[#EAB308] bg-[#FFFFF2]"][i % 6],
+        arrow: ["text-[#F59E0B]", "text-[#FF5A5A]", "text-[#22C55E]", "text-[#D946EF]", "text-[#EC4899]", "text-[#EAB308]"][i % 6],
+    })) : [
         {
             icon: "🎰",
             title: "Slots",
@@ -105,7 +107,12 @@ export default async function CasinoPage({
             arrow: "text-[#EAB308]",
         },
     ];
-    const countries = [
+    const mappedCountries: any[] = [];
+    if (casino.available_countries?.length > 0 || casino.restricted_countries?.length > 0) {
+        casino.available_countries?.forEach((c: any) => mappedCountries.push({ code: c.country?.code || "us", name: c.country?.name || "Country", available: true }));
+        casino.restricted_countries?.forEach((c: any) => mappedCountries.push({ code: c.country?.code || "us", name: c.country?.name || "Country", available: false }));
+    }
+    const countries = mappedCountries.length > 0 ? mappedCountries : [
         { code: "gb", name: "United Kingdom", available: true },
         { code: "ca", name: "Canada", available: true },
         { code: "de", name: "Germany", available: true },
@@ -149,13 +156,32 @@ export default async function CasinoPage({
         },
     ];
 
-    const trustBadges = [
+    const trustBadges = casino.badges && casino.badges.length > 0 ? casino.badges.map((b: any) => b.badge?.name) : [
         "eCOGRA",
         "iTech Labs",
         "GambleAware",
         "GamCare",
         "RNG Certified",
         "Fair Gaming",
+    ];
+
+    const faqs = casino.faqs && casino.faqs.length > 0 ? casino.faqs : [
+        {
+            question: "What should I look for in a casino review?",
+            answer: "Our reviews give you a nice overview of what you can expect at an online casino. We recommend looking at the games selection, banking methods and bonuses to help you decide which casino fits you best."
+        },
+        {
+            question: "What information do your casino reviews include?",
+            answer: "We review licensing, bonuses, banking, security, games, and support."
+        },
+        {
+            question: "How do I choose the best online casino?",
+            answer: "Compare licensing, games, bonuses, payment methods, and withdrawal times."
+        },
+        {
+            question: "What banking methods should I look for?",
+            answer: "Visa, Mastercard, Skrill, Neteller, PayPal, bank transfers, and crypto."
+        }
     ];
 
     return (
@@ -273,7 +299,7 @@ export default async function CasinoPage({
                     About {casino.name}
                 </h2>
                 <p className="font-poppins text-[14px] font-normal leading-[23px] tracking-normal text-[#475467]">
-                    {casino.short_description}
+                    {casino.overview}
                 </p>
             </div>
 
@@ -673,30 +699,14 @@ export default async function CasinoPage({
                     <div className="space-y-2">
 
                         <p className="text-[16px] leading-9 font-medium text-[#16171D]">
-                            Red Casino is one of the most impressive online casinos we've reviewed
-                            this year. It combines a polished, modern interface with a genuinely
-                            player-first approach to bonuses and withdrawals.
+                           {casino.editor_view}
                         </p>
 
-                        <p className="text-[16px] leading-9 text-[#16171D]">
-                            During our three-week test with real money, we found 3,800+ games from
-                            top-tier providers, sub-2-hour withdrawals to our Skrill account, and a
-                            responsive live chat team that answered our queries in under 30 seconds.
-                        </p>
+                      
 
-                        <p className="text-[16px] leading-9 text-[#16171D]">
-                            The welcome bonus of{" "}
-                            <span className="font-semibold text-[#F59E0B]">
-                                150% up to $1,000 + 150 Free Spins
-                            </span>{" "}
-                            is competitive, with wagering at a fair 35x and no sneaky max-win caps
-                            that plague lesser casinos.
-                        </p>
+                       
 
-                        <p className="text-[16px] leading-9 text-[#16171D]">
-                            For players seeking a premium, trustworthy casino with genuine speed and
-                            quality, Red Casino earns our strongest recommendation.
-                        </p>
+                      
 
                     </div>
 
@@ -745,7 +755,7 @@ export default async function CasinoPage({
     hover:opacity-95
   "
                         >
-                            Visit Red Casino
+                            Visit {casino.name}
                             <span className="text-[16px]">↗</span>
                         </a>
 
@@ -772,70 +782,23 @@ export default async function CasinoPage({
                 <div className="mt-6 overflow-hidden rounded-[16px] bg-white border border-[#EEF2FF]">
                     <div className="h-1 bg-[#2E68FB]" />
 
-                    <details open className="group border-b border-[#EEF2FF]">
-                        <summary className="flex cursor-pointer list-none items-center test-[18px] justify-between px-6 py-6 font-semibold text-[#2E68FB]">
-                            What should I look for in a casino review?
-                            <ChevronRight className="h-5 w-5 transition group-open:rotate-90" />
-                        </summary>
+                    {faqs.map((faq: any, index: number) => (
+                        <details key={index} open={index === 0} className={`group ${index !== faqs.length - 1 ? "border-b border-[#EEF2FF]" : ""}`}>
+                            <summary className="flex cursor-pointer list-none items-center test-[18px] justify-between px-6 py-6 font-semibold text-[#2E68FB] group-open:text-[#2E68FB] text-[#16171D]">
+                                {faq.question}
+                                <ChevronRight className="h-5 w-5 transition group-open:rotate-90" />
+                            </summary>
 
-                        <p className="px-6 pb-6 text-[14px] text-[#7C7C7C] leading-7">
-                            Our reviews give you a nice overview of what you can expect at an online
-                            casino. We recommend looking at the games selection, banking methods and
-                            bonuses to help you decide which casino fits you best.
-                        </p>
-                    </details>
-
-                    <details className="group border-b border-[#EEF2FF]">
-                        <summary className="flex cursor-pointer test-[18px] list-none items-center justify-between px-6 py-6 font-semibold">
-                            What information do your casino reviews include?
-                            <ChevronRight className="h-5 w-5 transition group-open:rotate-90" />
-                        </summary>
-
-                        <p className="px-6 pb-6 text-[14px] text-[#7C7C7C]">
-                            We review licensing, bonuses, banking, security, games, and support.
-                        </p>
-                    </details>
-
-                    <details className="group border-b border-[#EEF2FF]">
-                        <summary className="flex cursor-pointer test-[18px] list-none items-center justify-between px-6 py-6 font-semibold">
-                            How do I choose the best online casino?
-                            <ChevronRight className="h-5 w-5 transition group-open:rotate-90" />
-                        </summary>
-
-                        <p className="px-6 pb-6 text-[14px] text-[#7C7C7C]">
-                            Compare licensing, games, bonuses, payment methods, and withdrawal times.
-                        </p>
-                    </details>
-
-                    <details className="group">
-                        <summary className="flex cursor-pointer test-[18px] list-none items-center justify-between px-6 py-6 font-semibold">
-                            What banking methods should I look for?
-                            <ChevronRight className="h-5 w-5 transition group-open:rotate-90" />
-                        </summary>
-
-                        <p className="px-6 pb-6 text-[14px] text-[#7C7C7C]">
-                            Visa, Mastercard, Skrill, Neteller, PayPal, bank transfers, and crypto.
-                        </p>
-                    </details>
+                            <p className="px-6 pb-6 text-[14px] text-[#7C7C7C] leading-7">
+                                {faq.answer}
+                            </p>
+                        </details>
+                    ))}
                 </div>
             </div>
-            <div className="mt-10">
-
-                {/* Editorial Badge */}
-                <div className="inline-flex rounded-full bg-[radial-gradient(circle_at_center,#B8CEFF_0%,#2E68FB_100%)] p-[1px]">
-                    <div className="flex items-center gap-1 rounded-full bg-[#E6EDFF] px-4 py-1">
-                        <BadgeCheck className="w-3.5 h-3.5 text-[#2E68FB]" />
-                        <span className="font-poppins text-[10px] font-medium uppercase text-[#2E68FB]">
-                            Editorial
-                        </span>
-                    </div>
-                </div>
-
-                {/* Heading */}
-                <h2 className="font-poppins text-[24px] font-bold leading-[24px] tracking-normal text-[#16171D] mb-3 mt-3">
-                   Similar Casinos You May Like
-                </h2>
-            </div>
+            
+            {/* Similar Casinos Section */}
+            <SimilarCasinosSection slug={slug} />
         </div>
     );
 }

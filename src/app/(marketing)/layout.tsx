@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 import { Footer } from '@/components/layout/Footer';
 import BannedPage from '@/components/BannedPage';
+import GlobalLoader from "@/components/GlobalLoader";
 
 export default function MarketingLayout({
   children,
@@ -15,41 +16,47 @@ export default function MarketingLayout({
   const [isBanned, setIsBanned] = useState(false);
   const [checking, setChecking] = useState(true);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  useEffect(() => {
-    const checkCountry = async () => {
-      try {
-        const [bannedRes, ipRes] = await Promise.all([
-          fetch(`${API_URL}/api/banned-countries`),
-          fetch('https://ipapi.co/json/'),
-        ]);
+ useEffect(() => {
+  const checkCountry = async () => {
+    try {
+      await Promise.all([
+        new Promise((resolve) => setTimeout(resolve, 3000)), // Show loader for at least 3 seconds
 
-        if (!bannedRes.ok || !ipRes.ok) return;
+        (async () => {
+          const [bannedRes, ipRes] = await Promise.all([
+            fetch(`${API_URL}/api/banned-countries`),
+            fetch('https://ipapi.co/json/'),
+          ]);
 
-        const bannedCodes: string[] = await bannedRes.json();
-        const ipData = await ipRes.json();
-        const userCountryCode: string = (ipData.country_code || ipData.countryCode || '').toUpperCase();
+          if (!bannedRes.ok || !ipRes.ok) return;
 
-        if (bannedCodes.includes(userCountryCode)) {
-          setIsBanned(true);
-        }
-      } catch {
-        // Silently fail - if detection fails, allow access
-      } finally {
-        setChecking(false);
-      }
-    };
+          const bannedCodes: string[] = await bannedRes.json();
+          const ipData = await ipRes.json();
 
-    checkCountry();
-  }, []);
+          const userCountryCode = (
+            ipData.country_code ||
+            ipData.countryCode ||
+            ''
+          ).toUpperCase();
 
-  if (checking) {
-    return (
-      <div className="min-h-screen bg-[#EEF3FE] flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-indigo-150 border-t-indigo-600 rounded-full animate-spin" />
-      </div>
-    );
-  }
+          if (bannedCodes.includes(userCountryCode)) {
+            setIsBanned(true);
+          }
+        })(),
+      ]);
+    } catch {
+      // Silently fail - if detection fails, allow access
+    } finally {
+      setChecking(false);
+    }
+  };
 
+  checkCountry();
+}, [API_URL]);
+
+ if (checking) {
+  return <GlobalLoader />;
+}
   if (isBanned) {
     return <BannedPage />;
   }

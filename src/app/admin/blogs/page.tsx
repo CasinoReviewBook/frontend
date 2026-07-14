@@ -17,7 +17,7 @@ export default function BlogsPage() {
   const fetchBlogs = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/blogs`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/blogs`);
       const data = await res.json();
       setBlogs(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function BlogsPage() {
   const handleDelete = async (blog: any) => {
     if (confirm(`Are you sure you want to delete "${blog.title}"?`)) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/blogs/${blog.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/blogs/${blog.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

@@ -1,9 +1,13 @@
-const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+
+if (!rawApiUrl && process.env.NODE_ENV === 'production') {
+  console.error('[api.config] NEXT_PUBLIC_API_URL is not set! API calls will fail.');
+}
 
 export const API_CONFIG = {
   baseURL: rawApiUrl,
   mediaBaseURL: rawApiUrl.replace(/\/api\/?$/, ''),
-  frontendURL: process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000',
+  frontendURL: process.env.NEXT_PUBLIC_FRONTEND_URL || '',
   isDevelopment: process.env.NODE_ENV !== 'production',
   timeout: 10000,
 };
@@ -19,9 +23,11 @@ export const getMediaUrl = (path?: string) => {
   if (/^https?:\/\//i.test(path)) {
     try {
       const parsedUrl = new URL(path);
-      const configuredOrigin = new URL(API_CONFIG.mediaBaseURL).origin;
+      const baseUrl = API_CONFIG.mediaBaseURL || process.env.NEXT_PUBLIC_API_URL || '';
       const isLocalHost = ['localhost', '127.0.0.1'].includes(parsedUrl.hostname);
-      if (isLocalHost || parsedUrl.origin === 'http://localhost:4000') {
+      // If the stored URL points to localhost (old dev data) rewrite it to the configured origin
+      if (isLocalHost && baseUrl) {
+        const configuredOrigin = new URL(baseUrl.replace(/\/api\/?$/, '')).origin;
         return `${configuredOrigin}${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`;
       }
       return path;

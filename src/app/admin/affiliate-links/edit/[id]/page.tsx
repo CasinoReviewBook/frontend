@@ -25,7 +25,7 @@ export default function EditAffiliateLinkPage({ params }: { params: { id: string
 
   const fetchLink = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/affiliate-links/${params.id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/affiliate-links/${params.id}`);
       const data = await res.json();
       setFormData(data);
     } catch (err) {
@@ -36,7 +36,7 @@ export default function EditAffiliateLinkPage({ params }: { params: { id: string
 
   const fetchCasinos = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/casinos`);
       const data = await res.json();
       setCasinos(data);
     } catch (err) {
@@ -49,7 +49,7 @@ export default function EditAffiliateLinkPage({ params }: { params: { id: string
     setIsSaving(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/affiliate-links/${params.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/affiliate-links/${params.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

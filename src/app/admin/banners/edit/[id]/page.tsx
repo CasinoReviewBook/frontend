@@ -29,7 +29,7 @@ export default function EditBannerPage({ params }: { params: Promise<{ id: strin
 
   const fetchBanner = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banners/${id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/banners/${id}`);
       if (!res.ok) {
         console.error('Failed to fetch banner:', res.status, res.statusText);
         setIsLoading(false);
@@ -53,7 +53,7 @@ export default function EditBannerPage({ params }: { params: Promise<{ id: strin
     setIsSaving(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/banners/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/banners/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

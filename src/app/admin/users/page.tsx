@@ -17,7 +17,7 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/users`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users`);
       const data = await res.json();
       setUsers(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function UsersPage() {
   const handleDelete = async (user: any) => {
     if (confirm(`Are you sure you want to delete ${user.name || user.email}?`)) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/users/${user.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/users/${user.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

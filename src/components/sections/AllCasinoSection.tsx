@@ -9,12 +9,12 @@ import { getImageUrl } from '@/lib/utils/getImageUrl';
 
 
 export default function AllCasinoSection() {
-    const { casinos, loading } = useCasinos();
+    const { filteredCasinos, loading } = useCasinos();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    const totalPages = Math.ceil(casinos.length / itemsPerPage);
-    const displayCasinos = casinos.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    const totalPages = Math.ceil(filteredCasinos.length / itemsPerPage);
+    const displayCasinos = filteredCasinos.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     if (loading) {
         return (
@@ -53,7 +53,7 @@ export default function AllCasinoSection() {
             {totalPages > 1 && (
                 <div className="w-full flex flex-col sm:flex-row justify-between items-center mt-10 pt-6 border-t border-slate-200 gap-4">
                     <p className="text-sm text-slate-500 order-2 sm:order-1">
-                        Showing <span className="font-semibold text-slate-800">{displayCasinos.length}</span> of <span className="font-semibold text-slate-800">{casinos.length}</span> verified platforms
+                        Showing <span className="font-semibold text-slate-800">{displayCasinos.length}</span> of <span className="font-semibold text-slate-800">{filteredCasinos.length}</span> verified platforms
                     </p>
 
                     <div className="flex items-center gap-1 order-1 sm:order-2">

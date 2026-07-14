@@ -7,7 +7,7 @@ import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
 import Link from "next/link";
 export default function SpinRallySection() {
-  const { casinos, loading } = useCasinos();
+  const { filteredCasinos, loading } = useCasinos();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
@@ -32,8 +32,14 @@ export default function SpinRallySection() {
     );
   }
 
-  if (!casinos || casinos.length === 0) {
-    return null;
+  if (!filteredCasinos || filteredCasinos.length === 0) {
+    return (
+      <section className="w-full py-8">
+        <div className="flex items-center justify-center">
+          <div className="text-slate-500">No casinos found matching your filters.</div>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -49,7 +55,7 @@ export default function SpinRallySection() {
           <div className="flex items-center gap-3">
             <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
               See all
-              <span className="ml-2 text-[#98A2B3]">{casinos.length}</span>
+              <span className="ml-2 text-[#98A2B3]">{filteredCasinos.length}</span>
             </button>
             <button
               className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
@@ -83,7 +89,7 @@ export default function SpinRallySection() {
           msOverflowStyle: 'none',
         }}
       >
-        {casinos.map((casino, index) => (
+        {filteredCasinos.map((casino, index) => (
           <CasinoCard key={casino.id || index} casino={casino} />
         ))}
       </div>
@@ -98,16 +104,21 @@ function CasinoCard({ casino }: { casino: any }) {
 
   return (
     <div
-      className="flex flex-col p-4 rounded-3xl border shrink-0 justify-between"
-      style={{
-        width: '340px',
-        minHeight: '400px',
-        borderRadius: '24px',
-        border: '1px solid #2E68FB40',
-        background:
-          'linear-gradient(231.79deg, #D5EDFF 32.55%, #EEECFF 43.54%, #F9F3FF 53.23%, #F5FCFF 66.16%, #E9F5FF 79.08%)',
-      }}
-    >
+  className="rounded-[24px] p-[2px]"
+  style={{
+    background:
+      "linear-gradient(158.37deg, #FF9C2C 2.3%, #FFF1CC 15.9%, #B45B1B 24.24%, #FFC170 62.4%, #FEE5B3 75.76%, #9F5E26 90.07%)",
+  }}
+>
+  <div
+    className="flex flex-col p-4 rounded-[22px] justify-between"
+    style={{
+      width: "340px",
+      minHeight: "400px",
+      background:
+        "linear-gradient(231.79deg, #D5EDFF 32.55%, #EEECFF 43.54%, #F9F3FF 53.23%, #F5FCFF 66.16%, #E9F5FF 79.08%)",
+    }}
+  >
       {/* 1. Header (Logo + Title) */}
       <div className="flex gap-3 items-center">
         <div className="relative w-20 h-20 bg-white rounded-xl overflow-hidden shadow-sm flex-shrink-0 border border-gray-100 p-1">
@@ -244,6 +255,7 @@ function CasinoCard({ casino }: { casino: any }) {
         >
           Reviews
         </Link>
+      </div>
       </div>
     </div>
   );

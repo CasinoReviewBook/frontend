@@ -17,7 +17,7 @@ export default function EditTagPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchTag = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/tags/${params.id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/tags/${params.id}`);
         if (res.ok) {
           const data = await res.json();
           setFormData({
@@ -52,7 +52,7 @@ export default function EditTagPage({ params }: { params: { id: string } }) {
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/tags/${params.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/tags/${params.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

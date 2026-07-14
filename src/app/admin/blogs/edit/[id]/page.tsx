@@ -30,7 +30,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
 
   const fetchBlog = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/blogs/${id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/blogs/${id}`);
       if (!res.ok) {
         console.error('Failed to fetch blog:', res.status, res.statusText);
         setIsLoading(false);
@@ -59,7 +59,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
     setIsSaving(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/blogs/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/blogs/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

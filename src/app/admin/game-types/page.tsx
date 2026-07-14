@@ -17,7 +17,7 @@ export default function GameTypesPage() {
   const fetchGameTypes = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/game-types`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/game-types`);
       const data = await res.json();
       setGameTypes(data);
     } catch (err) {
@@ -33,7 +33,7 @@ export default function GameTypesPage() {
   const handleDelete = async (gameType: any) => {
     if (confirm(`Are you sure you want to delete this game type?`)) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/game-types/${gameType.id}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/game-types/${gameType.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {

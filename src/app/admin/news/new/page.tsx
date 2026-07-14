@@ -36,7 +36,7 @@ export default function NewNewsPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/news`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/news`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

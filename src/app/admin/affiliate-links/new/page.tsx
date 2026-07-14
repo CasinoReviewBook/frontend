@@ -23,7 +23,7 @@ export default function NewAffiliateLinkPage() {
 
   const fetchCasinos = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/casinos`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/casinos`);
       const data = await res.json();
       setCasinos(data);
     } catch (err) {
@@ -36,7 +36,7 @@ export default function NewAffiliateLinkPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/affiliate-links`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/affiliate-links`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

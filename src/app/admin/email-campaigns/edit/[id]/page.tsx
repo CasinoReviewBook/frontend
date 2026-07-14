@@ -35,7 +35,7 @@ export default function EditEmailCampaignPage() {
   const fetchCampaign = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/email-campaigns/${id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/email-campaigns/${id}`
       );
 
       if (!res.ok) {
@@ -70,7 +70,7 @@ export default function EditEmailCampaignPage() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/email-campaigns/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/email-campaigns/${id}`,
         {
           method: 'PUT',
           headers: {

@@ -26,7 +26,7 @@ export default function SettingsPage() {
 
   const fetchSettings = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/settings`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/settings`);
       const data = await res.json();
       setFormData(data);
     } catch (err) {
@@ -40,7 +40,7 @@ export default function SettingsPage() {
     setIsSaving(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/admin/settings`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/settings`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

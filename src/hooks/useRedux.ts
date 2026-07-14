@@ -8,13 +8,14 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 // Custom hooks for specific data
 export const useCasinos = () => {
   const dispatch = useAppDispatch();
-  const { casinos, featuredCasinos, currentCasino, loading, error, lastFetched } = useAppSelector(
+  const { casinos, featuredCasinos, filteredCasinos, currentCasino, loading, error, lastFetched } = useAppSelector(
     (state) => state.casinos
   );
 
   return {
     casinos,
     featuredCasinos,
+    filteredCasinos,
     currentCasino,
     loading,
     error,
