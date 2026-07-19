@@ -20,7 +20,7 @@ export default function MarketingLayout({
   const checkCountry = async () => {
     try {
       await Promise.all([
-        new Promise((resolve) => setTimeout(resolve, 3000)), // Show loader for at least 3 seconds
+        new Promise((resolve) => setTimeout(resolve, 1000)), // Show loader for at least 3 seconds
 
         (async () => {
           const [bannedRes, ipRes] = await Promise.all([

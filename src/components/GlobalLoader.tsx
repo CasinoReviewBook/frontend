@@ -7,9 +7,17 @@ type GlobalLoaderProps = {
 export default function GlobalLoader({
   label = "LOADING LIVE PREMIUM CASINO",
 }: GlobalLoaderProps) {
-   return (
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#EEF3FE]/95 backdrop-blur-sm">
-        <div className="flex flex-col items-center">
+  return (
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#EEF3FE]/90 backdrop-blur-md overflow-hidden">
+      {/* Soft, Luxury Light Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-400/20 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-indigo-300/20 blur-[90px] rounded-full pointer-events-none animate-pulse" />
+
+      {/* Main Glass Morphic Card Container */}
+      <div className="relative z-10 flex flex-col items-center max-w-sm px-8 text-center  ">
+        
+        {/* GIF Wrapper with deep, soft glow */}
+        <div className="relative drop-shadow-[0_15px_25px_rgba(11,105,245,0.12)] transform hover:scale-103 transition-transform duration-500">
           <Image
             src="/loader.gif"
             alt="Loading"
@@ -17,19 +25,27 @@ export default function GlobalLoader({
             height={169}
             priority
             unoptimized
+            className="object-contain"
           />
-  
-          <h1 className="mt-6 text-center font-poppins text-[36px] font-bold">
-            <span className="text-[#16171D]">Trusted </span>
-            <span className="bg-[linear-gradient(270deg,#4D99FC_0%,#0B69F5_50%,#0649D9_100%)] bg-clip-text text-transparent">
-              Casino Review
-            </span>
-          </h1>
-  
-          <p className="mt-4 font-poppins text-[17px] font-normal uppercase tracking-[0.08em] text-[#434343]">
-            {label}
-          </p>
         </div>
+
+        {/* Brand Title */}
+        <h1 className=" font-poppins text-[34px] font-extrabold tracking-tight leading-none">
+          <span className="text-[#16171D]">Casino Review </span>
+          <span className="bg-gradient-to-r from-[#4D99FC] via-[#0B69F5] to-[#0649D9] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+            Book
+          </span>
+        </h1>
+
+        {/* Clean, Modern Micro-Loader Dot Sequence */}
+        <div className="flex items-center justify-center gap-2 mt-6">
+          <span className="w-2 h-2 rounded-full bg-[#0B69F5] animate-bounce [animation-delay:-0.3s]"></span>
+          <span className="w-2 h-2 rounded-full bg-[#0B69F5]/70 animate-bounce [animation-delay:-0.15s]"></span>
+          <span className="w-2 h-2 rounded-full bg-[#0B69F5]/40 animate-bounce"></span>
+        </div>
+
+       
       </div>
-    );
+    </div>
+  );
 }
