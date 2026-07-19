@@ -6,8 +6,19 @@ import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
 import Link from "next/link";
-export default function ExploreCasinoSection() {
-  const { filteredCasinos, loading } = useCasinos();
+export default function ExploreCasinoSection({
+  casinos,
+}: {
+  casinos?: any[];
+}) {
+  const {
+    filteredCasinos,
+    loading,
+  } = useCasinos();
+  const displayCasinos =
+    casinos !== undefined
+      ? casinos
+      : filteredCasinos;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
@@ -22,7 +33,7 @@ export default function ExploreCasinoSection() {
     }
   };
 
-  if (loading) {
+  if (loading && casinos === undefined) {
     return (
       <section className="w-full py-8">
         <div className="flex items-center justify-center">
@@ -32,7 +43,7 @@ export default function ExploreCasinoSection() {
     );
   }
 
-  if (filteredCasinos.length === 0) {
+ if (displayCasinos.length === 0) {
     return (
       <section className="w-full py-8">
         <div className="flex items-center justify-center">
@@ -64,7 +75,7 @@ export default function ExploreCasinoSection() {
           <div className="flex items-center gap-3">
             <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
               See all
-              <span className="ml-2 text-[#98A2B3]">{filteredCasinos.length}</span>
+              <span className="ml-2 text-[#98A2B3]">{displayCasinos.length}</span>
             </button>
             <button
               className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
@@ -97,7 +108,7 @@ export default function ExploreCasinoSection() {
           msOverflowStyle: 'none',
         }}
       >
-        {filteredCasinos.map((casino, index) => (
+        {displayCasinos.map((casino, index) => (
           <CasinoCard key={casino.id || index} casino={casino} index={index} />
         ))}
       </div>

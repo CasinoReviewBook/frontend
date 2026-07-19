@@ -32,15 +32,23 @@ interface Casino {
         type: string;
     }[];
 }
-
 async function getCasino(slug: string): Promise<any | null> {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/casinos/slug/${slug}`, {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/casinos/slug/${slug}`;
+
+    console.log("API URL:", url);
+
+    const res = await fetch(url, {
         cache: "no-store",
     });
 
+    console.log("API STATUS:", res.status);
+
+    const text = await res.text();
+    console.log("API RESPONSE:", text);
+
     if (!res.ok) return null;
 
-    return await res.json();
+    return JSON.parse(text);
 }
 
 export default async function CasinoPage({
@@ -54,82 +62,82 @@ export default async function CasinoPage({
     if (!casino) {
         notFound();
     }
-interface Game {
-  icon: string;
-  title: string;
-  count: string;
-  color: string;
-  arrow: string;
-}
+    interface Game {
+        icon: string;
+        title: string;
+        count: string;
+        color: string;
+        arrow: string;
+    }
     // Fallback bonus text if none exists in the array
     const mainBonusTitle = casino.bonuses?.[0]?.title || "100% up to $1,500 + 150 Free Spins";
-   const games: Game[] =
-  casino.game_types && casino.game_types.length > 0
-    ? casino.game_types.map((gt: any, i: number): Game => ({
-        icon: ["🎰", "🎥", "🏴‍☠️", "🎡", "♠️", "💎"][i % 6],
-        title: gt.game_type?.name || "Game",
-        count: "Available",
-        color: [
-          "border-[#F59E0B] bg-[#FFF8F0]",
-          "border-[#FF5A5A] bg-[#FFF5F5]",
-          "border-[#22C55E] bg-[#F2FFF7]",
-          "border-[#D946EF] bg-[#FFF3FF]",
-          "border-[#EC4899] bg-[#FFF0F7]",
-          "border-[#EAB308] bg-[#FFFFF2]",
-        ][i % 6],
-        arrow: [
-          "text-[#F59E0B]",
-          "text-[#FF5A5A]",
-          "text-[#22C55E]",
-          "text-[#D946EF]",
-          "text-[#EC4899]",
-          "text-[#EAB308]",
-        ][i % 6],
-      }))
-    : [
-        {
-            icon: "🎰",
-            title: "Slots",
-            count: "3,200+ titles",
-            color: "border-[#F59E0B] bg-[#FFF8F0]",
-            arrow: "text-[#F59E0B]",
-        },
-        {
-            icon: "🎥",
-            title: "Live Casino",
-            count: "200+ titles",
-            color: "border-[#FF5A5A] bg-[#FFF5F5]",
-            arrow: "text-[#FF5A5A]",
-        },
-        {
-            icon: "🏴‍☠️",
-            title: "Blackjack",
-            count: "85+ titles",
-            color: "border-[#22C55E] bg-[#F2FFF7]",
-            arrow: "text-[#22C55E]",
-        },
-        {
-            icon: "🎡",
-            title: "Roulette",
-            count: "60+ titles",
-            color: "border-[#D946EF] bg-[#FFF3FF]",
-            arrow: "text-[#D946EF]",
-        },
-        {
-            icon: "♠️",
-            title: "Poker",
-            count: "40+ titles",
-            color: "border-[#EC4899] bg-[#FFF0F7]",
-            arrow: "text-[#EC4899]",
-        },
-        {
-            icon: "💎",
-            title: "Baccarat",
-            count: "32+ titles",
-            color: "border-[#EAB308] bg-[#FFFFF2]",
-            arrow: "text-[#EAB308]",
-        },
-    ];
+    const games: Game[] =
+        casino.game_types && casino.game_types.length > 0
+            ? casino.game_types.map((gt: any, i: number): Game => ({
+                icon: ["🎰", "🎥", "🏴‍☠️", "🎡", "♠️", "💎"][i % 6],
+                title: gt.game_type?.name || "Game",
+                count: "Available",
+                color: [
+                    "border-[#F59E0B] bg-[#FFF8F0]",
+                    "border-[#FF5A5A] bg-[#FFF5F5]",
+                    "border-[#22C55E] bg-[#F2FFF7]",
+                    "border-[#D946EF] bg-[#FFF3FF]",
+                    "border-[#EC4899] bg-[#FFF0F7]",
+                    "border-[#EAB308] bg-[#FFFFF2]",
+                ][i % 6],
+                arrow: [
+                    "text-[#F59E0B]",
+                    "text-[#FF5A5A]",
+                    "text-[#22C55E]",
+                    "text-[#D946EF]",
+                    "text-[#EC4899]",
+                    "text-[#EAB308]",
+                ][i % 6],
+            }))
+            : [
+                {
+                    icon: "🎰",
+                    title: "Slots",
+                    count: "3,200+ titles",
+                    color: "border-[#F59E0B] bg-[#FFF8F0]",
+                    arrow: "text-[#F59E0B]",
+                },
+                {
+                    icon: "🎥",
+                    title: "Live Casino",
+                    count: "200+ titles",
+                    color: "border-[#FF5A5A] bg-[#FFF5F5]",
+                    arrow: "text-[#FF5A5A]",
+                },
+                {
+                    icon: "🏴‍☠️",
+                    title: "Blackjack",
+                    count: "85+ titles",
+                    color: "border-[#22C55E] bg-[#F2FFF7]",
+                    arrow: "text-[#22C55E]",
+                },
+                {
+                    icon: "🎡",
+                    title: "Roulette",
+                    count: "60+ titles",
+                    color: "border-[#D946EF] bg-[#FFF3FF]",
+                    arrow: "text-[#D946EF]",
+                },
+                {
+                    icon: "♠️",
+                    title: "Poker",
+                    count: "40+ titles",
+                    color: "border-[#EC4899] bg-[#FFF0F7]",
+                    arrow: "text-[#EC4899]",
+                },
+                {
+                    icon: "💎",
+                    title: "Baccarat",
+                    count: "32+ titles",
+                    color: "border-[#EAB308] bg-[#FFFFF2]",
+                    arrow: "text-[#EAB308]",
+                },
+            ];
     const mappedCountries: any[] = [];
     if (casino.available_countries?.length > 0 || casino.restricted_countries?.length > 0) {
         casino.available_countries?.forEach((c: any) => mappedCountries.push({ code: c.country?.code || "us", name: c.country?.name || "Country", available: true }));
@@ -180,18 +188,18 @@ interface Game {
     ];
 
     const trustBadges: string[] =
-  casino.badges && casino.badges.length > 0
-    ? casino.badges
-        .map((b: any) => b.badge?.name)
-        .filter(Boolean)
-    : [
-        "eCOGRA",
-        "iTech Labs",
-        "GambleAware",
-        "GamCare",
-        "RNG Certified",
-        "Fair Gaming",
-      ];
+        casino.badges && casino.badges.length > 0
+            ? casino.badges
+                .map((b: any) => b.badge?.name)
+                .filter(Boolean)
+            : [
+                "eCOGRA",
+                "iTech Labs",
+                "GambleAware",
+                "GamCare",
+                "RNG Certified",
+                "Fair Gaming",
+            ];
 
     const faqs = casino.faqs && casino.faqs.length > 0 ? casino.faqs : [
         {
@@ -385,7 +393,9 @@ interface Game {
                     </div>
                 </div>
             </div>
-
+            <div className="w-full h-auto mb-10 rounded-2xl overflow-hidden">
+                <img src={casino.featured_image} alt={casino.name} className="w-full h-full object-cover" />
+            </div>
             {/* 4. WELCOME BONUS & PROMOTIONS SECTION */}
             <div>
                 <h2 className="font-poppins text-[24px] font-bold leading-[24px] tracking-normal text-[#16171D] mb-3">Welcome Bonus & Promotions</h2>
@@ -727,14 +737,14 @@ interface Game {
                     <div className="space-y-2">
 
                         <p className="text-[16px] leading-9 font-medium text-[#16171D]">
-                           {casino.editor_view}
+                            {casino.editor_view}
                         </p>
 
-                      
 
-                       
 
-                      
+
+
+
 
                     </div>
 
@@ -824,7 +834,7 @@ interface Game {
                     ))}
                 </div>
             </div>
-            
+
             {/* Similar Casinos Section */}
             <SimilarCasinosSection slug={slug} />
         </div>

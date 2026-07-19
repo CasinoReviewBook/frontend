@@ -17,9 +17,32 @@ const IMG_H = 92.09;    // center image height
 const IMG_TOP = 16.29;    // image top offset inside wrapper
 // ───────────────────────────────────────────────────────────────
 
-export default function CasinoShowsSection() {
-    const { filteredCasinos, loading } = useCasinos();
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
+export default function CasinoShowsSection({
+  casinos,
+}: {
+  casinos?: any[];
+}) {
+  const {
+    casinos: reduxCasinos,
+    filteredCasinos,
+    loading,
+  } = useCasinos();
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * If casinos prop is passed:
+   *     use category casinos
+   *
+   * If casinos prop is not passed:
+   *     use Redux filtered casinos
+   */
+  const displayCasinos =
+    casinos !== undefined
+      ? casinos
+      : filteredCasinos.length > 0
+        ? filteredCasinos
+        : reduxCasinos;
 
     const scrollLeft = () => {
         if (scrollContainerRef.current) {
@@ -43,7 +66,7 @@ export default function CasinoShowsSection() {
         );
     }
 
-    if (filteredCasinos.length === 0) {
+    if (displayCasinos.length === 0) {
         return (
             <section className="w-full py-10">
                 <div className="flex items-center justify-center h-[280px]">
@@ -70,7 +93,7 @@ export default function CasinoShowsSection() {
           <div className="flex items-center gap-3">
             <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
               See all
-              <span className="ml-2 text-[#98A2B3]">{filteredCasinos.length}</span>
+              <span className="ml-2 text-[#98A2B3]">{displayCasinos.length}</span>
             </button>
             <button
               className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
@@ -114,7 +137,7 @@ export default function CasinoShowsSection() {
                     paddingBottom: '16px',
                     alignItems: 'flex-end',
                 }}>
-                    {filteredCasinos.map((casino, index) => (
+                    {displayCasinos.map((casino, index) => (
                         <CasinoCard key={casino.id || index} casino={casino} />
                     ))}
                 </div>

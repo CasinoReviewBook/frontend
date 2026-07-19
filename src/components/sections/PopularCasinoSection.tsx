@@ -6,11 +6,32 @@ import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
 import Link from "next/link";
-export default function PopularCasinoSection() {
-  const { filteredCasinos, loading } = useCasinos();
+export default function PopularCasinoSection( {
+  casinos,
+}: {
+  casinos?: any[];
+}) {
+  const {
+    casinos: reduxCasinos,
+    filteredCasinos,
+    loading,
+  } = useCasinos();
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const displayCasinos = filteredCasinos;
+  /**
+   * If casinos prop is passed:
+   *     use category casinos
+   *
+   * If casinos prop is not passed:
+   *     use Redux filtered casinos
+   */
+  const displayCasinos =
+    casinos !== undefined
+      ? casinos
+      : filteredCasinos.length > 0
+        ? filteredCasinos
+        : reduxCasinos;
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {

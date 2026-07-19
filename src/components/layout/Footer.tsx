@@ -39,57 +39,52 @@ export function Footer() {
 
           {/* Column 2 */}
           <div className="w-full sm:w-[162px]">
-            <h3 className="text-[18px] font-bold text-black mb-4">
-              CS Skin casino
-            </h3>
+  <h3 className="text-[18px] font-bold text-black mb-4">
+    Casinos
+  </h3>
 
-            <ul className="space-y-3 text-[16px] text-[#333333]">
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/partnership">Partnership</Link>
-              </li>
-              <li>
-                <Link href="/faq">F.A.Q</Link>
-              </li>
-              <li>
-                <Link href="/support">Support</Link>
-              </li>
-            </ul>
-          </div>
+  <ul className="space-y-2 text-[16px] text-[#333333]">
+    <li><Link href="/casinos/accredited-casinos">Accredited Casinos</Link></li>
+    <li><Link href="/casinos/online-casino">Online Casino</Link></li>
+    <li><Link href="/casinos/reviews">Reviews</Link></li>
+    <li><Link href="/casinos/exclusive-casinos">Exclusive Casinos</Link></li>
+    
+    <li><Link href="/casinos/best-crypto-casinos">Best Crypto Casinos</Link></li>
+    <li><Link href="/casinos/casinos-by-country">Casinos by Country</Link></li>
+    <li><Link href="/casinos/mobile-casinos">Mobile Casinos</Link></li>
+  </ul>
+</div>
 
           {/* Column 3 */}
           <div className="w-full sm:w-[162px]">
-            <h3 className="text-[18px] font-bold text-black mb-4">
-              Services
-            </h3>
+  <h3 className="text-[18px] font-bold text-black mb-4">
+    Bonuses
+  </h3>
 
-            <ul className="space-y-3 text-[16px] text-[#333333]">
-              <li><Link href="#">Profile</Link></li>
-              <li><Link href="#">Wallet</Link></li>
-              <li><Link href="#">Cards</Link></li>
-              <li><Link href="#">Achievements</Link></li>
-              <li><Link href="#">Affiliates</Link></li>
-            </ul>
-          </div>
-
+  <ul className="space-y-2 text-[16px] text-[#333333]">
+    <li><Link href="/bonuses/casino-bonuses">Casino Bonuses</Link></li>
+    <li><Link href="/bonuses/no-deposit-bonuses">No Deposit Bonuses</Link></li>
+    <li><Link href="/bonuses/free-spins">Free Spins</Link></li>
+    <li><Link href="/bonuses/high-roller-bonuses">High Roller Bonuses</Link></li>
+    <li><Link href="/bonuses/welcome-bonuses">Welcome Bonuses</Link></li>
+  </ul>
+</div>
           {/* Column 4 */}
           <div className="w-full sm:w-[162px]">
-            <h3 className="text-[18px] font-bold text-black mb-4">
-              Originals
-            </h3>
+  <h3 className="text-[18px] font-bold text-black mb-4">
+    Casino Reviews 
+  </h3>
 
-            <ul className="space-y-3 text-[16px] text-[#333333]">
-              <li><Link href="#">Cases</Link></li>
-              <li><Link href="#">Battles</Link></li>
-              <li><Link href="#">Battle pass</Link></li>
-              <li><Link href="#">Roulette</Link></li>
-              <li><Link href="#">Coin flip</Link></li>
-              <li><Link href="#">Pinko</Link></li>
-              <li><Link href="#">Mines</Link></li>
-            </ul>
-          </div>
+  <ul className="space-y-2 text-[16px] text-[#333333]">
+    <li><Link href="/about-us">About Us</Link></li>
+    <li><Link href="/forum">Forum</Link></li>
+    <li><Link href="/blog">Blog</Link></li>
+    <li><Link href="/awards">Awards</Link></li>
+    <li><Link href="/resources">Resources</Link></li>
+    <li><Link href="/submit-a-complaint">Submit a Complaint</Link></li>
+    <li><Link href="/responsible-gambling">Responsible Gambling</Link></li>
+  </ul>
+</div>
 
           {/* Column 5 */}
           <div className="w-full sm:w-[162px] flex flex-col justify-between">
@@ -98,7 +93,7 @@ export function Footer() {
                 Terms
               </h3>
 
-              <ul className="space-y-3 text-[16px] text-[#333333]">
+              <ul className="space-y-2 text-[16px] text-[#333333]">
                 <li><Link href="#">Terms & Services</Link></li>
                 <li><Link href="#">Privacy Policy</Link></li>
                 <li><Link href="#">Cookie Policy</Link></li>

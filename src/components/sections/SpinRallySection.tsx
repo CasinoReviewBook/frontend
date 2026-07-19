@@ -6,9 +6,32 @@ import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
 import Link from "next/link";
-export default function SpinRallySection() {
-  const { filteredCasinos, loading } = useCasinos();
+export default function SpinRallySection({
+  casinos,
+}: {
+  casinos?: any[];
+}) {
+  const {
+    casinos: reduxCasinos,
+    filteredCasinos,
+    loading,
+  } = useCasinos();
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * If casinos prop is passed:
+   *     use category casinos
+   *
+   * If casinos prop is not passed:
+   *     use Redux filtered casinos
+   */
+  const displayCasinos =
+    casinos !== undefined
+      ? casinos
+      : filteredCasinos.length > 0
+        ? filteredCasinos
+        : reduxCasinos;
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -32,7 +55,7 @@ export default function SpinRallySection() {
     );
   }
 
-  if (!filteredCasinos || filteredCasinos.length === 0) {
+  if (!displayCasinos || displayCasinos.length === 0) {
     return (
       <section className="w-full py-8">
         <div className="flex items-center justify-center">
@@ -55,7 +78,7 @@ export default function SpinRallySection() {
           <div className="flex items-center gap-3">
             <button className="hidden md:flex items-center bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm text-[#16171D]">
               See all
-              <span className="ml-2 text-[#98A2B3]">{filteredCasinos.length}</span>
+              <span className="ml-2 text-[#98A2B3]">{displayCasinos.length}</span>
             </button>
             <button
               className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100"
@@ -89,7 +112,7 @@ export default function SpinRallySection() {
           msOverflowStyle: 'none',
         }}
       >
-        {filteredCasinos.map((casino, index) => (
+        {displayCasinos.map((casino, index) => (
           <CasinoCard key={casino.id || index} casino={casino} />
         ))}
       </div>

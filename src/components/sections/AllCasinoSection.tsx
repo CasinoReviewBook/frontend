@@ -2,33 +2,79 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { Star, Check, ChevronLeft, ChevronRight, Zap, ShieldCheck, Award, Smartphone, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState, useRef } from 'react';
+import {
+  Star,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Zap,
+  ShieldCheck,
+  Award,
+  Smartphone,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
+
 import { useCasinos } from '@/hooks/useRedux';
 import { getImageUrl } from '@/lib/utils/getImageUrl';
 
+export default function AllCasinoSection({
+  casinos,
+}: {
+  casinos?: any[];
+}) {
+  const {
+    casinos: reduxCasinos,
+    filteredCasinos,
+    loading,
+  } = useCasinos();
 
-export default function AllCasinoSection() {
-    const { filteredCasinos, loading } = useCasinos();
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+  const scrollContainerRef =
+    useRef<HTMLDivElement>(null);
 
-    const totalPages = Math.ceil(filteredCasinos.length / itemsPerPage);
-    const displayCasinos = filteredCasinos.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
 
-    if (loading) {
-        return (
-            <section className="w-full flex flex-col items-center py-12 px-4 max-w-7xl mx-auto">
-                <div className="flex items-center justify-center min-h-[400px]">
-                    <div className="animate-pulse text-slate-500 font-medium">Loading premium casinos...</div>
-                </div>
-            </section>
-        );
-    }
+  const itemsPerPage = 5;
 
-    if (displayCasinos.length === 0) {
-        return null;
-    }
+  /**
+   * Category page:
+   *     use casinos prop
+   *
+   * Home page:
+   *     use Redux filtered casinos
+   */
+  const allCasinos =
+    casinos !== undefined
+      ? casinos
+      : filteredCasinos.length > 0
+        ? filteredCasinos
+        : reduxCasinos;
+
+  const totalPages = Math.ceil(
+    allCasinos.length / itemsPerPage
+  );
+
+  const displayCasinos = allCasinos.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  if (loading && casinos === undefined) {
+    return (
+      <section className="w-full flex flex-col items-center py-12 px-4 max-w-7xl mx-auto">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-pulse text-slate-500 font-medium">
+            Loading premium casinos...
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (displayCasinos.length === 0) {
+    return null;
+  }
 
     return (
         <section className="w-full flex flex-col items-center py-12 px-4 max-w-7xl mx-auto">
@@ -53,7 +99,7 @@ export default function AllCasinoSection() {
             {totalPages > 1 && (
                 <div className="w-full flex flex-col sm:flex-row justify-between items-center mt-10 pt-6 border-t border-slate-200 gap-4">
                     <p className="text-sm text-slate-500 order-2 sm:order-1">
-                        Showing <span className="font-semibold text-slate-800">{displayCasinos.length}</span> of <span className="font-semibold text-slate-800">{filteredCasinos.length}</span> verified platforms
+                        Showing <span className="font-semibold text-slate-800">{displayCasinos.length}</span> of <span className="font-semibold text-slate-800">{displayCasinos.length}</span> verified platforms
                     </p>
 
                     <div className="flex items-center gap-1 order-1 sm:order-2">
@@ -185,9 +231,7 @@ function CasinoCard({ casino, index }: { casino: any; index: number }) {
                                 const Icon = feature.icon;
                                 return (
                                     <div key={idx} className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
-                                        <span className="p-1 rounded bg-emerald-50 text-emerald-600 shrink-0">
-                                            <Check size={14} className="stroke-[3]" />
-                                        </span>
+                                       
                                         <Icon size={16} className="text-slate-400 shrink-0" />
                                         <span className="truncate">{feature.text}</span>
                                     </div>
