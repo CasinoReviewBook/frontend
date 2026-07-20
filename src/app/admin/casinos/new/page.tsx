@@ -73,6 +73,9 @@ export default function NewCasinoPage() {
     short_description: '',
     overview: '',
     editor_view: '',
+    editor_name: '',
+    editor_position: '',
+    editor_experience_years: '',
     rating: '4.5',
     visits: '0',
     established_year: new Date().getFullYear().toString(),
@@ -356,6 +359,28 @@ export default function NewCasinoPage() {
                 placeholder="What our experts think about the casino..."
                 rows={4}
               />
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Input
+                  label="Editor Name"
+                  value={formData.editor_name}
+                  onChange={(e) => setFormData({ ...formData, editor_name: e.target.value })}
+                  placeholder="John Smith"
+                />
+                <Input
+                  label="Editor Position"
+                  value={formData.editor_position}
+                  onChange={(e) => setFormData({ ...formData, editor_position: e.target.value })}
+                  placeholder="Senior Casino Reviewer"
+                />
+                <Input
+                  label="Editor Experience (Years)"
+                  type="number"
+                  value={formData.editor_experience_years}
+                  onChange={(e) => setFormData({ ...formData, editor_experience_years: e.target.value })}
+                  placeholder="5"
+                />
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Input
