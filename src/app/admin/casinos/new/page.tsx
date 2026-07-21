@@ -5,6 +5,7 @@ import { Input, Textarea, Select, Toggle, Button } from '../../../../components/
 import MediaUpload from '../../../../components/admin/MediaUpload';
 import { ArrowLeft, Save, Plus, Trash } from 'lucide-react';
 import ChipSelector from '../../../../components/admin/ChipSelector';
+import CasinoReviews from '../../../../components/admin/CasinoReviews';
 export default function NewCasinoPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -23,9 +24,9 @@ export default function NewCasinoPage() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey) {
-        const tabs = ['general', 'details', 'relations', 'flags', 'bonuses', 'faqs', 'media', 'seo'];
+        const tabs = ['general', 'details', 'relations', 'flags', 'bonuses', 'faqs', 'media', 'seo', 'reviews'];
         const num = parseInt(e.key);
-        if (num >= 1 && num <= 8) {
+        if (num >= 1 && num <= 9) {
           e.preventDefault();
           setActiveTab(tabs[num - 1]);
         }
@@ -223,7 +224,8 @@ export default function NewCasinoPage() {
     { id: 'bonuses', name: 'Bonuses' },
     { id: 'faqs', name: 'FAQs' },
     { id: 'media', name: 'Screenshots & Gallery' },
-    { id: 'seo', name: 'SEO Metadata' }
+    { id: 'seo', name: 'SEO Metadata' },
+    { id: 'reviews', name: 'Reviews' }
   ];
 
   return (
@@ -248,7 +250,7 @@ export default function NewCasinoPage() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-slate-100 overflow-x-auto bg-slate-50/20">
+        <div className="flex border-b border-slate-100 overflow-x-auto bg-slate-50/20 scrollbar-hide">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -897,6 +899,13 @@ export default function NewCasinoPage() {
                 onChange={(e) => setFormData({ ...formData, meta_keywords: e.target.value })}
                 placeholder="Jackpot City, Online Casino Review, Casino Bonus, MGA Casino"
               />
+            </div>
+          )}
+
+          {activeTab === 'reviews' && (
+            <div className="text-center py-12">
+              <p className="text-gray-500">Reviews can be added after creating the casino.</p>
+              <p className="text-sm text-gray-400 mt-2">Save the casino first, then edit it to manage reviews.</p>
             </div>
           )}
 

@@ -41,10 +41,10 @@ async function getCasino(slug: string): Promise<any | null> {
         cache: "no-store",
     });
 
-    console.log("API STATUS:", res.status);
+    
 
     const text = await res.text();
-    console.log("API RESPONSE:", text);
+    
 
     if (!res.ok) return null;
 
@@ -74,7 +74,7 @@ export default async function CasinoPage({
     const games: Game[] =
         casino.game_types && casino.game_types.length > 0
             ? casino.game_types.map((gt: any, i: number): Game => ({
-                icon: ["ðŸŽ°", "ðŸŽ¥", "ðŸ´â€â˜ ï¸", "ðŸŽ¡", "â™ ï¸", "ðŸ’Ž"][i % 6],
+               icon: ["🎰", "🎥", "🏴‍☠️", "🎡", "♠️", "💎"][i % 6],
                 title: gt.game_type?.name || "Game",
                 count: "Available",
                 color: [
@@ -96,42 +96,42 @@ export default async function CasinoPage({
             }))
             : [
                 {
-                    icon: "ðŸŽ°",
+                    icon: "🎰",
                     title: "Slots",
                     count: "3,200+ titles",
                     color: "border-[#F59E0B] bg-[#FFF8F0]",
                     arrow: "text-[#F59E0B]",
                 },
                 {
-                    icon: "ðŸŽ¥",
+                    icon: "🎥",
                     title: "Live Casino",
                     count: "200+ titles",
                     color: "border-[#FF5A5A] bg-[#FFF5F5]",
                     arrow: "text-[#FF5A5A]",
                 },
                 {
-                    icon: "ðŸ´â€â˜ ï¸",
+                    icon: "🏴‍☠️",
                     title: "Blackjack",
                     count: "85+ titles",
                     color: "border-[#22C55E] bg-[#F2FFF7]",
                     arrow: "text-[#22C55E]",
                 },
                 {
-                    icon: "ðŸŽ¡",
+                    icon: "🎡",
                     title: "Roulette",
                     count: "60+ titles",
                     color: "border-[#D946EF] bg-[#FFF3FF]",
                     arrow: "text-[#D946EF]",
                 },
                 {
-                    icon: "â™ ï¸",
+                    icon: "♠️",
                     title: "Poker",
                     count: "40+ titles",
                     color: "border-[#EC4899] bg-[#FFF0F7]",
                     arrow: "text-[#EC4899]",
                 },
                 {
-                    icon: "ðŸ’Ž",
+                    icon: "💎",
                     title: "Baccarat",
                     count: "32+ titles",
                     color: "border-[#EAB308] bg-[#FFFFF2]",
@@ -160,7 +160,7 @@ export default async function CasinoPage({
     const review = {
         initials: "JH",
         name: "James Hawthorne",
-        role: "Chief Casino Analyst Â· 12 years experience",
+        role: "Chief Casino Analyst 12 years experience",
         verdict: "4.8/5.0",
     };
     const securityCards = [
@@ -168,21 +168,21 @@ export default async function CasinoPage({
             icon: <ShieldCheck className="w-7 h-7 text-[#00D084]" />,
             title: "Licensed & Regulated",
             subtitle: "MGA / Curacao",
-            badge: "âœ“ Verified by auditor",
+            badge: "✓ Verified by auditor",
             badgeColor: "text-[#00D084]",
         },
         {
             icon: <Lock className="w-7 h-7 text-[#2E68FB]" />,
             title: "256-bit SSL",
             subtitle: "Bank-grade encryption for all data",
-            badge: "âœ“ PCI DSS compliant",
+            badge: "✓ PCI DSS compliant",
             badgeColor: "text-[#2E68FB]",
         },
         {
             icon: <TriangleAlert className="w-7 h-7 text-[#F59E0B]" />,
             title: "Responsible Gaming",
             subtitle: "Self-exclusion & deposit limits",
-            badge: "âœ“ GamCare partner",
+            badge: "✓ GamCare partner",
             badgeColor: "text-[#F59E0B]",
         },
     ];
@@ -249,7 +249,7 @@ export default async function CasinoPage({
                             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
                                 <h1 className="text-[24px] font-bold text-gray-900">{casino.name}</h1>
                                 <div className="flex items-center ml-28 gap-1 text-amber-400">
-                                    <span className="text-[24px]">â˜…â˜…â˜…â˜…â˜…</span>
+                                    <span className="text-[24px]">★★★★★</span>
                                     <span className="text-gray-900 font-bold text-[18px] ml-1">{casino.rating}</span>
                                     <span className="text-gray-400 text-[16]">(11,847)</span>
                                 </div>
@@ -257,10 +257,10 @@ export default async function CasinoPage({
 
                             {/* Micro Specs */}
                             <div className="grid grid-cols-2  gap-x-0 gap-y-1 mt-3 text-xs text-gray-600">
-                                <p>ðŸ“‰ <span className="font-semibold">MIN DEPOSIT:</span> ${casino.minimum_deposit}</p>
-                                <p>â±ï¸ <span className="font-semibold">PAYOUT:</span> Instant - 12h</p>
-                                <p>ðŸŽ° <span className="font-semibold">GAMES:</span> 3,800+</p>
-                                <p>ðŸ’³ <span className="font-semibold">WITHDRAWAL:</span> {casino.withdrawal_time}</p>
+                                <p>🎥<span className="font-semibold">MIN DEPOSIT:</span> ${casino.minimum_deposit}</p>
+                                <p>🎡<span className="font-semibold">PAYOUT:</span> Instant - 12h</p>
+                                <p>🎰 <span className="font-semibold">GAMES:</span> 3,800+</p>
+                                <p>💎 <span className="font-semibold">WITHDRAWAL:</span> {casino.withdrawal_time}</p>
                             </div>
 
                             <div className="mt-3 pt-3 border-t border-gray-100 flex items-center gap-2 text-xs">
@@ -271,7 +271,7 @@ export default async function CasinoPage({
                             </div>
 
                             <p className="text-emerald-500 text-xs font-medium mt-2 flex items-center gap-1">
-                                âœ“ Verified terms â€¢ No hidden fees
+                                ✓ Verified terms No hidden fees
                             </p>
                         </div>
                     </div>
@@ -296,7 +296,7 @@ export default async function CasinoPage({
                                 boxShadow: "0px 2px 0px 0px #2E68FB",
                             }}
                         >
-                            Play Now â†—
+                            Play Now  ▶
                         </a>
 
                         {/* Read Full Review */}
@@ -308,7 +308,7 @@ export default async function CasinoPage({
                                 boxShadow: "0px 2px 0px 0px #E36D1F",
                             }}
                         >
-                            â–¶ Read Full Review
+                            ↗ Read Full Review
                         </a>
 
                     </div>
@@ -416,7 +416,7 @@ export default async function CasinoPage({
                                     {mainBonusTitle}
                                 </h3>
                                 <p className="font-poppins font-normal text-[12px] leading-[100%] tracking-[0.01em] text-[#4D4D4D] mt-0.5">
-                                    No promo code required â€” bonus credited automatically.
+                                    No promo code required bonus credited automatically.
                                 </p>
                             </div>
 
@@ -440,7 +440,7 @@ export default async function CasinoPage({
   "
                             >
                                 Claim Bonus
-                                <span className="text-base">â†—</span>
+                                <span className="text-base">▶</span>
                             </a>
                         </div>
 
@@ -564,7 +564,7 @@ export default async function CasinoPage({
                                 </span>
 
                                 <span className={`${game.arrow} text-lg`}>
-                                    â†—
+                                    ▶
                                 </span>
                             </div>
                         </div>
@@ -611,7 +611,7 @@ export default async function CasinoPage({
                                     : "text-[#EF4444]"
                                     }`}
                             >
-                                {country.available ? "âœ“ Available" : "âœ• Restricted"}
+                                {country.available ? "✓ Available" : "✗ Restricted"}
                             </p>
                         </div>
                     ))}
@@ -794,27 +794,14 @@ export default async function CasinoPage({
   "
                         >
                             Visit {casino.name}
-                            <span className="text-[16px]">â†—</span>
+                            <span className="text-[16px]">▶</span>
                         </a>
 
                     </div>
                 </div>
             </div>
 
-            <div className="mt-10">
-                <div className="inline-flex rounded-full bg-[radial-gradient(circle_at_center,#B8CEFF_0%,#2E68FB_100%)] p-[1px]">
-                    <div className="flex items-center gap-1 rounded-full bg-[#E6EDFF] px-4 py-1">
-                        <Star className="w-3.5 h-3.5 text-[#2E68FB]" />
-                        <span className="font-poppins text-[10px] font-medium uppercase text-[#2E68FB]">
-                            Reviews
-                        </span>
-                    </div>
-                </div>
-
-
-
-
-            </div>
+          
 
             <div className="mt-10">
 

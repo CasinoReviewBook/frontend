@@ -5,6 +5,7 @@ import { Input, Textarea, Select, Toggle, Button } from '../../../../../componen
 import MediaUpload from '../../../../../components/admin/MediaUpload';
 import { ArrowLeft, Save, Plus, Trash } from 'lucide-react';
 import ChipSelector from '../../../../../components/admin/ChipSelector';
+import CasinoReviews from '../../../../../components/admin/CasinoReviews';
 export default function EditCasinoPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const resolvedParams = use(params);
@@ -28,9 +29,9 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey) {
-        const tabs = ['general', 'details', 'relations', 'flags', 'bonuses', 'faqs', 'media', 'seo'];
+        const tabs = ['general', 'details', 'relations', 'flags', 'bonuses', 'faqs', 'media', 'seo', 'reviews'];
         const num = parseInt(e.key);
-        if (num >= 1 && num <= 8) {
+        if (num >= 1 && num <= 9) {
           e.preventDefault();
           setActiveTab(tabs[num - 1]);
         }
@@ -307,7 +308,8 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
     { id: 'bonuses', name: 'Bonuses' },
     { id: 'faqs', name: 'FAQs' },
     { id: 'media', name: 'Screenshots & Gallery' },
-    { id: 'seo', name: 'SEO Metadata' }
+    { id: 'seo', name: 'SEO Metadata' },
+    { id: 'reviews', name: 'Reviews' }
   ];
 
   if (isFetching) {
@@ -340,7 +342,7 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-slate-100 overflow-x-auto bg-slate-50/20">
+        <div className="flex border-b border-slate-100 overflow-x-auto bg-slate-50/20 scrollbar-hide">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -992,13 +994,17 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
                 placeholder="Read our comprehensive expert review on Jackpot City. Get details on deposit limits, payout speeds, licenses..."
                 rows={3}
               />
-              <Input 
-                label="Meta SEO Keywords (Comma separated)" 
-                value={formData.meta_keywords} 
-                onChange={(e) => setFormData({...formData, meta_keywords: e.target.value})} 
+              <Input
+                label="Meta SEO Keywords (Comma separated)"
+                value={formData.meta_keywords}
+                onChange={(e) => setFormData({...formData, meta_keywords: e.target.value})}
                 placeholder="Jackpot City, Online Casino Review, Casino Bonus, MGA Casino"
               />
             </div>
+          )}
+
+          {activeTab === 'reviews' && (
+            <CasinoReviews casinoId={id} />
           )}
 
           <div className="flex justify-end gap-4 pt-6 border-t border-slate-100">

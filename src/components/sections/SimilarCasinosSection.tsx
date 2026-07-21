@@ -86,22 +86,7 @@ export default function SimilarCasinosSection({ slug }: SimilarCasinosSectionPro
       </div>
 
       <div className="relative group">
-         <button
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md border border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0"
-            onClick={scrollLeft}
-            style={{ marginLeft: '-15px' }}
-          >
-            <ChevronLeft size={18} className="text-[#16171D]" />
-          </button>
-
-          <button
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md border border-gray-100 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0"
-            onClick={scrollRight}
-            style={{ marginRight: '-15px' }}
-          >
-            <ChevronRight size={18} className="text-[#16171D]" />
-          </button>
-
+       
         <div
           ref={scrollContainerRef}
           className="flex gap-4 overflow-x-auto pb-4 scroll-smooth"
@@ -126,7 +111,7 @@ function SimilarCasinoCard({ casino }: { casino: any }) {
   return (
     <Link href={`/casino/${casino.slug}`}>
       <div
-        className="rounded-[24px] p-[2px] transition-transform hover:-translate-y-1 cursor-pointer"
+        className="rounded-[24px] p-[2px] "
         style={{
           background: "linear-gradient(158.37deg, #FF9C2C 2.3%, #FFF1CC 15.9%, #B45B1B 24.24%, #FFC170 62.4%, #FEE5B3 75.76%, #9F5E26 90.07%)",
         }}
