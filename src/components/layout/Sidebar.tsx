@@ -29,83 +29,83 @@ interface SidebarProps {
 const menuItems = [
     { name: 'Home', href: '/', icon: Home },
     {
-    name: 'Casinos',
-    icon: Trophy,
-    subItems: [
-        { name: 'Online Casinos', href: '/casinos/online-casino'},
-        { name: 'Real Money Casinos', href: '/casinos/real-money-casinos' },
-        { name: 'Crypto Casinos', href: '/casinos/crypto-casinos' },
-        { name: 'Mobile Casinos', href: '/casinos/mobile-casinos' },
-        { name: 'Instant Play Casinos', href: '/casinos/instant-play-casinos' },
-        { name: 'Sweepstakes Casinos', href: '/casinos/sweepstakes-casinos' },
-        { name: 'Pay N Play Casinos', href: '/casinos/pay-n-play-casinos' },
-        { name: 'Newest Casinos', href: '/casinos/newest-casino' },
-        { name: 'Certified Casinos', href: '/casinos/certified-casino' },
-        { name: 'Casino Companies', href: '/casinos/casino-companies' },
-        { name: 'Fast Withdrawal Casinos', href: '/casinos/fast-withdrawal-casinos' },
-        { name: 'Best Payout Casinos', href: '/casinos/best-payout-casinos' },
-        { name: 'Low Deposit Casinos', href: '/casinos/low-deposit-casinos' },
-        { name: 'No Deposit Casinos', href: '/casinos/no-deposit-casinos' },
-        { name: 'High Roller Casinos', href: '/casinos/high-roller-casinos' },
-        { name: 'Live Dealer Casinos', href: '/casinos/live-dealer-casinos' },
-        { name: 'Licensed Casinos', href: '/casinos/licensed-casinos' },
-        { name: 'Trusted Casinos', href: '/casinos/trusted-casinos' },
-        { name: 'Casinos by Country', href: '/casinos/casinos-by-country' },
-        { name: 'Casinos by Deposit Method', href: '/casinos/casinos-by-deposit-method' },
-        { name: 'Casinos by Game Provider', href: '/casinos/casinos-by-game-provider' },
-        { name: 'Casinos by License', href: '/casinos/casinos-by-license' },
-    ]
-},
-   {
-    name: 'Bonuses',
-    icon: Gift,
-    subItems: [
-        { name: 'Casino Bonuses', href: '/bonuses/casino-bonuses' },
-        { name: 'Latest Bonuses', href: '/bonuses/latest-bonuses' },
-        { name: 'Exclusive Bonuses', href: '/bonuses/exclusive-bonuses' },
-        { name: 'Bonuses by Country', href: '/bonuses/bonuses-by-country' },
-        { name: 'Welcome Bonuses', href: '/bonuses/welcome-bonuses' },
-        { name: 'No Deposit Bonuses', href: '/bonuses/no-deposit-bonuses' },
-        { name: 'Free Spins Bonuses', href: '/bonuses/free-spins-bonuses' },
-        { name: 'Deposit Bonuses', href: '/bonuses/deposit-bonuses' },
-        { name: 'Match Deposit Bonuses', href: '/bonuses/match-deposit-bonuses' },
-        { name: 'Minimum Deposit Bonuses', href: '/bonuses/minimum-deposit-bonuses' },
-        { name: 'Cashback Bonuses', href: '/bonuses/cashback-bonuses' },
-        { name: 'Reload Bonuses', href: '/bonuses/reload-bonuses' },
-        { name: 'High Roller Bonuses', href: '/bonuses/high-roller-bonuses' },
-        { name: 'Crypto Bonuses', href: '/bonuses/crypto-bonuses' },
-        { name: 'Sweepstakes Bonuses', href: '/bonuses/sweepstakes-bonuses' },
-        { name: 'No Wagering Bonuses', href: '/bonuses/no-wagering-bonuses' },
-        { name: 'VIP Bonuses', href: '/bonuses/vip-bonuses' },
-        { name: 'Referral Bonuses', href: '/bonuses/referral-bonuses' },
-        { name: 'Loyalty Bonuses', href: '/bonuses/loyalty-bonuses' },
-        { name: 'Daily Bonuses', href: '/bonuses/daily-bonuses' },
-        { name: 'Weekly Bonuses', href: '/bonuses/weekly-bonuses' },
-        { name: 'Weekend Bonuses', href: '/bonuses/weekend-bonuses' },
-        { name: 'Birthday Bonuses', href: '/bonuses/birthday-bonuses' },
-        { name: 'Tournament Bonuses', href: '/bonuses/tournament-bonuses' },
-        { name: 'Referral Friend Bonuses', href: '/bonuses/refer-a-friend-bonuses' }
-    ]
-},
-  {
-    name: 'Games',
-    icon: Dices,
-    subItems: [
-        { name: 'Casino Games', href: '/games/casino-games' },
-        { name: 'Table Games', href: '/games/table-games' },
-        { name: 'Card Games', href: '/games/card-games' },
-        { name: 'Dice Games', href: '/games/dice-games' },
-        { name: 'Poker Games', href: '/games/poker-games' },
-        { name: 'Blackjack Games', href: '/games/blackjack-games' },
-        { name: 'Roulette Games', href: '/games/roulette-games' },
-        { name: 'Craps Games', href: '/games/craps-games' },
-        { name: 'Bingo Games', href: '/games/bingo-games' },
-        { name: 'Baccarat Games', href: '/games/baccarat-games' },
-        { name: 'Lottery Games', href: '/games/lottery-games' },
-        { name: 'Real Money Games', href: '/games/real-money-games' },
-        { name: 'Free Slot Tournaments', href: '/games/free-slot-tournaments' },
-    ]
-},
+        name: 'Casinos',
+        icon: Trophy,
+        subItems: [
+            { name: 'Online Casinos', href: '/casinos/online-casino' },
+            { name: 'Real Money Casinos', href: '/casinos/real-money-casinos' },
+            { name: 'Crypto Casinos', href: '/casinos/crypto-casinos' },
+            { name: 'Mobile Casinos', href: '/casinos/mobile-casinos' },
+            { name: 'Instant Play Casinos', href: '/casinos/instant-play-casinos' },
+            { name: 'Sweepstakes Casinos', href: '/casinos/sweepstakes-casinos' },
+            { name: 'Pay N Play Casinos', href: '/casinos/pay-n-play-casinos' },
+            { name: 'Newest Casinos', href: '/casinos/newest-casino' },
+            { name: 'Certified Casinos', href: '/casinos/certified-casino' },
+            { name: 'Casino Companies', href: '/casinos/casino-companies' },
+            { name: 'Fast Withdrawal Casinos', href: '/casinos/fast-withdrawal-casinos' },
+            { name: 'Best Payout Casinos', href: '/casinos/best-payout-casinos' },
+            { name: 'Low Deposit Casinos', href: '/casinos/low-deposit-casinos' },
+            { name: 'No Deposit Casinos', href: '/casinos/no-deposit-casinos' },
+            { name: 'High Roller Casinos', href: '/casinos/high-roller-casinos' },
+            { name: 'Live Dealer Casinos', href: '/casinos/live-dealer-casinos' },
+            { name: 'Licensed Casinos', href: '/casinos/licensed-casinos' },
+            { name: 'Trusted Casinos', href: '/casinos/trusted-casinos' },
+            { name: 'Casinos by Country', href: '/casinos/casinos-by-country' },
+            { name: 'Casinos by Deposit Method', href: '/casinos/casinos-by-deposit-method' },
+            { name: 'Casinos by Game Provider', href: '/casinos/casinos-by-game-provider' },
+            { name: 'Casinos by License', href: '/casinos/casinos-by-license' },
+        ]
+    },
+    {
+        name: 'Bonuses',
+        icon: Gift,
+        subItems: [
+            { name: 'Casino Bonuses', href: '/bonuses/casino-bonuses' },
+            { name: 'Latest Bonuses', href: '/bonuses/latest-bonuses' },
+            { name: 'Exclusive Bonuses', href: '/bonuses/exclusive-bonuses' },
+            { name: 'Bonuses by Country', href: '/bonuses/bonuses-by-country' },
+            { name: 'Welcome Bonuses', href: '/bonuses/welcome-bonuses' },
+            { name: 'No Deposit Bonuses', href: '/bonuses/no-deposit-bonuses' },
+            { name: 'Free Spins Bonuses', href: '/bonuses/free-spins-bonuses' },
+            { name: 'Deposit Bonuses', href: '/bonuses/deposit-bonuses' },
+            { name: 'Match Deposit Bonuses', href: '/bonuses/match-deposit-bonuses' },
+            { name: 'Minimum Deposit Bonuses', href: '/bonuses/minimum-deposit-bonuses' },
+            { name: 'Cashback Bonuses', href: '/bonuses/cashback-bonuses' },
+            { name: 'Reload Bonuses', href: '/bonuses/reload-bonuses' },
+            { name: 'High Roller Bonuses', href: '/bonuses/high-roller-bonuses' },
+            { name: 'Crypto Bonuses', href: '/bonuses/crypto-bonuses' },
+            { name: 'Sweepstakes Bonuses', href: '/bonuses/sweepstakes-bonuses' },
+            { name: 'No Wagering Bonuses', href: '/bonuses/no-wagering-bonuses' },
+            { name: 'VIP Bonuses', href: '/bonuses/vip-bonuses' },
+            { name: 'Referral Bonuses', href: '/bonuses/referral-bonuses' },
+            { name: 'Loyalty Bonuses', href: '/bonuses/loyalty-bonuses' },
+            { name: 'Daily Bonuses', href: '/bonuses/daily-bonuses' },
+            { name: 'Weekly Bonuses', href: '/bonuses/weekly-bonuses' },
+            { name: 'Weekend Bonuses', href: '/bonuses/weekend-bonuses' },
+            { name: 'Birthday Bonuses', href: '/bonuses/birthday-bonuses' },
+            { name: 'Tournament Bonuses', href: '/bonuses/tournament-bonuses' },
+            { name: 'Referral Friend Bonuses', href: '/bonuses/refer-a-friend-bonuses' }
+        ]
+    },
+    {
+        name: 'Games',
+        icon: Dices,
+        subItems: [
+            { name: 'Casino Games', href: '/games/casino-games' },
+            { name: 'Table Games', href: '/games/table-games' },
+            { name: 'Card Games', href: '/games/card-games' },
+            { name: 'Dice Games', href: '/games/dice-games' },
+            { name: 'Poker Games', href: '/games/poker-games' },
+            { name: 'Blackjack Games', href: '/games/blackjack-games' },
+            { name: 'Roulette Games', href: '/games/roulette-games' },
+            { name: 'Craps Games', href: '/games/craps-games' },
+            { name: 'Bingo Games', href: '/games/bingo-games' },
+            { name: 'Baccarat Games', href: '/games/baccarat-games' },
+            { name: 'Lottery Games', href: '/games/lottery-games' },
+            { name: 'Real Money Games', href: '/games/real-money-games' },
+            { name: 'Free Slot Tournaments', href: '/games/free-slot-tournaments' },
+        ]
+    },
     {
         name: 'Slots',
         icon: Flame,
@@ -116,30 +116,30 @@ const menuItems = [
             { name: 'New Slots', href: '/slots/new-slots' },
         ]
     },
-  {
-    name: 'Betting',
-    icon: Tv,
-    subItems: [
-        { name: 'Sports Betting', href: '/betting/sports-betting' },
-        { name: 'Betting Tips', href: '/betting/betting-tips' },
-        { name: 'Sportsbook Reviews', href: '/betting/sportsbook-reviews' },
-        { name: 'New Betting Sites', href: '/betting/new-betting-sites' },
-        { name: 'Live Scores', href: '/betting/live-scores' },
-        { name: 'Popular Competitions', href: '/betting/popular-competitions' },
-        { name: 'World Cup 2026', href: '/betting/world-cup-2026' },
-        { name: 'Bet Types', href: '/betting/bet-types' },
-        { name: 'Betting Features', href: '/betting/betting-features' },
-        { name: 'Odds Forums', href: '/betting/odds-forums' },
-        { name: 'Betting by Country', href: '/betting/betting-by-country' },
-        { name: 'Deposit Methods', href: '/betting/deposit-methods' },
-        { name: 'Betting Bonuses', href: '/betting/betting-bonuses' },
-        { name: 'Welcome Bonuses', href: '/betting/welcome-bonuses' },
-        { name: 'Free Bonuses', href: '/betting/free-bonuses' },
-        { name: 'Betting Bonuses by Country', href: '/betting/betting-bonuses-by-country' },
-        { name: 'Prediction Markets', href: '/betting/prediction-markets' },
-        { name: 'Odds Calculator', href: '/betting/odds-calculator' },
-    ]
-},
+    {
+        name: 'Betting',
+        icon: Tv,
+        subItems: [
+            { name: 'Sports Betting', href: '/betting/sports-betting' },
+            { name: 'Betting Tips', href: '/betting/betting-tips' },
+            { name: 'Sportsbook Reviews', href: '/betting/sportsbook-reviews' },
+            { name: 'New Betting Sites', href: '/betting/new-betting-sites' },
+            { name: 'Live Scores', href: '/betting/live-scores' },
+            { name: 'Popular Competitions', href: '/betting/popular-competitions' },
+            { name: 'World Cup 2026', href: '/betting/world-cup-2026' },
+            { name: 'Bet Types', href: '/betting/bet-types' },
+            { name: 'Betting Features', href: '/betting/betting-features' },
+            { name: 'Odds Forums', href: '/betting/odds-forums' },
+            { name: 'Betting by Country', href: '/betting/betting-by-country' },
+            { name: 'Deposit Methods', href: '/betting/deposit-methods' },
+            { name: 'Betting Bonuses', href: '/betting/betting-bonuses' },
+            { name: 'Welcome Bonuses', href: '/betting/welcome-bonuses' },
+            { name: 'Free Bonuses', href: '/betting/free-bonuses' },
+            { name: 'Betting Bonuses by Country', href: '/betting/betting-bonuses-by-country' },
+            { name: 'Prediction Markets', href: '/betting/prediction-markets' },
+            { name: 'Odds Calculator', href: '/betting/odds-calculator' },
+        ]
+    },
     { name: 'Casino News', href: '/news', icon: Megaphone },
     {
         name: 'Guides & Strategy',
@@ -164,9 +164,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
     return (
         <div
-            className={`fixed left-0 top-0 w-[260px] h-full z-50 transition-transform duration-300 ${
-                open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-            }`}
+            className={`fixed left-0 top-0 w-[260px] h-full z-50 transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+                }`}
         >
             <aside className="w-full h-full bg-[#EEF3FE] flex flex-col">
                 {/* Sticky Logo Header */}
@@ -208,7 +207,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     <nav className="space-y-1 mb-6">
                         {menuItems.map((item) => {
                             const Icon = item.icon;
-                            
+
                             if (item.subItems) {
                                 const isDropdownOpen = !!openDropdowns[item.name];
                                 const isAnyChildActive = item.subItems.some(sub => pathname === sub.href);
@@ -217,11 +216,10 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                                     <div key={item.name} className="flex flex-col w-[212px]">
                                         <button
                                             onClick={() => toggleDropdown(item.name)}
-                                            className={`w-full h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center justify-between transition-all duration-300 ${
-                                                isAnyChildActive
+                                            className={`w-full h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center justify-between transition-all duration-300 ${isAnyChildActive
                                                     ? 'border border-[#C5D6FF] bg-white/40'
                                                     : 'hover:border hover:border-[#C5D6FF] hover:bg-white/50'
-                                            }`}
+                                                }`}
                                         >
                                             <div className="flex items-center gap-[10px]">
                                                 <Icon className={`w-5 h-5 ${isAnyChildActive ? 'text-[#3B6BFF]' : 'text-slate-500'}`} />
@@ -229,17 +227,16 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                                                     {item.name}
                                                 </span>
                                             </div>
-                                            <ChevronDown 
-                                                size={16} 
-                                                className={`text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} 
+                                            <ChevronDown
+                                                size={16}
+                                                className={`text-slate-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
                                             />
                                         </button>
 
                                         {/* Dropdown child items list without internal scroll container */}
-                                        <div 
-                                            className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                                                isDropdownOpen ? 'max-h-[400px] opacity-100 mt-1 pb-2' : 'max-h-0 opacity-0'
-                                            }`}
+                                        <div
+                                            className={`transition-all duration-300 ease-in-out overflow-hidden ${isDropdownOpen ? 'max-h-[400px] opacity-100 mt-1 pb-2' : 'max-h-0 opacity-0'
+                                                }`}
                                         >
                                             <div className="pl-8 space-y-1 border-l-2 border-[#C5D6FF]/50 ml-4 mt-1">
                                                 {item.subItems.map((subItem) => {
@@ -249,9 +246,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                                                             key={subItem.name}
                                                             href={subItem.href}
                                                             onClick={onClose}
-                                                            className={`block py-1.5 text-[13px] font-medium transition-colors ${
-                                                                isChildActive ? 'text-[#3B6BFF] font-semibold' : 'text-slate-600 hover:text-[#3B6BFF]'
-                                                            }`}
+                                                            className={`block py-1.5 text-[13px] font-medium transition-colors ${isChildActive ? 'text-[#3B6BFF] font-semibold' : 'text-slate-600 hover:text-[#3B6BFF]'
+                                                                }`}
                                                         >
                                                             {subItem.name}
                                                         </Link>
@@ -270,11 +266,10 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                                     key={item.name}
                                     href={item.href!}
                                     onClick={onClose}
-                                    className={`w-[212px] h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center gap-[10px] transition-all duration-300 ${
-                                        isActive
+                                    className={`w-[212px] h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center gap-[10px] transition-all duration-300 ${isActive
                                             ? 'border border-[#C5D6FF] bg-[linear-gradient(180deg,rgba(88,140,243,0.02)_0%,rgba(88,140,243,0.02)_50.17%,rgba(88,140,243,0.2)_108.7%)] shadow-sm'
                                             : 'hover:border hover:border-[#C5D6FF] hover:bg-white/50'
-                                    }`}
+                                        }`}
                                 >
                                     <Icon className={`w-5 h-5 transition-colors ${isActive ? 'text-[#3B6BFF]' : 'text-slate-500'}`} />
                                     <span className={`text-[15px] font-medium transition-colors ${isActive ? 'text-[#172554]' : 'text-slate-700'}`}>
@@ -303,9 +298,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                         <div className="relative w-[212px] h-[280px] rounded-[20px] overflow-hidden mx-auto">
                             <img src="/images/sidebar.png" alt="Earn Now" className="absolute inset-0 w-full h-full object-cover" />
                             <div className="absolute inset-0 rounded-[20px] bg-[linear-gradient(180deg,rgba(58,62,69,0.0001)_0%,rgba(27,29,33,0.92)_56%)]" />
-                            <button className="absolute top-3 right-3 z-20 w-7 h-7 rounded-full bg-[#7EA5FF]/80 backdrop-blur-sm flex items-center justify-center text-white hover:bg-[#7EA5FF]">
-                                <X size={14} />
-                            </button>
+                           
                             <div className="absolute inset-0 z-10 flex flex-col justify-end items-center pb-6 px-4 text-center">
                                 <h3 className="text-white text-[16px] font-semibold leading-tight">Sign up and<br />Earn Now</h3>
                                 <p className="text-white/80 text-[12px] leading-snug mt-2 max-w-[160px]">Share your referral code and bank an easy $100.</p>
@@ -322,17 +315,22 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     </div>
 
                     {/* Support Section */}
-                    <div className="mt-2 h-[100px] rounded-tl-[12px] rounded-tr-[12px] shrink-0 relative bg-[#EEF3FE] flex items-center justify-center gap-3 before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-[212px] before:h-[2px] before:[background:radial-gradient(50%_50%_at_50%_50%,#588CF3_42.79%,#EEF3FE_100%)]"
-                        style={{ '--divider-gradient': 'radial-gradient(50% 50% at 50% 50%, #588CF3 42.79%, #EEF3FE 100%)' } as React.CSSProperties}
+                    <div
+                        className="mt-2 h-[100px] rounded-tl-[12px] rounded-tr-[12px] shrink-0 relative bg-[#EEF3FE] flex items-center justify-center gap-3 before:content-[''] before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-[212px] before:h-[2px] before:[background:radial-gradient(50%_50%_at_50%_50%,#588CF3_42.79%,#EEF3FE_100%)]"
                     >
-                        <button className="w-[96px] h-[40px] rounded-[10px] bg-white shadow-sm flex items-center justify-center gap-2 text-[13px] font-medium text-slate-700 hover:bg-slate-50 transition-colors">
-                            <Headphones size={16} className="text-slate-500" />
-                            Support
-                        </button>
-                        <button className="w-[96px] h-[40px] rounded-[10px] text-white text-[13px] font-medium flex items-center justify-center gap-2 bg-[linear-gradient(180deg,#CDDCFB_0%,#588CF3_100%)] shadow-[0_6px_15px_rgba(88,140,243,0.25)] hover:opacity-95 transition-opacity">
-                            <CircleHelp size={16} />
-                            Help
-                        </button>
+                        <Link href="/contact-us">
+                            <button className="w-[96px] h-[40px] rounded-[10px] bg-white shadow-sm flex items-center justify-center gap-2 text-[13px] font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+                                <Headphones size={16} className="text-slate-500" />
+                                Support
+                            </button>
+                        </Link>
+
+                        <Link href="/contact-us">
+                            <button className="w-[96px] h-[40px] rounded-[10px] text-white text-[13px] font-medium flex items-center justify-center gap-2 bg-[linear-gradient(180deg,#CDDCFB_0%,#588CF3_100%)] shadow-[0_6px_15px_rgba(88,140,243,0.25)] hover:opacity-95 transition-opacity">
+                                <CircleHelp size={16} />
+                                Help
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </aside>

@@ -299,17 +299,7 @@ export default async function CasinoPage({
                             Play Now  ▶
                         </a>
 
-                        {/* Read Full Review */}
-                        <a
-                            href="#review"
-                            className="mt-4 h-14 rounded-2xl text-black text-lg font-bold flex items-center justify-center transition-all hover:brightness-105 active:translate-y-[1px]"
-                            style={{
-                                background: "linear-gradient(180deg, #FFE11F 0%, #FF8533 100%)",
-                                boxShadow: "0px 2px 0px 0px #E36D1F",
-                            }}
-                        >
-                            ↗ Read Full Review
-                        </a>
+                       
 
                     </div>
 
