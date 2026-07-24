@@ -19,7 +19,9 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
     avatar: '',
     role: 'user',
     status: 'active',
-    email_verified: false
+    email_verified: false,
+    phone: '',
+    country: '',
   });
 
   useEffect(() => {
@@ -45,7 +47,9 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
         avatar: data.avatar || '',
         role: data.role || 'user',
         status: data.status || 'active',
-        email_verified: !!data.email_verified
+        email_verified: !!data.email_verified,
+        phone: data.phone || '',
+        country: data.country || '',
       });
     } catch (err) {
       console.error("Error fetching user details", err);
@@ -143,6 +147,19 @@ export default function EditUserPage({ params }: { params: Promise<{ id: string 
                 onChange={(e) => setFormData({...formData, email: e.target.value})} 
                 placeholder="john@example.com"
                 required 
+              />
+              <Input 
+                label="Phone (optional)" 
+                type="tel"
+                value={formData.phone} 
+                onChange={(e) => setFormData({...formData, phone: e.target.value})} 
+                placeholder="+1 234 567 8900"
+              />
+              <Input 
+                label="Country" 
+                value={formData.country} 
+                onChange={(e) => setFormData({...formData, country: e.target.value})} 
+                placeholder="e.g. United Kingdom"
               />
             </div>
 

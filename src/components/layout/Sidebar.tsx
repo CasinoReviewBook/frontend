@@ -170,19 +170,114 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
             <aside className="w-full h-full bg-[#EEF3FE] flex flex-col">
                 {/* Sticky Logo Header */}
                 <div className="h-20 flex items-center justify-between px-[22px] shrink-0 sticky top-0 bg-[#EEF3FE] z-30">
-                    <Link href="/" className="flex flex-col leading-none" onClick={onClose}>
-                        <Image
-                            src="/images/Logo.png"
-                            alt="Logo"
-                            width={58}
-                            height={38}
-                            priority
-                        />
-                    </Link>
+                    {/* Logo Container */}
+                    <div className="flex-1 flex items-center justify-center h-full min-w-0">
+                        <Link
+                            href="/"
+                            onClick={onClose}
+                            className="inline-flex items-center justify-center w-full max-w-[340px]"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="260 210 770 240"
+                                className="w-full h-auto max-h-[68px] block"
+                            >
+                                <defs>
+                                    <linearGradient
+                                        id="vectorGradient"
+                                        x1="0%"
+                                        y1="0%"
+                                        x2="100%"
+                                        y2="100%"
+                                    >
+                                        <stop offset="0%" stopColor="#3165CD" />
+                                        <stop offset="45%" stopColor="#4A7BD1" />
+                                        <stop offset="75%" stopColor="#B88094" />
+                                        <stop offset="100%" stopColor="#D98A6C" />
+                                    </linearGradient>
+
+                                    <filter
+                                        id="subtleShadow"
+                                        x="-20%"
+                                        y="-20%"
+                                        width="140%"
+                                        height="140%"
+                                    >
+                                        <feDropShadow
+                                            dx="0"
+                                            dy="4"
+                                            stdDeviation="8"
+                                            floodColor="#000000"
+                                            floodOpacity="0.08"
+                                        />
+                                    </filter>
+                                </defs>
+
+                                {/* Icon Background */}
+                                <rect
+                                    x="270"
+                                    y="220"
+                                    width="220"
+                                    height="220"
+                                    rx="55"
+                                    fill="#FFFFFF"
+                                    stroke="#E2E8F0"
+                                    strokeWidth="2"
+                                    filter="url(#subtleShadow)"
+                                />
+
+                                {/* Star */}
+                                <path
+                                    d="M 380 255 
+                       C 384 300, 394 318, 445 330 
+                       C 394 342, 384 360, 380 405 
+                       C 376 360, 366 342, 315 330 
+                       C 366 318, 376 300, 380 255 Z"
+                                    fill="url(#vectorGradient)"
+                                />
+
+                                {/* Circle */}
+                                <circle
+                                    cx="422"
+                                    cy="280"
+                                    r="17"
+                                    fill="url(#vectorGradient)"
+                                />
+
+                                {/* Text (Shifted right to add gap) */}
+                                <text
+                                    x="525"
+                                    y="300"
+                                    fontFamily="'Plus Jakarta Sans', 'Outfit', sans-serif"
+                                    fontSize="56"
+                                    letterSpacing="1.5"
+                                >
+                                    <tspan
+                                        x="525"
+                                        dy="0"
+                                        fill="#2563EB" /* Royal Blue */
+                                        fontWeight="400"
+                                    >
+                                        CASINO
+                                    </tspan>
+
+                                    <tspan
+                                        x="525"
+                                        dy="62"
+                                        fill="#1E293B" /* Dark Slate */
+                                        fontWeight="700"
+                                    >
+                                        REVIEWS BOOK
+                                    </tspan>
+                                </text>
+                            </svg>
+                        </Link>
+                    </div>
+
                     {/* Close button on mobile */}
                     <button
                         onClick={onClose}
-                        className="lg:hidden w-8 h-8 rounded-full bg-white/80 flex items-center justify-center text-slate-500 hover:bg-white"
+                        className="lg:hidden w-8 h-8 rounded-full bg-white/80 flex items-center justify-center text-slate-500 hover:bg-white shrink-0"
                     >
                         <X size={18} />
                     </button>
@@ -217,8 +312,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                                         <button
                                             onClick={() => toggleDropdown(item.name)}
                                             className={`w-full h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center justify-between transition-all duration-300 ${isAnyChildActive
-                                                    ? 'border border-[#C5D6FF] bg-white/40'
-                                                    : 'hover:border hover:border-[#C5D6FF] hover:bg-white/50'
+                                                ? 'border border-[#C5D6FF] bg-white/40'
+                                                : 'hover:border hover:border-[#C5D6FF] hover:bg-white/50'
                                                 }`}
                                         >
                                             <div className="flex items-center gap-[10px]">
@@ -267,8 +362,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                                     href={item.href!}
                                     onClick={onClose}
                                     className={`w-[212px] h-[46px] rounded-[8px] px-[10px] py-[11px] flex items-center gap-[10px] transition-all duration-300 ${isActive
-                                            ? 'border border-[#C5D6FF] bg-[linear-gradient(180deg,rgba(88,140,243,0.02)_0%,rgba(88,140,243,0.02)_50.17%,rgba(88,140,243,0.2)_108.7%)] shadow-sm'
-                                            : 'hover:border hover:border-[#C5D6FF] hover:bg-white/50'
+                                        ? 'border border-[#C5D6FF] bg-[linear-gradient(180deg,rgba(88,140,243,0.02)_0%,rgba(88,140,243,0.02)_50.17%,rgba(88,140,243,0.2)_108.7%)] shadow-sm'
+                                        : 'hover:border hover:border-[#C5D6FF] hover:bg-white/50'
                                         }`}
                                 >
                                     <Icon className={`w-5 h-5 transition-colors ${isActive ? 'text-[#3B6BFF]' : 'text-slate-500'}`} />
@@ -298,7 +393,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                         <div className="relative w-[212px] h-[280px] rounded-[20px] overflow-hidden mx-auto">
                             <img src="/images/sidebar.png" alt="Earn Now" className="absolute inset-0 w-full h-full object-cover" />
                             <div className="absolute inset-0 rounded-[20px] bg-[linear-gradient(180deg,rgba(58,62,69,0.0001)_0%,rgba(27,29,33,0.92)_56%)]" />
-                           
+
                             <div className="absolute inset-0 z-10 flex flex-col justify-end items-center pb-6 px-4 text-center">
                                 <h3 className="text-white text-[16px] font-semibold leading-tight">Sign up and<br />Earn Now</h3>
                                 <p className="text-white/80 text-[12px] leading-snug mt-2 max-w-[160px]">Share your referral code and bank an easy $100.</p>

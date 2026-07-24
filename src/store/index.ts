@@ -7,6 +7,7 @@ import newsSlice from './slices/newsSlice';
 import siteSettingsSlice from './slices/siteSettingsSlice';
 import blogSlice from './slices/blogSlice';
 import faqSlice from './slices/faqSlice';
+import userSlice from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     siteSettings: siteSettingsSlice,
     blogs: blogSlice,
     faqs: faqSlice,
+    user: userSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

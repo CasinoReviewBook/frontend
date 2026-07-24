@@ -14,7 +14,9 @@ export default function NewUserPage() {
     avatar: '',
     role: 'user',
     status: 'active',
-    email_verified: false
+    email_verified: false,
+    phone: '',
+    country: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,6 +97,19 @@ export default function NewUserPage() {
                 onChange={(e) => setFormData({...formData, email: e.target.value})} 
                 placeholder="john@example.com"
                 required 
+              />
+              <Input 
+                label="Phone (optional)" 
+                type="tel"
+                value={formData.phone} 
+                onChange={(e) => setFormData({...formData, phone: e.target.value})} 
+                placeholder="+1 234 567 8900"
+              />
+              <Input 
+                label="Country" 
+                value={formData.country} 
+                onChange={(e) => setFormData({...formData, country: e.target.value})} 
+                placeholder="e.g. United Kingdom"
               />
             </div>
 

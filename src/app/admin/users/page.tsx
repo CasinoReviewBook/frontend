@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Table, Column } from '../../../components/admin/Table';
 import { Button } from '../../../components/admin/FormElements';
-import { Plus } from 'lucide-react';
+import { Plus, Phone, Globe } from 'lucide-react';
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -54,8 +54,15 @@ export default function UsersPage() {
           {row.avatar ? (
             <img src={row.avatar} alt={val} className="w-10 h-10 rounded-xl object-cover border border-slate-100 shadow-sm" />
           ) : (
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-sm uppercase">
-              {val ? val.substring(0, 2) : (row.email ? row.email.substring(0, 2) : '?')}
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
+              style={{ background: 'linear-gradient(135deg, #CDDCFB, #588CF3)' }}
+            >
+              <img
+                src={`https://api.dicebear.com/8.x/adventurer/svg?seed=${encodeURIComponent(row.email || val || 'user')}&backgroundColor=b6e3f4,c0aede&radius=50`}
+                alt={val || 'User'}
+                className="w-full h-full object-cover"
+              />
             </div>
           )}
           <div>
@@ -73,6 +80,30 @@ export default function UsersPage() {
           {val}
         </span>
       ) 
+    },
+    {
+      header: 'Phone',
+      accessor: 'phone',
+      render: (val) => val ? (
+        <div className="flex items-center gap-1.5 text-slate-600 text-sm">
+          <Phone size={13} className="text-slate-400" />
+          {val}
+        </div>
+      ) : (
+        <span className="text-slate-300 text-xs">—</span>
+      )
+    },
+    {
+      header: 'Country',
+      accessor: 'country',
+      render: (val) => val ? (
+        <div className="flex items-center gap-1.5 text-slate-600 text-sm">
+          <Globe size={13} className="text-slate-400" />
+          {val}
+        </div>
+      ) : (
+        <span className="text-slate-300 text-xs">—</span>
+      )
     },
     { 
       header: 'Verified', 

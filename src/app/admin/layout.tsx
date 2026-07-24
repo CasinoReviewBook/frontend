@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { 
   Mail, LayoutDashboard, Settings, Users, Building2, Tags, 
   Gamepad2, FileText, Newspaper, Star, HelpCircle, Image, 
-  Link as LinkIcon, FolderOpen, ScrollText, Menu, X, Globe, Ban
+  Link as LinkIcon, FolderOpen, ScrollText, Menu, X, Globe, Ban,
+  MessageSquare
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -76,6 +77,7 @@ export default function AdminLayout({
           <NavGroup title="Main">
             <NavItem href="/admin" icon={LayoutDashboard} active>Dashboard</NavItem>
             <NavItem href="/admin/users" icon={Users}>Users</NavItem>
+            <NavItem href="/admin/contact-tickets" icon={MessageSquare}>Contact Tickets</NavItem>
           </NavGroup>
           
           <NavGroup title="Directory">
