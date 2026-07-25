@@ -17,7 +17,9 @@ const geistMono = Geist_Mono({
 import { DEFAULT_SEO } from "@/constants";
 
 export const metadata: Metadata = {
-  ...DEFAULT_SEO
+  verification: {
+    google: "aEVRSlY3nlHqLkYVmnfN8XXgUIAqBBjA3m0OvLlwjvw",
+  },
 };
 
 export default function RootLayout({
