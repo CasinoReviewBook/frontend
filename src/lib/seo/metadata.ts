@@ -69,7 +69,16 @@
 // }
 
 import type { Metadata } from "next";
-import { SITE } from "./constants";
+
+// Inline SITE constants to avoid missing ./constants dependency
+const SITE = {
+  url: "https://casinoreviewsbook.com",
+  name: "Casino Review Book",
+  author: "Casino Review Book",
+  publisher: "Casino Review Book",
+  locale: "en_US",
+  twitter: "@casinoreviewsbook",
+};
 
 export interface SEOProps {
   title: string;
