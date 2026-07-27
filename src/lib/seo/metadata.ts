@@ -68,17 +68,8 @@
 //   };
 // }
 
+import { SITE } from "@/constants";
 import type { Metadata } from "next";
-
-// Inline SITE constants to avoid missing ./constants dependency
-const SITE = {
-  url: "https://casinoreviewsbook.com",
-  name: "Casino Review Book",
-  author: "Casino Review Book",
-  publisher: "Casino Review Book",
-  locale: "en_US",
-  twitter: "@casinoreviewsbook",
-};
 
 export interface SEOProps {
   title: string;
@@ -97,39 +88,25 @@ export interface SEOProps {
 export function generateSEO({
   title,
   description,
-
   path = "",
-
-  image = "/og-image.jpg",
-
+  image = "/icons/og-image.png",
   keywords = [],
-
-  // category = "Casino",
-
   noIndex = false,
 }: SEOProps): Metadata {
   const url = `${SITE.url}${path}`;
+  const ogImage = image || SITE.ogImage || "/icons/og-image.png";
 
   return {
     title,
-
     description,
-
     keywords,
-
     metadataBase: new URL(SITE.url),
-
     applicationName: SITE.name,
-
-    authors: [
-      {
-        name: SITE.author,
-      },
-    ],
-
-    creator: SITE.author,
-
-    publisher: SITE.publisher,
+    category: "Casino",
+    referrer: "origin-when-cross-origin",
+    authors: [{ name: SITE.author || SITE.name }],
+    creator: SITE.author || SITE.name,
+    publisher: SITE.publisher || SITE.name,
 
     alternates: {
       canonical: url,
@@ -144,38 +121,25 @@ export function generateSEO({
 
       googleBot: {
         index: !noIndex,
-
         follow: !noIndex,
-
         "max-image-preview": "large",
-
         "max-video-preview": -1,
-
         "max-snippet": -1,
       },
     },
 
     openGraph: {
       title,
-
       description,
-
       url,
-
       siteName: SITE.name,
-
-      locale: SITE.locale,
-
+      locale: SITE.locale || "en_US",
       type: "website",
-
       images: [
         {
           url: image,
-
           width: 1200,
-
           height: 630,
-
           alt: title,
         },
       ],
@@ -183,26 +147,16 @@ export function generateSEO({
 
     twitter: {
       card: "summary_large_image",
-
       title,
-
       description,
-
       creator: SITE.twitter,
-
       images: [image],
     },
 
     formatDetection: {
       telephone: false,
-
       address: false,
-
       email: false,
     },
-
-    category: "Casino",
-
-    referrer: "origin-when-cross-origin",
   };
 }

@@ -2,11 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { SITE } from "@/constants";
 
-import {
-  getAllNews,
-  getAllCasinos,
-
-} from "@/lib/seo/seoApi";
+import { getAllNews, getAllCasinos } from "@/lib/seo/seoApi";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
@@ -62,10 +58,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  const [news, casinos] = await Promise.all([
-    getAllNews(),
-    getAllCasinos(),
-  ]);
+  /*
+  |--------------------------------------------------------------------------
+  | Dynamic Casino Pages
+  |--------------------------------------------------------------------------
+  */
+
+  const [news, casinos] = await Promise.all([getAllNews(), getAllCasinos()]);
 
   const newsUrls: MetadataRoute.Sitemap = news.map((item: any) => ({
     url: `${SITE.url}/news/${item.slug}`,
@@ -81,10 +80,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-
-  return [
-    ...staticPages,
-    ...newsUrls,
-    ...casinoUrls
-  ];
+  return [...staticPages, ...newsUrls, ...casinoUrls];
 }

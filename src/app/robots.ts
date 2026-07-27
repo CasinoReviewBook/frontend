@@ -3,10 +3,8 @@ import { MetadataRoute } from "next";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-
 export default function robots(): MetadataRoute.Robots {
-
-   if (!isProduction) {
+  if (!isProduction) {
     return {
       rules: {
         userAgent: "*",
@@ -14,24 +12,28 @@ export default function robots(): MetadataRoute.Robots {
       },
     };
   }
-  
+
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/admin/",
-          "/api/",
-          "/login",
-           "/dashboard",
-          "/private/",
-          "/_next/",
-        ],
+        disallow: ["/admin/", "/api/", "/login/", "/dashboard/", "/private/"],
+      },
+      {
+        userAgent: "GPTBot",
+
+        allow: "/",
+
+        disallow: "/admin/",
       },
     ],
 
-    sitemap:`${SITE.url}/sitemap.xml`,
+    sitemap: [
+      `${SITE.url}/sitemap.xml`,
+      `${SITE.url}/sitemap-news.xml`,
+      `${SITE.url}/sitemap-images.xml`,
+    ],
 
     host: `${SITE.url}`,
   };
