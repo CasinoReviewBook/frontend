@@ -15,12 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 import { DEFAULT_SEO } from "@/constants";
+import JsonLd from "@/components/seo/JsonLd";
+import { organizationSchema, websiteSchema } from "@/lib/seo/schemas";
 
-export const metadata: Metadata = {
-  verification: {
-    google: "aEVRSlY3nlHqLkYVmnfN8XXgUIAqBBjA3m0OvLlwjvw",
-  },
-};
+export const metadata: Metadata = DEFAULT_SEO;
 
 export default function RootLayout({
   children,
@@ -33,6 +31,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <JsonLd data={organizationSchema()} />
+        <JsonLd data={websiteSchema()} />
+
         <ReduxProvider>
           <DataInitializer />
           {children}
