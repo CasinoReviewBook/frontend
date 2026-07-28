@@ -187,9 +187,9 @@ function CasinoCard({ casino }: { casino: any }) {
                     src={imageUrl}
                     alt=""
                     fill
+                    sizes="210px"
                     aria-hidden
                     className="object-contain"
-                    unoptimized
                 />
             </div>
 
@@ -213,9 +213,9 @@ function CasinoCard({ casino }: { casino: any }) {
                     src={imageUrl}
                     alt=""
                     fill
+                    sizes="210px"
                     aria-hidden
                     className="object-contain"
-                    unoptimized
                 />
             </div>
 
@@ -236,8 +236,8 @@ function CasinoCard({ casino }: { casino: any }) {
                     src={imageUrl}
                     alt={casino.name}
                     fill
+                    sizes="210px"
                     className="object-contain"
-                    unoptimized
                 />
             </div>
 

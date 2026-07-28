@@ -177,8 +177,8 @@ function CasinoCard({ casino, index }: { casino: any; index: number }) {
                             alt={casino.name}
                             width={150}
                             height={150}
+                            sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 150px"
                             className="w-full h-full object-contain mix-blend-multiply"
-                            unoptimized
                         />
                     </div>
                     {/* Mobile Header Info */}
