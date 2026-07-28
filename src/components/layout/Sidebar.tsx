@@ -391,13 +391,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     {/* Promo Card */}
                     <div className="mt-auto pt-4 pb-2 shrink-0">
                         <div className="relative w-[212px] h-[280px] rounded-[20px] overflow-hidden mx-auto">
-                            <Image
-                                src="/images/sidebar.png"
-                                alt="Earn Now"
-                                fill
-                                sizes="212px"
-                                className="object-cover"
-                            />
+                            <img src="/images/sidebar.png" alt="Earn Now" className="absolute inset-0 w-full h-full object-cover" />
                             <div className="absolute inset-0 rounded-[20px] bg-[linear-gradient(180deg,rgba(58,62,69,0.0001)_0%,rgba(27,29,33,0.92)_56%)]" />
 
                             <div className="absolute inset-0 z-10 flex flex-col justify-end items-center pb-6 px-4 text-center">

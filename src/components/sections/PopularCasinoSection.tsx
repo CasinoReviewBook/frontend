@@ -150,8 +150,8 @@ function CasinoCard({ casino }: { casino: any }) {
             src={imageUrl}
             alt={casino.name || 'Casino'}
             fill
-            sizes="80px"
             className="object-contain p-1"
+            unoptimized
           />
         </div>
         <div>

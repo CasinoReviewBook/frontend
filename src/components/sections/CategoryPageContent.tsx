@@ -99,8 +99,8 @@ function CasinoCard({ casino, index }: { casino: Casino; index: number }) {
               alt={casino.name || 'Casino'}
               width={140}
               height={140}
-              sizes="(max-width: 640px) 80px, (max-width: 1024px) 96px, 140px"
               className="w-full h-full object-contain mix-blend-multiply"
+              unoptimized
             />
           </div>
           <div className="flex flex-col lg:hidden flex-1">

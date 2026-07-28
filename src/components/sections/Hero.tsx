@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -35,13 +35,10 @@ export function Hero({
       <div className="relative w-full h-[350px] lg:h-[494px] overflow-hidden">
 
         {/* Background */}
-        <Image
+        <img
           src={heroVideos[currentSlide]}
           alt="Hero Background"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
         {/* Overlay */}

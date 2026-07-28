@@ -67,8 +67,8 @@ export async function FeaturedCasinos() {
                   alt={`${casino.name} Logo`}
                   width={120}
                   height={60}
-                  sizes="120px"
                   className="object-contain"
+                  unoptimized
                 />
               </CardHeader>
 
