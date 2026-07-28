@@ -22,6 +22,7 @@
 //   },
 // };
 
+
 export const SITE = {
   // --------------------------------------------------
   // Basic Information
@@ -98,7 +99,9 @@ export const SITE = {
   github: "https://github.com/casinoreviewsbook",
 };
 
-export const DEFAULT_SEO = {
+import type { Metadata } from 'next';
+
+export const DEFAULT_SEO: Metadata = {
   metadataBase: new URL(SITE.url),
 
   title: {
@@ -150,11 +153,12 @@ export const DEFAULT_SEO = {
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
 
-    bing: process.env.BING_SITE_VERIFICATION,
-
-    yandex: process.env.YANDEX_SITE_VERIFICATION,
-
-    baidu: process.env.BAIDU_SITE_VERIFICATION,
+    // bing: process.env.BING_SITE_VERIFICATION,
+    // yandex: process.env.YANDEX_SITE_VERIFICATION,
+    other: {
+      me: process.env.BING_SITE_VERIFICATION || "",
+      "baidu-site-verification": process.env.BAIDU_SITE_VERIFICATION || "",
+    }
   },
 
    manifest: "/site.webmanifest",
