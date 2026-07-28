@@ -24,7 +24,7 @@ export default function NewCasinoPage() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey) {
-        const tabs = ['general', 'details', 'relations', 'flags', 'bonuses', 'faqs', 'media', 'seo', 'reviews'];
+        const tabs = ['general', 'details', 'relations', 'flags', 'bonuses', 'faqs', 'media', 'seo', 'reviews', 'affiliate'];
         const num = parseInt(e.key);
         if (num >= 1 && num <= 9) {
           e.preventDefault();
@@ -69,6 +69,7 @@ export default function NewCasinoPage() {
     featured_image: '',
     website_url: '',
     affiliate_url: '',
+    default_affiliate_url: '',
     affiliate_program_name: '',
     affiliate_program_link: '',
     short_description: '',
@@ -225,7 +226,8 @@ export default function NewCasinoPage() {
     { id: 'faqs', name: 'FAQs' },
     { id: 'media', name: 'Screenshots & Gallery' },
     { id: 'seo', name: 'SEO Metadata' },
-    { id: 'reviews', name: 'Reviews' }
+    { id: 'reviews', name: 'Reviews' },
+    { id: 'affiliate', name: 'Affiliate Links' }
   ];
 
   return (
@@ -318,6 +320,12 @@ export default function NewCasinoPage() {
                   value={formData.affiliate_url}
                   onChange={(e) => setFormData({ ...formData, affiliate_url: e.target.value })}
                   placeholder="https://affiliate.link/click?id=123"
+                />
+                <Input
+                  label="Default Affiliate URL"
+                  value={formData.default_affiliate_url}
+                  onChange={(e) => setFormData({ ...formData, default_affiliate_url: e.target.value })}
+                  placeholder="https://default-affiliate.link"
                 />
               </div>
 
@@ -906,6 +914,13 @@ export default function NewCasinoPage() {
             <div className="text-center py-12">
               <p className="text-gray-500">Reviews can be added after creating the casino.</p>
               <p className="text-sm text-gray-400 mt-2">Save the casino first, then edit it to manage reviews.</p>
+            </div>
+          )}
+
+          {activeTab === 'affiliate' && (
+            <div className="text-center py-12">
+              <p className="text-gray-500">Affiliate Links can be added after creating the casino.</p>
+              <p className="text-sm text-gray-400 mt-2">Save the casino first, then edit it to manage country-specific affiliate links.</p>
             </div>
           )}
 

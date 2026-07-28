@@ -6,6 +6,7 @@ import MediaUpload from '../../../../../components/admin/MediaUpload';
 import { ArrowLeft, Save, Plus, Trash } from 'lucide-react';
 import ChipSelector from '../../../../../components/admin/ChipSelector';
 import CasinoReviews from '../../../../../components/admin/CasinoReviews';
+import CasinoAffiliateLinks from '../../../../../components/admin/CasinoAffiliateLinks';
 export default function EditCasinoPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const resolvedParams = use(params);
@@ -74,6 +75,7 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
     featured_image: '',
     website_url: '',
     affiliate_url: '',
+    default_affiliate_url: '',
     affiliate_program_name: '',
     affiliate_program_link: '',
     short_description: '',
@@ -142,6 +144,7 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
         featured_image: data.featured_image || '',
         website_url: data.website_url || '',
         affiliate_url: data.affiliate_url || '',
+        default_affiliate_url: data.default_affiliate_url || '',
         affiliate_program_name: data.affiliate_program_name || '',
         affiliate_program_link: data.affiliate_program_link || '',
         short_description: data.short_description || '',
@@ -309,7 +312,8 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
     { id: 'faqs', name: 'FAQs' },
     { id: 'media', name: 'Screenshots & Gallery' },
     { id: 'seo', name: 'SEO Metadata' },
-    { id: 'reviews', name: 'Reviews' }
+    { id: 'reviews', name: 'Reviews' },
+    { id: 'affiliate', name: 'Affiliate Links' }
   ];
 
   if (isFetching) {
@@ -406,11 +410,17 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
                   onChange={(e) => setFormData({...formData, website_url: e.target.value})} 
                   placeholder="https://jackpotcity.com"
                 />
-                <Input 
-                  label="Affiliate Hop URL" 
-                  value={formData.affiliate_url} 
-                  onChange={(e) => setFormData({...formData, affiliate_url: e.target.value})} 
+                <Input
+                  label="Affiliate Hop URL"
+                  value={formData.affiliate_url}
+                  onChange={(e) => setFormData({...formData, affiliate_url: e.target.value})}
                   placeholder="https://affiliate.link/click?id=123"
+                />
+                <Input
+                  label="Default Affiliate URL"
+                  value={formData.default_affiliate_url}
+                  onChange={(e) => setFormData({...formData, default_affiliate_url: e.target.value})}
+                  placeholder="https://default-affiliate.link"
                 />
               </div>
 
@@ -1005,6 +1015,10 @@ export default function EditCasinoPage({ params }: { params: Promise<{ id: strin
 
           {activeTab === 'reviews' && (
             <CasinoReviews casinoId={id} />
+          )}
+
+          {activeTab === 'affiliate' && (
+            <CasinoAffiliateLinks casinoId={id} />
           )}
 
           <div className="flex justify-end gap-4 pt-6 border-t border-slate-100">

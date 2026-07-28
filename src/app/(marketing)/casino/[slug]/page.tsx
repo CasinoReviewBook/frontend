@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { CircleFlag } from "react-circle-flags";
 import SimilarCasinosSection from "@/components/sections/SimilarCasinosSection";
 import UserReviewsSection from "@/components/sections/UserReviewsSection";
+import CasinoAffiliateButton from "@/components/CasinoAffiliateButton";
 import {
     ShieldCheck,
     Lock,
@@ -286,10 +287,9 @@ export default async function CasinoPage({
                         </div>
 
                         {/* Play Now */}
-                        <a
-                            href={casino.affiliate_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <CasinoAffiliateButton
+                            casinoId={casino.id}
+                            defaultUrl={casino.affiliate_url || casino.default_affiliate_url || casino.website_url}
                             className="h-14 rounded-2xl text-white text-lg font-bold flex items-center justify-center transition-all hover:brightness-105 active:translate-y-[1px]"
                             style={{
                                 background: "linear-gradient(180deg, #CDDCFB 0%, #588CF3 100%)",
@@ -297,7 +297,7 @@ export default async function CasinoPage({
                             }}
                         >
                             Play Now  ▶
-                        </a>
+                        </CasinoAffiliateButton>
 
                        
 
@@ -410,10 +410,9 @@ export default async function CasinoPage({
                                 </p>
                             </div>
 
-                            <a
-                                href={casino.affiliate_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <CasinoAffiliateButton
+                                casinoId={casino.id}
+                                defaultUrl={casino.affiliate_url || casino.default_affiliate_url || casino.website_url}
                                 className="
     inline-flex items-center justify-center gap-[3px]
     w-[195px] h-[52px]
@@ -431,7 +430,7 @@ export default async function CasinoPage({
                             >
                                 Claim Bonus
                                 <span className="text-base">▶</span>
-                            </a>
+                            </CasinoAffiliateButton>
                         </div>
 
                         {/* Footer Grid Metrics inside the promo box */}
@@ -765,10 +764,9 @@ export default async function CasinoPage({
                             </div>
                         </div>
 
-                        <a
-                            href={casino.affiliate_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <CasinoAffiliateButton
+                            casinoId={casino.id}
+                            defaultUrl={casino.affiliate_url || casino.default_affiliate_url || casino.website_url}
                             className="
     inline-flex items-center justify-center gap-[4px]
     w-[168px] h-[52px]
@@ -785,7 +783,7 @@ export default async function CasinoPage({
                         >
                             Visit {casino.name}
                             <span className="text-[16px]">▶</span>
-                        </a>
+                        </CasinoAffiliateButton>
 
                     </div>
                 </div>

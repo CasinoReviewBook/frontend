@@ -1,11 +1,13 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input, Button } from '../../../../../components/admin/FormElements';
 import { ArrowLeft, Save } from 'lucide-react';
 
-export default function EditGameTypePage({ params }: { params: { id: string } }) {
+export default function EditGameTypePage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
 
@@ -17,7 +19,7 @@ export default function EditGameTypePage({ params }: { params: { id: string } })
   useEffect(() => {
     const fetchGameType = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/game-types/${params.id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/game-types/${id}`);
         if (res.ok) {
           const data = await res.json();
           setFormData({
@@ -32,7 +34,7 @@ export default function EditGameTypePage({ params }: { params: { id: string } })
       }
     };
     fetchGameType();
-  }, [params.id]);
+  }, [id]);
 
   const generateSlug = (name: string) => {
     return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
@@ -52,7 +54,7 @@ export default function EditGameTypePage({ params }: { params: { id: string } })
     setIsLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/game-types/${params.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/game-types/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

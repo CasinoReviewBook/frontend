@@ -7,10 +7,10 @@ export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttribute
         {label && <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">{label}</label>}
         <input
           ref={ref}
-          value={value}
+          value={value ?? ''}
           className={`w-full px-4 py-3 bg-white border rounded-xl text-sm text-slate-900 transition-all shadow-sm focus:outline-none focus:ring-2 focus:bg-white ${
-            error 
-              ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/10' 
+            error
+              ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/10'
               : 'border-slate-200 focus:border-indigo-500 focus:ring-indigo-500/10 hover:border-slate-300'
           } ${className}`}
           {...props}
