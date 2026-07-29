@@ -1,4 +1,5 @@
 import { API_CONFIG } from "@/config/api.config";
+import error from "next/dist/api/error";
 
 export async function getNewsBySlug(slug: string) {
   try {
@@ -24,7 +25,6 @@ export async function getNewsBySlug(slug: string) {
   }
 }
 
-
 export async function getAllNews() {
   try {
     const res = await fetch(`${API_CONFIG.baseURL}/news`, {
@@ -42,11 +42,11 @@ export async function getAllNews() {
   } catch (error) {
     console.error("News fetch error", error);
 
-    return null;  
+    return null;
   }
 }
 
-export async function getAllCasinos(){
+export async function getAllCasinos() {
   try {
     const res = await fetch(`${API_CONFIG.baseURL}/casinos`, {
       next: {
@@ -62,7 +62,56 @@ export async function getAllCasinos(){
     }
   } catch (error) {
     console.error("Casinos fetch error", error);
-    return null;  
+    return null;
+  }
+}
+
+export async function getBettingCategoryBySlug(slug: string) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/casinos/category/${slug}`,
+      {
+        next: {
+          revalidate: 3600,
+          tags: [`betting-category-${slug}`],
+        },
+      },
+    );
+
+    if (!res.ok) return null;
+
+    return await res.json();
+
+    // const data = await res.json();
+
+    // return data.category;
+  } catch (error) {
+    console.error("Failed to fetch betting category:", error);
+    return null;
+  }
+}
+export async function getCasinoCategoryBySlug(slug: string) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/casinos/category/${slug}`,
+      {
+        next: {
+          revalidate: 3600,
+          tags: [`betting-category-${slug}`],
+        },
+      },
+    );
+
+    if (!res.ok) return null;
+
+    return await res.json();
+
+    // const data = await res.json();
+
+    // return data.category;
+  } catch (error) {
+    console.error("Failed to fetch betting category:", error);
+    return null;
   }
 }
 
@@ -81,6 +130,6 @@ export async function getAllCasinos(){
 //     }
 //   } catch (error) {
 //     console.error("Bonuses fetch error", error);
-//     return null;  
+//     return null;
 //   }
-// } 
+// }
