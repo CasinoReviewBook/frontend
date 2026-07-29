@@ -38,7 +38,7 @@
 
 // export default function ContactPage() {
 //   const currentUser = useSelector((state: RootState) => state.user.currentUser);
-  
+
 //   const [submitted, setSubmitted] = useState(false);
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [isFetchingTickets, setIsFetchingTickets] = useState(false);
@@ -448,7 +448,7 @@
 //               <h3 className="text-base font-bold text-[#0F172A] flex items-center gap-2">
 //                 <Globe className="w-5 h-5 text-[#2E68FB]" /> Global Time Zone Coverage
 //               </h3>
-              
+
 //               <div className="space-y-3 text-xs text-[#64748B]">
 //                 {/* North America West */}
 //                 <div className="flex justify-between items-center pb-2.5 border-b border-gray-100">
@@ -606,15 +606,24 @@
 //   );
 // }
 
-import ContactPage from './ContactPage';
-import { generateSEO } from '@/lib/seo';
+import ContactPage from "./ContactPage";
+import { generateSEO } from "@/lib/seo";
 
 export const metadata = generateSEO({
-  title: 'Contact Us - Casino Reviews Book',
-  description: 'Reach out to our editorial, dispute, or partnership teams for assistance. Submit inquiries, disputes, or partnership requests directly through our contact form.',
-  path: '/contact-us',
+  title: "Contact Us - Casino Reviews Book",
+  description:
+    "Reach out to our editorial, dispute, or partnership teams for assistance. Submit inquiries, disputes, or partnership requests directly through our contact form.",
+  path: "/contact-us",
+  keywords: [
+    "contact",
+    "support",
+    "dispute",
+    "editorial",
+    "partnership",
+    "casino reviews",
+    "customer service",
+  ],
 });
-
 
 export default function Page() {
   return <ContactPage />;
