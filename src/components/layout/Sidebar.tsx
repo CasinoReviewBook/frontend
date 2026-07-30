@@ -18,7 +18,8 @@ import {
     Info,
     Mail,
     Flame,
-    Tv
+    Tv,
+    Scale
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -28,6 +29,7 @@ interface SidebarProps {
 
 const menuItems = [
     { name: 'Home', href: '/', icon: Home },
+   
     {
         name: 'Casinos',
         icon: Trophy,
@@ -140,6 +142,7 @@ const menuItems = [
             { name: 'Odds Calculator', href: '/betting/odds-calculator' },
         ]
     },
+     { name: 'Compare Casinos', href: '/compare-casinos', icon: Scale },
     { name: 'Casino News', href: '/news', icon: Megaphone },
     {
         name: 'Guides & Strategy',

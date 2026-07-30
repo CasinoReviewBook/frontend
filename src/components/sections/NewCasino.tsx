@@ -47,8 +47,33 @@ export default function NewCasinoSection({
   if (loading) {
     return (
       <section className="w-full py-8">
-        <div className="flex items-center justify-center">
-          <div className="text-slate-500">Loading casinos...</div>
+        {/* Header Skeleton */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-gray-200 rounded-full animate-pulse" />
+              <div className="h-9 w-40 bg-gray-200 rounded animate-pulse" />
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="hidden md:block h-10 w-24 bg-gray-200 rounded-full animate-pulse" />
+              <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse" />
+              <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse" />
+            </div>
+          </div>
+          <div className="h-5 w-60 bg-gray-200 rounded mt-2 animate-pulse" />
+        </div>
+
+        {/* Cards Skeleton */}
+        <div className="flex gap-4">
+          {[...Array(4)].map((_, i) => (
+            <div
+              key={i}
+              className="rounded-[24px] p-[2px] bg-gray-200 animate-pulse"
+              style={{ width: '340px', minHeight: '400px' }}
+            >
+              <div className="flex flex-col p-4 rounded-[22px] h-full bg-gray-100" />
+            </div>
+          ))}
         </div>
       </section>
     );
