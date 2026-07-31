@@ -25,19 +25,101 @@
 //   Lock,
 // } from 'lucide-react';
 
+import {
+  breadcrumbSchema,
+  buildSchemaGraph,
+  faqSchema,
+  webpageSchema,
+} from "@/lib/seo/schemas";
 import AboutUsClient from "./AboutUsClient";
 import { generateSEO } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 
 export const metadata = generateSEO({
-  title: "About Us - Casino Reviews Book",
+  title:
+    "About Us - Casino Reviews Book | Independent Casino Reviews & Gambling Experts",
   description:
     "Learn about Casino Reviews Book, an independent iGaming directory and research portal. We conduct hands-on testing, audit payouts, and analyze bonus terms to protect players in regulated gaming markets globally.",
   path: "/about-us",
+  keywords: [
+    "about casino review book",
+
+    "trusted casino reviews",
+
+    "online casino research",
+
+    "iGaming experts",
+
+    "casino analysis platform",
+  ],
 });
 
-
 export default function Page() {
-  return <AboutUsClient />;
+  const graph = buildSchemaGraph({
+    webpage: webpageSchema({
+      url: "https://casinoreviewsbook.com/about-us",
+      title:
+        "About Us Casino Reviews Book | Independent Casino Reviews & Gambling Experts",
+      description:
+        "Casino Review Book is an independent iGaming research platform providing trusted casino reviews, bonus analysis, payment guides, gambling education and responsible gambling resources for players worldwide.",
+      type: "WebPage",
+      breadcrumbId: `https://casinoreviewsbook.com/about-us/#breadcrumb`,
+    }),
+    breadcrumb: breadcrumbSchema({
+      pageUrl: "https://casinoreviewsbook.com/about-us/",
+      items: [
+        {
+          name: "Home",
+          url: "https://casinoreviewsbook.com/",
+        },
+        {
+          name: "About Us",
+          url: "https://casinoreviewsbook.com/about-us",
+        },
+      ],
+    }),
+    faq: faqSchema({
+      pageUrl: "https://casinoreviewsbook.com/about-us/#faq",
+      faqs: [
+        {
+          question: "What does Casino Review Book do?",
+          answer:
+            "We analyze online casinos by reviewing licensing information,security standards, payment options, bonus conditions,software providers and overall player experience.",
+        },
+        {
+          question: "How are casino reviews created?",
+          answer:
+            "We conduct hands-on testing, audit payouts, and analyze bonus terms to protect players in regulated gaming markets globally.",
+        },
+        {
+          question: "Are casino reviews for Casino Review Book independent?",
+          answer:
+            "Yes, Casino Review Book is an independent iGaming directory and research portal.",
+        },
+        {
+          question: "Is Casino Review Book a casino operator?",
+          answer:
+            "No, Casino Review Book is not a casino operator, but we provide trusted casino reviews, payment guides, gambling education, and responsible gambling resources for players worldwide.",
+        },
+        {
+          question: "How does Casino Review Book help players?",
+          answer:
+            "We provide trusted casino reviews, payment guides, gambling education, and responsible gambling resources.",
+        },
+        {
+          question: "How does Casino Review Book protect players?",
+          answer:
+            "We conduct hands-on testing, audit payouts, and analyze bonus terms to protect players in regulated gaming markets globally.",
+        },
+      ],
+    }),
+  });
+  return (
+    <div>
+      <JsonLd data={graph} />
+      <AboutUsClient />
+    </div>
+  );
 }
 
 // export default function AboutPage() {
@@ -45,9 +127,9 @@ export default function Page() {
 //     <main className="min-h-screen ">
 //        <section
 //         className="relative overflow-hidden "
-        
+
 //       >
-      
+
 //         <div className=" mx-auto  relative z-10"
 //         >
 //           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

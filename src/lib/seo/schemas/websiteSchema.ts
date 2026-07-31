@@ -14,18 +14,16 @@ export function websiteSchema() {
 
     description: SITE.description,
 
-    inLanguage: "en-US",
+    inLanguage: SITE.language,
 
     publisher: {
       "@type": "Organization",
       name: SITE.name,
     },
-
+    copyrightHolder: SITE.copyright,
+    searchAction: SITE.searchAction,
     potentialAction: {
       "@type": "SearchAction",
-
-      // target:
-      //   `${SITE.searchURL}{search_term_string}`,
       target: {
         "@type": "EntryPoint",
 

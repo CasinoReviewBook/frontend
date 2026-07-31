@@ -135,6 +135,15 @@
 import { Metadata } from "next";
 import { generateSEO, getBettingCategoryBySlug } from "@/lib/seo";
 import BettingClient from "./BettingClient";
+import {
+  breadcrumbSchema,
+  buildSchemaGraph,
+  collectionPageSchema,
+  faqSchema,
+  itemListSchema,
+  webpageSchema,
+} from "@/lib/seo/schemas";
+import JsonLd from "@/components/seo/JsonLd";
 
 type Props = {
   params: Promise<{
@@ -148,27 +157,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!data?.category) {
     return generateSEO({
-      title: "Betting Category Not Found - Casino Review Book",
+      title: "Betting Category Not Found | Casino Review Book",
       description:
-        "Explore our alternative betting categories and gaming reviews.",
+        "The requested betting category could not be found. Browse our latest betting guides, casino reviews, sportsbook comparisons and bonus offers.",
       path: `betting/${slug}`,
+      noIndex: true,
     });
   }
 
   const category = data.category;
 
   return generateSEO({
-    title: `Best ${category.name} Betting Sites & Casinos - Casino Review Book`,
+    title: `Best ${category.name} Betting Sites & Bonuses - Casino Review Book (${new Date().getFullYear()})`,
     description: `Compare top-rated online ${category.name} gambling options. Real player reviews, sign-up bonuses, and secure platforms.`,
-    path: `betting/${category.slug || slug}`,
+    path: `/betting/${category.slug || slug}`,
     keywords: [
-      data.name,
+      `${category.name} betting`,
+      `${category.name} betting sites`,
+      `${category.name} sportsbooks`,
+      `${category.name} casinos`,
       "betting",
       "betting sites",
       "casino bonuses",
       "online casino",
       "casino reviews",
-      "gambling offers"
+      "gambling offers",
     ],
   });
 }
@@ -176,5 +189,83 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { slug } = await params;
   const data = await getBettingCategoryBySlug(slug);
-  return <BettingClient initialData={data} />;
+  const graph = buildSchemaGraph({
+    webpage: webpageSchema({
+      url: `https://casinoreviewsbook.com/betting/${slug}/`,
+      title: `Best ${data?.category?.name} Betting Sites - Casino Review Book (${new Date().getFullYear()})`,
+      description: `Compare top-rated online ${data?.category?.name} gambling options. Real player reviews, sign-up bonuses, and secure platforms.`,
+      image: "/images/logo.png",
+      breadcrumbId: `https://casinoreviewsbook.com/betting/${slug}/#breadcrumb`,
+    }),
+    collectionPage: collectionPageSchema({
+      pageUrl: `https://casinoreviewsbook.com/betting/${slug}/`,
+      title: `Best ${data?.category?.name} Betting Sites`,
+      description: `Compare trusted ${data?.category?.name} betting sites, bonuses, payment methods and expert reviews.`,
+    }),
+    breadcrumb: breadcrumbSchema({
+      pageUrl: `https://casinoreviewsbook.com/betting/${slug}/`,
+      items: [
+        {
+          name: "Home",
+          url: "https://casinoreviewsbook.com",
+        },
+        {
+          name: "Betting",
+          url: "https://casinoreviewsbook.com/betting",
+        },
+        {
+          name: data.category.name,
+          url: `https://casinoreviewsbook.com/betting/${slug}`,
+        },
+      ],
+    }),
+
+    itemList: itemListSchema({
+      pageUrl: `https://casinoreviewsbook.com/betting/${slug}/`,
+      itemListName: data?.category?.name,
+      items:
+        data.casinos?.map((casino: any, index: number) => ({
+          position: index + 1,
+          name: casino.name,
+          url: `https://casinoreviewsbook.com/casino/${casino.slug}`,
+        })) ?? [],
+    }),
+
+    faq: faqSchema({
+      pageUrl: `https://casinoreviewsbook.com/betting/${slug}/#faq`,
+      faqs: [
+        {
+          question: `What is ${data.category.name} betting?`,
+          answer: `${data.category.name} betting allows players to place wagers on events or games related to ${data?.category.name}. Players should choose licensed operators, compare odds, review bonus terms, and use responsible gambling tools.`,
+        },
+        {
+          question: `How do we rank ${data.category.name} betting sites?`,
+          answer:
+            "We evaluate licensing, security, payment options, welcome bonuses, betting markets, payout speed, customer support, mobile experience, and responsible gambling features.",
+        },
+        {
+          question: "What is a Betting Category?",
+          answer:
+            "A Betting Category is a grouping of casinos based on their betting options. It can include sportsbooks, live casinos, and other online gambling options.",
+        },
+        {
+          question: "Are these betting sites safe?",
+          answer:
+            "We prioritize operators that hold recognized gaming licenses, use SSL encryption, support secure payment methods, and provide responsible gambling controls.",
+        },
+        {
+          question: "How we review betting sites",
+          answer:
+            "Casino Review Book independently researches betting operators by examining    licensing, security, payment methods, betting markets, promotional terms, user experience, mobile compatibility, and responsible gambling tools. Our goal is to help players compare betting platforms using transparent, research-based information.",
+        },
+      ],
+    }),
+  });
+
+  return (
+    <>
+      <JsonLd data={graph} />
+      <BettingClient initialData={data} />
+    </>
+  );
 }

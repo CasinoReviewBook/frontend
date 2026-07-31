@@ -16,3 +16,7 @@ export * from "./faqSchema";
 export * from "./itemListSchema";
 export * from "./collectionPageSchema";
 export * from "./schemaGraph";
+export * from "./contactPageSchema";
+
+export * from "./builders/buildSchemaGraph";
+export * from "./types";

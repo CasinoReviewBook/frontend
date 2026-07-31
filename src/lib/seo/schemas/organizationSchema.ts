@@ -47,13 +47,8 @@ export function organizationSchema() {
 
       availableLanguage: "English",
     },
-    sameAs: [
-      SITE.telegram,
-      SITE.twitter,
-      SITE.facebook,
-      SITE.instagram,
-      SITE.youtube,
-      SITE.linkedin,
-    ].filter(Boolean),
+    publishingPrinciples: "https://casinoreviewsbook.com/policies/privacy-policy",
+    foundingDate: SITE.foundingDate,
+    sameAs:SITE.sameAs.filter(Boolean),
   };
 }

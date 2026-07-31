@@ -25,7 +25,9 @@ export function breadcrumbSchema({
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: item.url,
+      item:{
+        "@id": item.url
+      },
     })),
   };
 }

@@ -135,6 +135,15 @@
 import { Metadata } from "next";
 import { generateSEO, getCasinoCategoryBySlug } from "@/lib/seo";
 import GamesCategoryClient from "./GamesCategoryClient";
+import {
+  breadcrumbSchema,
+  buildSchemaGraph,
+  collectionPageSchema,
+  faqSchema,
+  itemListSchema,
+  webpageSchema,
+} from "@/lib/seo/schemas";
+import JsonLd from "@/components/seo/JsonLd";
 
 type Props = {
   params: Promise<{
@@ -151,14 +160,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: "Casino Game Category Not Found - Casino Review Book",
       description:
         "Browse our premium indices of real-money online slots, crash games, and table classics.",
-      path: `games/${slug}`,
+      path: `/games/${slug}`,
+      noIndex: true,
     });
   }
 
   return generateSEO({
     title: `Best ${data?.category?.name} Casinos (2026) - Play Real Money ${data?.category?.name} Games`,
-    description:`Discover the top-rated online casinos offering ${data?.category?.name}. Read detailed mechanics guidelines, RTP percentages, volatility breakdowns, and claim free spin bonuses.`,
-    path: `games/${data.category.slug || slug}`,
+    description: `Discover the top-rated online casinos offering ${data?.category?.name}. Read detailed mechanics guidelines, RTP percentages, volatility breakdowns, and claim free spin bonuses.`,
+    path: `/games/${data.category.slug || slug}`,
     keywords: [
       data?.category?.name,
       "online casino",
@@ -168,12 +178,86 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "casino bonus",
       "real money casino",
     ],
-
   });
 }
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
   const data = await getCasinoCategoryBySlug(slug);
-  return <GamesCategoryClient initialData={data} />;
+
+  const graph = buildSchemaGraph({
+    webpage: webpageSchema({
+      url: `https://casinoreviewbook.com/games/${slug}`,
+      title: `Best Play Real Money ${data?.category?.name} Games`,
+      description: `Discover the top-rated online casinos offering ${data?.category?.name}. Read detailed mechanics guidelines, RTP percentages, volatility breakdowns, and claim free spin bonuses.`,
+    }),
+    collectionPage: collectionPageSchema({
+      pageUrl: `https://casinoreviewbook.com/games/${slug}`,
+      title: `${data?.category?.name} Games`,
+      description: `Collection of trusted casinos featuring ${data?.category?.name} games.`,
+    }),
+    breadcrumb: breadcrumbSchema({
+      pageUrl: `https://casinoreviewbook.com/games/${slug}`,
+      items: [
+        {
+          name: "Home",
+          url: "https://casinoreviewbook.com",
+        },
+        {
+          name: "Games",
+          url: "https://casinoreviewbook.com/games",
+        },
+        {
+          name: data.category.name,
+          url: `https://casinoreviewbook.com/games/${slug}`,
+        },
+      ],
+    }),
+    itemList: itemListSchema({
+      pageUrl: `https://casinoreviewbook.com/games/${slug}`,
+      itemListName: `${data?.category?.name} Casinos List`,
+      items:
+        data.casinos?.map((casino: any, index: number) => ({
+          position: index + 1,
+          name: casino.name,
+          url: `https://casinoreviewsbook.com/casino/${casino.slug}`,
+        })) ?? [],
+    }),
+    faq: faqSchema({
+      pageUrl: `https://casinoreviewbook.com/games/${slug}`,
+      faqs: [
+        {
+          question: `What is ${data.category.name}?`,
+          answer: `${data.category.name} is a popular online casino game category available at licensed real-money casinos. Rules, RTP, volatility and bonus eligibility vary by game and casino.`,
+        },
+        {
+          question: `Which casinos offer ${data.category.name}?`,
+          answer: `We recommend licensed online casinos that provide secure gameplay, fair bonuses, reliable withdrawals and a quality selection of ${data.category.name} games.`,
+        },
+        {
+          question: `Can I play ${data.category.name} on mobile?`,
+          answer: `Yes. Most modern online casinos support ${data.category.name} games on Android, iPhone, tablets and desktop browsers.`,
+        },
+        {
+          question: `How do you rank ${data.category.name} casinos?`,
+          answer: `We compare licensing, RTP transparency, game providers, promotions, payment methods, withdrawal speed, mobile compatibility and responsible gambling tools.`,
+        },
+        {
+          question: `Can I play ${data.category.name} at a casino?`,
+          answer: `Yes, we provide a list of casinos offering ${data.category.name} games. You can also search for casinos by location, language and other criteria.`,
+        },
+        {
+          question: `How We Review ${data.category.name} Casinos`,
+          answer: `We evaluate casinos based on their online casino license, RTP transparency, payment methods, game selection, bonus eligibility, withdrawal speed, mobile compatibility and responsible gambling tools.`,
+        },
+      ],
+    }),
+  });
+
+  return (
+    <>
+      <JsonLd data={graph} />
+      <GamesCategoryClient initialData={data} />
+    </>
+  );
 }

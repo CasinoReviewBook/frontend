@@ -9,23 +9,33 @@ export interface WebPageSchemaProps {
   datePublished?: string;
   dateModified?: string;
   language?: string;
+  type?:
+    | "WebPage"
+    | "CollectionPage"
+    | "AboutPage"
+    | "ContactPage"
+    | "FAQPage"
+    | "ProfilePage"
+    | "ItemPage";
+
+  breadcrumbId?: string;
 }
-
-
 
 export function webpageSchema({
   url,
   title,
   description,
-  image,
+  image = SITE.ogImage,
   datePublished,
   dateModified,
   language = "en-US",
+  type = "WebPage",
+  breadcrumbId,
 }: WebPageSchemaProps) {
   return {
     "@context": "https://schema.org",
 
-    "@type": "WebPage",
+    "@type": type,
 
     "@id": `${url}#webpage`,
 
@@ -42,29 +52,30 @@ export function webpageSchema({
     about: {
       "@id": `${SITE.url}/#organization`,
     },
-
     publisher: {
       "@id": `${SITE.url}/#organization`,
     },
+    author: SITE.author,
 
     primaryImageOfPage: {
-      "@type": "ImageObject",
       "@id": `${url}#primaryimage`,
-      url: image,
     },
 
     image: {
       "@id": `${url}#primaryimage`,
     },
 
-    breadcrumb: {
-      "@id": `${url}#breadcrumb`,
-    },
+    ...(breadcrumbId && {
+      breadcrumb: {
+        "@id": breadcrumbId,
+      },
+    }),
 
     potentialAction: {
       "@type": "ReadAction",
       target: [url],
     },
+    keywords: SITE.keywords,
 
     ...(datePublished && {
       datePublished,

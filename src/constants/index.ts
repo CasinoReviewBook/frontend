@@ -1,11 +1,8 @@
 export const SITE = {
-  // --------------------------------------------------
-  // Basic Information
-  // --------------------------------------------------
-
   name: "Casino Review Book",
   siteName: "Casino Review Book",
   shortName: "CRB",
+  tagline: "Trusted Casino Reviews, Bonuses & Gambling Guides",
 
   url: "https://casinoreviewsbook.com",
   siteUrl: "https://casinoreviewsbook.com",
@@ -18,10 +15,9 @@ export const SITE = {
     "Casino Review Book is a trusted online casino review platform providing honest casino reviews, exclusive casino bonuses, sportsbook reviews, crypto casino guides, slot reviews, payment method guides, gambling strategies, and responsible gambling resources for players worldwide.",
 
   locale: "en_US",
-  language: "en",
+  language: "en-US",
 
   type: "website",
-
   category: "Gambling",
   applicationName: "Casino Review Book",
 
@@ -30,18 +26,10 @@ export const SITE = {
 
   copyright: `© ${new Date().getFullYear()} Casino Review Book`,
 
-  searchURL: "https://casinoreviewsbook.com/search?q=",
-
-  // --------------------------------------------------
-  // Branding
-  // --------------------------------------------------
   email: "contact@casinoreviewsbook.com",
-
   logo: "https://casinoreviewsbook.com/icons/logo.png",
-
   favicon: "/favicon.ico",
-
-  ogImage: "/icons/og-image.png",
+  ogImage: "https://casinoreviewsbook.com/icons/og-image.png",
 
   keywords: [
     "casino reviews",
@@ -61,20 +49,81 @@ export const SITE = {
     "casino review book",
   ],
 
-  // --------------------------------------------------
-  // Social
-  // --------------------------------------------------
+  searchURL: "https://casinoreviewsbook.com/search?q=",
+  ids: {
+    organizationId: "https://casinoreviewsbook.com/#organization",
+
+    websiteId: "https://casinoreviewsbook.com/#website",
+
+    publisherId: "https://casinoreviewsbook.com/#publisher",
+
+    logoId: "https://casinoreviewsbook.com/#logo",
+
+    defaultAuthorId: "https://casinoreviewsbook.com/#author",
+  },
+  searchAction: "https://casinoreviewsbook.com/search?q={search_term_string}",
+
+  legalName: "Casino Review Book",
+  foundingDate: "2024",
+  foundingLocation: "India",
+
+  priceRange: "Free",
 
   twitter: "@casinoreviewsbook",
-  telegram: "https://t.me/casinoreviewsbook",
-  facebook: "https://www.facebook.com/casinoreviewsbook",
-  instagram: "https://www.instagram.com/casinoreviewsbook",
-  youtube: "https://www.youtube.com/@casinoreviewsbook",
-  linkedin: "https://www.linkedin.com/company/casinoreviewsbook",
-  github: "https://github.com/casinoreviewsbook",
-};
 
-import type { Metadata } from 'next';
+  telegram: "https://t.me/casinoreviewsbook",
+
+  sameAs: [
+    "https://casinoreviewsbook.com",
+    "https://www.facebook.com/casinoreviewsbook",
+    "https://www.instagram.com/casinoreviewsbook",
+    "https://www.linkedin.com/company/casinoreviewsbook",
+    "https://www.youtube.com/@casinoreviewsbook",
+    "https://t.me/casinoreviewsbook",
+    "https://twitter.com/casinoreviewsbook",
+    "https://github.com/casinoreviewsbook",
+  ],
+
+  image: {
+    url: "https://casinoreviewsbook.com/icons/og-image.png",
+
+    width: 1200,
+
+    height: 630,
+
+    alt: "Casino Review Book",
+  },
+  geo: {
+    audience: "Global",
+
+    contentLanguage: "English",
+
+    topic: "Online Casino Reviews, Gambling Guides, Bonuses, Crypto Gambling",
+  },
+
+  knowsAbout: [
+    "Online casino reviews",
+    "Casino welcome bonuses and wagering requirements",
+    "Online casino licensing (MGA, UKGC, Curaçao GCB, Kahnawake)",
+    "Cryptocurrency casinos and Bitcoin gambling",
+    "Online slot machine RTP and volatility",
+    "Live dealer casino games",
+    "Sportsbook betting odds and markets",
+    "Casino payment methods and withdrawal times",
+    "Responsible gambling and self-exclusion tools",
+    "RNG fairness testing and eCOGRA certification",
+    "Casino Bonuses and Promotions",
+    "Sportsbook Betting",
+    "Cryptocurrency Gambling",
+    "Slot Machine Games",
+    "Responsible Gambling",
+    "iGaming Regulation",
+    "Payment Methods for Gambling",
+    "Gambling Strategy",
+  ],
+} as const;
+
+import type { Metadata } from "next";
 
 export const DEFAULT_SEO: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -126,14 +175,14 @@ export const DEFAULT_SEO: Metadata = {
   },
 
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION,
+    google: process.env.GOOGLE_SITE_VERIFICATION || "",
 
     // bing: process.env.BING_SITE_VERIFICATION,
     // yandex: process.env.YANDEX_SITE_VERIFICATION,
     // baidu: process.env.BAIDU_SITE_VERIFICATION,
   },
 
-   manifest: "/site.webmanifest",
+  manifest: "/site.webmanifest",
 
   openGraph: {
     type: "website",
@@ -164,11 +213,11 @@ export const DEFAULT_SEO: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    creator: SITE.twitter,
+    creator: SITE.name,
 
-    site: SITE.twitter,
+    site: SITE.siteName,
 
-    title: SITE.title,
+    title: SITE.name,
 
     description: SITE.description,
 
