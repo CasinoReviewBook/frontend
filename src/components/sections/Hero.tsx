@@ -39,6 +39,8 @@ export function Hero({
           src={heroVideos[currentSlide]}
           alt="Hero Background"
           className="absolute inset-0 w-full h-full object-cover"
+          fetchPriority="high"
+          loading="eager"
         />
 
         {/* Overlay */}

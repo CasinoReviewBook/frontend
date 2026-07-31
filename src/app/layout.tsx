@@ -7,11 +7,13 @@ import { DataInitializer } from "@/components/DataInitializer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 import { DEFAULT_SEO } from "@/constants";
@@ -30,6 +32,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_URL || "https://api.casinoreviewsbook.com"} />
+        <link rel="preconnect" href="https://casinoreviewsbook.com" />
+        <link rel="preload" href="/videos/hero/main-banner1.webp" as="image" fetchPriority="high" />
+      </head>
       <body className="min-h-full flex flex-col">
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />

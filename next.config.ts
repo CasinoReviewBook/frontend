@@ -28,6 +28,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Optimize for modern browsers to reduce polyfills
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
 };
 
 export default nextConfig;
