@@ -1,51 +1,50 @@
 // src/lib/seo/aggregateRatingSchema.ts
 
-export interface AggregateRatingSchemaProps {
-  itemName: string;
-  itemUrl: string;
-
-  ratingValue: number;
-
-  reviewCount: number;
-
-  bestRating?: number;
-
-  worstRating?: number;
+interface AggregateRatingProps {
+  pageUrl: string;
+  casinoName: string;
+  reviews: {
+    rating: number;
+  }[];
 }
 
 export function aggregateRatingSchema({
-  itemName,
-  itemUrl,
+  pageUrl,
+  casinoName,
+  reviews,
+}: AggregateRatingProps) {
+  const reviewCount = reviews.length;
 
-  ratingValue,
-
-  reviewCount,
-
-  bestRating = 5,
-
-  worstRating = 1,
-}: AggregateRatingSchemaProps) {
+  const ratingValue =
+    reviewCount === 0
+      ? 4.8
+      : Number(
+          (
+            reviews.reduce((sum, item) => sum + Number(item.rating), 0) /
+            reviewCount
+          ).toFixed(1),
+        );
   return {
     "@context": "https://schema.org",
 
     "@type": "AggregateRating",
 
-    "@id": `${itemUrl}#aggregaterating`,
+    "@id": `${pageUrl}#aggregaterating`,
 
     itemReviewed: {
       "@type": "Thing",
 
-      "@id": itemUrl,
+      "@id": pageUrl,
 
-      name: itemName,
+      name: casinoName,
     },
 
     ratingValue,
 
     reviewCount,
 
-    bestRating,
+    bestRating: 5,
 
-    worstRating,
+    worstRating: 1,
   };
 }

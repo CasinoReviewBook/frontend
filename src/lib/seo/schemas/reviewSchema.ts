@@ -1,81 +1,84 @@
 // src/lib/seo/reviewSchema.ts
 
+export interface ReviewItem {
+  id: string;
+  casino_id: string;
+  reviewer_name: string;
+  reviewer_position: string;
+  reviewer_experience_years: number | null;
+  content: string;
+  rating: string;
+  verdict: null;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+// {
+//     id: '6984b2df-80e2-41f2-857b-67f7fa84dfcb',
+//     casino_id: '7b5d0a5d-8735-462b-8b34-7e57fc221bfe',
+//     reviewer_name: 'raj',
+//     reviewer_position: 'User',
+//     reviewer_experience_years: null,
+//     content: 'sdfghjk',
+//     rating: '5',
+//     verdict: null,
+//     status: 'published',
+//     sort_order: 999,
+//     created_at: '2026-07-23T17:02:27.047Z',
+//     updated_at: '2026-07-23T17:02:27.047Z'
+//   }
+
 export interface ReviewSchemaProps {
   pageUrl: string;
-  reviewTitle: string;
-  reviewBody: string;
-
-  authorName: string;
-  authorUrl: string;
-
-  itemName: string;
-  itemUrl: string;
-
-  ratingValue: number;
-  bestRating?: number;
-  worstRating?: number;
-
-  published: string;
-  modified: string;
+  casinoName: string;
+  reviews: ReviewItem[];
 }
 
 export function reviewSchema({
   pageUrl,
-  reviewTitle,
-  reviewBody,
-
-  authorName,
-  authorUrl,
-
-  itemName,
-  itemUrl,
-
-  ratingValue,
-  bestRating = 5,
-  worstRating = 1,
-
-  published,
-  modified,
+  casinoName,
+  reviews,
 }: ReviewSchemaProps) {
-  return {
+  return reviews.slice(0, 10).map((review) => ({
     "@context": "https://schema.org",
 
     "@type": "Review",
 
     "@id": `${pageUrl}#review`,
 
-    name: reviewTitle,
+    name: `Review of ${casinoName} by ${review.reviewer_name}`,
 
-    reviewBody,
+    reviewBody: review.content,
 
-    datePublished: published,
+    datePublished: review.created_at,
 
-    dateModified: modified,
+    dateModified: review.updated_at,
 
     author: {
-      "@id": `${authorUrl}#person`,
+      "@type": "Person",
+
+      name: review.reviewer_name,
     },
 
     itemReviewed: {
       "@type": "Thing",
-
-      "@id": itemUrl,
-
-      name: itemName,
+      "@id": pageUrl,
+      name: casinoName,
     },
 
     reviewRating: {
       "@type": "Rating",
 
-      ratingValue,
+      ratingValue: review.rating,
 
-      bestRating,
+      bestRating: 5,
 
-      worstRating,
+      worstRating: 1,
     },
 
     publisher: {
       "@id": "https://casinoreviewsbook.com/#organization",
     },
-  };
+  }));
 }

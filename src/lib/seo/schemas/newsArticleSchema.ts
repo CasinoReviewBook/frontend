@@ -1,14 +1,16 @@
 // src/lib/seo/newsArticleSchema.ts
 
 export interface NewsArticleSchemaProps {
+  url: string;
   title: string;
   description: string;
-  url: string;
   image: string;
   authorName: string;
   authorUrl: string;
   published: string;
   modified: string;
+  articleSection?: string;
+  keywords?: string[];
 }
 
 export function newsArticleSchema({
@@ -18,6 +20,8 @@ export function newsArticleSchema({
   image,
   authorName,
   authorUrl,
+  articleSection,
+  keywords,
   published,
   modified,
 }: NewsArticleSchemaProps) {
@@ -35,15 +39,19 @@ export function newsArticleSchema({
     url,
 
     mainEntityOfPage: {
+      "@type": "WebPage",
       "@id": `${url}#webpage`,
     },
 
     image: {
-      "@id": `${url}#primaryimage`,
+      "@type": "ImageObject",
+      url: image,
     },
 
     author: {
-      "@id": `${authorUrl}#person`,
+      "@type": "Person",
+      name: authorName,
+      url: authorUrl,
     },
 
     publisher: {
@@ -53,6 +61,19 @@ export function newsArticleSchema({
     datePublished: published,
 
     dateModified: modified,
+    articleSection,
+
+    keywords: keywords?.join(", "),
+
+    inLanguage: "en-US",
+
+    potentialAction: {
+      "@type": "ReadAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: url,
+      },
+    },
 
     isAccessibleForFree: true,
   };

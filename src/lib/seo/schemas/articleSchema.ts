@@ -1,38 +1,39 @@
-// src/lib/seo/articleSchema.ts
-
 export interface ArticleSchemaProps {
   title: string;
   description: string;
   url: string;
-  image: string;
-  authorName: string;
-  authorUrl: string;
   published: string;
   modified: string;
+  authorUrl: string;
+  articleSection?: string;
+  keywords?: string[];
+  wordCount?: number;
+  type?: "Article" | "TechArticle";
 }
 
 export function articleSchema({
   title,
   description,
   url,
-  image,
-  authorName,
   authorUrl,
   published,
   modified,
+  articleSection,
+  keywords,
+  type = "Article",
 }: ArticleSchemaProps) {
   return {
     "@context": "https://schema.org",
 
-    "@type": "Article",
+    "@type": type,
 
     "@id": `${url}#article`,
+
+    url,
 
     headline: title,
 
     description,
-
-    url,
 
     mainEntityOfPage: {
       "@id": `${url}#webpage`,
@@ -50,8 +51,20 @@ export function articleSchema({
       "@id": "https://casinoreviewsbook.com/#organization",
     },
 
+    isPartOf: {
+      "@id": "https://casinoreviewsbook.com/#website",
+    },
+
     datePublished: published,
 
     dateModified: modified,
+
+    inLanguage: "en",
+
+    ...(articleSection && { articleSection }),
+
+    ...(keywords?.length && {
+      keywords: keywords.join(", "),
+    }),
   };
 }

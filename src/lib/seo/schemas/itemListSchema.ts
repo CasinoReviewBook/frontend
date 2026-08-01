@@ -19,24 +19,16 @@ export function itemListSchema({
 }: ItemListSchemaProps) {
   return {
     "@context": "https://schema.org",
-
     "@type": "ItemList",
-
     "@id": `${pageUrl}#itemlist`,
-
     name: itemListName,
-
     numberOfItems: items.length,
-
+    
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
-
       position: index + 1,
-
       url: item.url,
-
       name: item.name,
-
       ...(item.image && {
         image: item.image,
       }),
