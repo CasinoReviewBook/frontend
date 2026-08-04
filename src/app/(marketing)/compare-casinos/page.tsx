@@ -13,7 +13,7 @@ import {
 export const metadata = generateSEO({
   title: "Compare Online Casinos | Side-by-Side Casino Comparison Tool",
   description:
-    "Compare licensed online casinos side by side. Analyze welcome bonuses, RTP, withdrawal speed, payment methods, licensing, security, supported countries, games, and player ratings to choose the best casino.",
+    "Compare top online casinos side by side. Analyze welcome bonuses, RTP, withdrawal speed, payment methods, licensing, security, supported countries, games, and player ratings to choose the best casino.",
   path: "/compare-casinos",
   keywords: [
     "compare casinos",

@@ -165,6 +165,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       noIndex: true,
     });
   }
+  
   return generateSEO({
     title: `Best ${data?.category?.name} Casinos - Casino Review Book`,
     description: `Discover the best ${data?.category?.name} casinos with expert reviews, featuring top bonuses, free spins,  welcome bonuses, supported games, payment methods, licensing information and fast withdrawals.`,
